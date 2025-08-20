@@ -1,0 +1,78 @@
+# disable autofixing PRs, commenting "pre-commit.ci autofix" on a pull request triggers a autofix
+ci:
+  autofix_prs: false
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-ast
+      - id: check-case-conflict
+      - id: fix-byte-order-marker
+      - id: mixed-line-ending
+      - id: end-of-file-fixer
+        exclude: server-info.json
+      - id: trailing-whitespace
+      - id: pretty-format-json
+        args: [--autofix, --no-sort-keys]
+        exclude: server-info.json
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+      - id: check-merge-conflict
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.9
+    hooks:
+      - id: ruff-check
+        args: [--fix, --show-fixes]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: ty-check
+        name: ty-check
+        language: system
+        entry: ty check
+        pass_filenames: false
+      - id: inspect
+        name: inspect
+        language: system
+        entry: fastmcp inspect conda_meta_mcp/server.py --output server-info.json
+        pass_filenames: false
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.15.0
+    hooks:
+      - id: pretty-format-yaml
+        args: [--autofix, --offset, '2']
+      - id: pretty-format-toml
+        args: [--autofix, --trailing-commas]
+  - repo: https://github.com/abravalheri/validate-pyproject
+    rev: v0.24.1
+    hooks:
+      - id: validate-pyproject
+  - repo: https://github.com/python-jsonschema/check-jsonschema
+    rev: 0.33.3
+    hooks:
+      - id: check-github-actions
+      - id: check-github-workflows
+      - id: check-renovate
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.22
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-config==0.2.1
+  - repo: https://github.com/crate-ci/typos
+    rev: v1.35.5
+    hooks:
+      - id: typos
+  - repo: meta
+    hooks:
+      - id: check-hooks-apply
+      - id: check-useless-excludes
+  - repo: local
+    hooks:
+      - id: git-diff
+        name: git diff
+        entry: git diff --exit-code -- . ":(exclude)pixi.lock"
+        language: system
+        pass_filenames: false
+        always_run: true

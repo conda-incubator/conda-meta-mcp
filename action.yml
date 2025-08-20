@@ -1,0 +1,24 @@
+name: Conda Meta MCP Setup
+description: Set up the conda-meta-mcp for usage with GitHub Copilot coding agent.
+author: conda-incubator
+branding:
+  icon: book-open
+  color: blue
+
+runs:
+  using: composite
+  steps:
+    - uses: prefix-dev/setup-pixi@v0.9.0
+      env:
+        SETUPTOOLS_SCM_PRETEND_VERSION: 0.0.1
+      with:
+        manifest-path: ${{ github.action_path }}/pyproject.toml
+    - name: Make available
+      shell: bash
+      run: |
+        mkdir -p "${HOME}/.local/bin"
+        ln -s "${{ github.action_path }}/.pixi/envs/default/bin/cmm" "${HOME}/.local/bin/"
+    - name: Show help
+      shell: bash
+      run: |
+        cmm run --help
