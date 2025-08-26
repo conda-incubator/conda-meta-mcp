@@ -5,7 +5,7 @@
     "helpers:pinGitHubActionDigestsToSemver",
     "customManagers:githubActionsVersions"
   ],
-  "enabledManagers": [
-    "pixi"
-  ]
+  "pixi": {
+    "enabled": true
+  }
 }
