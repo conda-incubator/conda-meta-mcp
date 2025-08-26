@@ -1,0 +1,37 @@
+{
+  "name": "Conda ECO System Meta Data MCP",
+  "instructions": null,
+  "fastmcp_version": "2.11.3",
+  "mcp_version": "1.13.1",
+  "server_version": null,
+  "tools": [
+    {
+      "key": "info",
+      "name": "info",
+      "description": "Display information about the MCP instance.",
+      "input_schema": {
+        "properties": {},
+        "type": "object"
+      },
+      "annotations": null,
+      "tags": null,
+      "enabled": true
+    }
+  ],
+  "prompts": [],
+  "resources": [],
+  "templates": [],
+  "capabilities": {
+    "tools": {
+      "listChanged": true
+    },
+    "resources": {
+      "subscribe": false,
+      "listChanged": false
+    },
+    "prompts": {
+      "listChanged": false
+    },
+    "logging": {}
+  }
+}
