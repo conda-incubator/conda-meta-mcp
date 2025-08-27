@@ -75,6 +75,8 @@ The `pixi` command can be used to run the MCP locally in clients such as VSCode,
 }
 ```
 
+Or call `pixi run cmm mcp-json`, which emits a JSON snippet with absolute paths that can be pasted into an MCP client configuration.
+
 ## 5. Usage inside GitHub Copilot coding agent
 
 Create a GitHub workflow named `copilot-setup-steps.yml` containing (see also [GitHub Documentation](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment)):

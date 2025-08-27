@@ -5,8 +5,6 @@ from typing import TYPE_CHECKING
 
 from fastmcp import FastMCP
 
-from conda_meta_mcp.tools import TOOLS
-
 if TYPE_CHECKING:
     import argparse
 
@@ -26,6 +24,8 @@ def run_cmd(args):
 
 
 def setup_server(log_level: str | None = None) -> FastMCP:
+    from conda_meta_mcp.tools import TOOLS
+
     instance = FastMCP(name=SERVICE_NAME, log_level=log_level)
 
     for tool in TOOLS:
