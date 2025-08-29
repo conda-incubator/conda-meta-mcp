@@ -10,6 +10,7 @@ Currently available:
 
 - Version metadata (MCP tool/library versions) via the `info` tool
 - Package info tarball data via the `package_insights` tool
+- Package search via the `package_search` tool
 
 Planned:
 
@@ -17,7 +18,6 @@ Planned:
 - Solver feasibility signals (dry-run outputs)
 - Schema references and selected spec excerpts
 - Binary linkage information
-- Package provenance information
 - Links (not copies) to sections of knowledge bases
 
 It does not embed, index, or serve full library docs (e.g. numpy API pages); that remains out of scope by design.

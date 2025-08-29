@@ -41,6 +41,41 @@
       "annotations": null,
       "tags": null,
       "enabled": true
+    },
+    {
+      "key": "package_search",
+      "name": "package_search",
+      "description": "Search available conda packages matching the given package_ref_or_match_spec, channel, and\nplatform.\n\npackage_ref_or_match_spec (PackageRef or MatchSpec or str): The package reference or match\n  specification to search for, e.g. \"numpy\", \"numpy>=1.20\", \"numpy=1.20.3\",\n  \"numpy=1.20.3=py38h550f1ac_0\".\nchannel (str): The channel to search in, e.g. \"defaults\", \"conda-forge\", \"bioconda\",\n  \"nvidia\"\nplatform (str): The platform to search for, e.g. \"linux-64\", \"linux-aarch64\" \"osx-64\",\n  \"osx-arm64\", \"win-64\"\nlimit (int): The maximum number of results to return.",
+      "input_schema": {
+        "properties": {
+          "package_ref_or_match_spec": {
+            "title": "Package Ref Or Match Spec",
+            "type": "string"
+          },
+          "channel": {
+            "title": "Channel",
+            "type": "string"
+          },
+          "platform": {
+            "title": "Platform",
+            "type": "string"
+          },
+          "limit": {
+            "default": 0,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "package_ref_or_match_spec",
+          "channel",
+          "platform"
+        ],
+        "type": "object"
+      },
+      "annotations": null,
+      "tags": null,
+      "enabled": true
     }
   ],
   "prompts": [],
