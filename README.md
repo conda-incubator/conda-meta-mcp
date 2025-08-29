@@ -8,14 +8,14 @@ An MCP (Model Context Protocol) server exposing authoritative, read-only Conda e
 
 Currently available:
 
-- Version metadata (tool/library versions) via the `info` tool
+- Version metadata (MCP tool/library versions) via the `info` tool
+- Package info tarball data via the `package_insights` tool
 
 Planned:
 
 - Dependency & version metadata (graph / availability slices)
 - Solver feasibility signals (dry-run outputs)
 - Schema references and selected spec excerpts
-- Package info section data
 - Binary linkage information
 - Package provenance information
 - Links (not copies) to sections of knowledge bases

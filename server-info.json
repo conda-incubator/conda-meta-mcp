@@ -16,6 +16,31 @@
       "annotations": null,
       "tags": null,
       "enabled": true
+    },
+    {
+      "key": "package_insights",
+      "name": "package_insights",
+      "description": "Provides insights into a package's info tarball\n\nThat includes the rendered recipe (meta.yaml) that allows for easy inspection of the\npackage's build process, e.g. see build, host and run time dependencies. Which have\nbig influence on what packages are linked against. The run_exports which end up as\nrun time dependencies for other packages linked against this package. And the about\ninformation which contain the remote_url and sha to the repo location where the\npackage recipe is maintained. That helps to open PRs in the right location to fix\nissues with the recipe.\n\nArgs:\n  url: The full package URL, e.g.\n  \"https://conda.anaconda.org/conda-forge/linux-64/numpy-1.24.3-py311h7f8727e_0.tar.bz2\"\n\n  file: can be set to \"some\", \"all\", \"list-without-content\" or to a specific filename\n  like \"info/recipe/meta.yaml\"\n\n  Returns:\n    A dictionary with key=filename, value=content.",
+      "input_schema": {
+        "properties": {
+          "url": {
+            "title": "Url",
+            "type": "string"
+          },
+          "file": {
+            "default": "some",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "type": "object"
+      },
+      "annotations": null,
+      "tags": null,
+      "enabled": true
     }
   ],
   "prompts": [],
