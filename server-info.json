@@ -45,7 +45,7 @@
     {
       "key": "package_search",
       "name": "package_search",
-      "description": "Search available conda packages matching the given package_ref_or_match_spec, channel, and\nplatform.\n\npackage_ref_or_match_spec (PackageRef or MatchSpec or str): The package reference or match\n  specification to search for, e.g. \"numpy\", \"numpy>=1.20\", \"numpy=1.20.3\",\n  \"numpy=1.20.3=py38h550f1ac_0\".\nchannel (str): The channel to search in, e.g. \"defaults\", \"conda-forge\", \"bioconda\",\n  \"nvidia\"\nplatform (str): The platform to search for, e.g. \"linux-64\", \"linux-aarch64\" \"osx-64\",\n  \"osx-arm64\", \"win-64\"\nlimit (int): The maximum number of results to return.",
+      "description": "Search available conda packages matching the given package_ref_or_match_spec, channel, and\nplatform.\n\nFeatures:\n  - Results are deduplicated.\n  - Ordered by newest (version, then build_number descending).\n  - limit=1 reliably returns the single newest record.\n  - Supports paging via (offset, limit).\n\nArgs:\n  package_ref_or_match_spec (PackageRef or MatchSpec or str):\n    e.g. \"numpy\", \"numpy>=1.20\", \"numpy=1.20.3\", \"numpy=1.20.3=py38h550f1ac_0\"\n  channel (str): e.g. \"defaults\", \"conda-forge\", \"bioconda\", \"nvidia\"\n  platform (str): e.g. \"linux-64\", \"linux-aarch64\", \"osx-64\", \"osx-arm64\", \"win-64\"\n  limit (int): Maximum number of results to return (0 means all).\n  offset (int): Number of results to skip before applying limit (for paging).",
       "input_schema": {
         "properties": {
           "package_ref_or_match_spec": {
@@ -63,6 +63,11 @@
           "limit": {
             "default": 0,
             "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
             "type": "integer"
           }
         },
