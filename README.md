@@ -1,3 +1,8 @@
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![ty](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ty/main/assets/badge/v0.json)](https://github.com/astral-sh/ty)
+[![Tests](https://github.com/conda-incubator/conda-meta-mcp/actions/workflows/tests.yml/badge.svg)](https://github.com/conda-incubator/conda-meta-mcp/actions/workflows/tests.yml)
+
 # conda-meta-mcp
 
 An MCP (Model Context Protocol) server exposing authoritative, read-only Conda ecosystem metadata for AI agents.
