@@ -21,6 +21,10 @@ from conda_package_streaming.url import stream_conda_info
 SOME_FILES = {"info/recipe/meta.yaml", "info/about.json", "info/run_exports.json"}
 
 
+def _line_count(s: str) -> int:
+    return len(s.splitlines()) if s else 0
+
+
 @lru_cache(maxsize=1000)
 def _read_all(url) -> dict[str, str]:
     data = {}
@@ -32,22 +36,36 @@ def _read_all(url) -> dict[str, str]:
     return data
 
 
-def _package_insights(url: str, file: str = "some") -> dict[str, str]:
+def _package_insights(
+    url: str, file: str = "some", limit: int = 0, offset: int = 0
+) -> dict[str, str]:
     data = _read_all(url)
-    match file:
-        case "all":
-            return data
-        case "some":
-            return {k: v for k, v in data.items() if k in SOME_FILES}
-        case "list-without-content":
-            return {k: "" for k, v in data.items() if k in SOME_FILES}
-        case _:
-            return {file: data[file]}
+    # list-without-content is a listing mode; paging not applied per requirement
+    if file == "list-without-content":
+        return {k: str(_line_count(v)) for k, v in data.items() if k in SOME_FILES}
+    if file == "all":
+        selected = data
+    elif file == "some":
+        selected = {k: v for k, v in data.items() if k in SOME_FILES}
+    else:
+        selected = {file: data[file]}
+    # Apply line-level paging (not file-level): slice lines inside each selected file
+    if (limit and limit > 0) or (offset and offset > 0):
+        offset = max(offset, 0)
+        processed: dict[str, str] = {}
+        for k, v in selected.items():
+            lines = v.splitlines()
+            sliced = lines[offset : offset + limit] if limit and limit > 0 else lines[offset:]
+            processed[k] = "\n".join(sliced)
+        return processed
+    return selected
 
 
 def register_package_insights(mcp: FastMCP) -> None:
     @mcp.tool
-    async def package_insights(url: str, file: str = "some") -> dict[str, str]:
+    async def package_insights(
+        url: str, file: str = "some", limit: int = 0, offset: int = 0
+    ) -> dict[str, str]:
         """
         Provides insights into a package's info tarball
 
@@ -63,13 +81,15 @@ def register_package_insights(mcp: FastMCP) -> None:
           url: The full package URL, e.g.
           "https://conda.anaconda.org/conda-forge/linux-64/numpy-1.24.3-py311h7f8727e_0.tar.bz2"
 
-          file: can be set to "some", "all", "list-without-content" or to a specific filename
-          like "info/recipe/meta.yaml"
-
+          file: can be set to "some", "all", "list-without-content" or a specific filename
+          limit: max number of lines returned per file (0 means all; ignored for
+            list-without-content)
+          offset: number of initial lines skipped per file (ignored for
+            list-without-content)
           Returns:
             A dictionary with key=filename, value=content.
         """
         try:
-            return await asyncio.to_thread(_package_insights, url, file)
+            return await asyncio.to_thread(_package_insights, url, file, limit, offset)
         except Exception as e:
             raise ToolError(f"'package_insights' failed with: {e}")
