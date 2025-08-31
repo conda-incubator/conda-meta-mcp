@@ -56,7 +56,7 @@ async def test_info__package_insights__list_without_content():
             "info/recipe/meta.yaml",
             "info/run_exports.json",
         ]
-        assert all(v == "" for v in result.data.values())
+        assert all(v.isdigit() for v in result.data.values()), result
 
 
 @pytest.mark.asyncio
@@ -72,6 +72,35 @@ async def test_info__package_insights__single_file():
         )
         assert list(result.data.keys()) == ["info/recipe/meta.yaml"]
         assert result.data["info/recipe/meta.yaml"].strip() != ""
+
+
+@pytest.mark.asyncio
+async def test_info__package_insights__single_file_paging():
+    server = setup_server()
+    async with Client(server) as client:
+        # Get full content
+        full = await client.call_tool(
+            "package_insights",
+            {
+                "url": "https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda",
+                "file": "info/recipe/meta.yaml",
+            },
+        )
+        full_lines = full.data["info/recipe/meta.yaml"].splitlines()
+        assert len(full_lines) > 10  # ensure enough lines to page
+
+        # Get a paged slice of the content (line-level paging)
+        paged = await client.call_tool(
+            "package_insights",
+            {
+                "url": "https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda",
+                "file": "info/recipe/meta.yaml",
+                "limit": 5,
+                "offset": 2,
+            },
+        )
+        paged_lines = paged.data["info/recipe/meta.yaml"].splitlines()
+        assert paged_lines == full_lines[2 : 2 + 5]
 
 
 @pytest.mark.asyncio
