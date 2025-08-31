@@ -49,6 +49,7 @@ pre-commit = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = ">=6.1.1,<7"
+pytest-memray = "*"
 pytest-mock = "*"
 ty = "*"
 
@@ -69,6 +70,7 @@ addopts = """
 --cov-report=html
 --show-capture=all
 --durations=8
+--memray
 -vv
 """
 
