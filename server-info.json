@@ -6,6 +6,34 @@
   "server_version": null,
   "tools": [
     {
+      "key": "cli_help",
+      "name": "cli_help",
+      "description": "Provides the full help text for the given tool including all subcommands and options.\n\nTo be used to answer advanced CLI questions beyond the knowledge cutoff of models,\nto e.g. help with new features that recently landed in the tool.\n\ntool: str = \"conda\"\nlimit: max number of lines returned (0 means all)\noffset: number of initial lines skipped\nReturns:\n  A string with the help",
+      "input_schema": {
+        "properties": {
+          "tool": {
+            "default": "conda",
+            "title": "Tool",
+            "type": "string"
+          },
+          "limit": {
+            "default": 0,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
+            "type": "integer"
+          }
+        },
+        "type": "object"
+      },
+      "annotations": null,
+      "tags": null,
+      "enabled": true
+    },
+    {
       "key": "info",
       "name": "info",
       "description": "Display information about the MCP instance.",
