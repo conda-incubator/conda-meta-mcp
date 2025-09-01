@@ -8,8 +8,6 @@ from conda.models.version import VersionOrder
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
-from conda_meta_mcp.server import setup_server
-
 
 def _is_sorted_newest_first(records: list[dict]) -> bool:
     """
@@ -29,8 +27,7 @@ def _is_sorted_newest_first(records: list[dict]) -> bool:
 
 
 @pytest.mark.asyncio
-async def test_pkg_search__basic_schema():
-    server = setup_server()
+async def test_pkg_search__basic_schema(server):
     async with Client(server) as client:
         result = await client.call_tool(
             "package_search",
@@ -50,8 +47,7 @@ async def test_pkg_search__basic_schema():
 
 
 @pytest.mark.asyncio
-async def test_pkg_search__version_filter():
-    server = setup_server()
+async def test_pkg_search__version_filter(server):
     async with Client(server) as client:
         # Use a specific version constraint that should exist.
         version_spec = "1.5.7"
@@ -69,8 +65,7 @@ async def test_pkg_search__version_filter():
 
 
 @pytest.mark.asyncio
-async def test_pkg_search__paging():
-    server = setup_server()
+async def test_pkg_search__paging(server):
     async with Client(server) as client:
         # Get a baseline list (capped to avoid huge pulls).
         baseline_limit = 12
@@ -165,8 +160,7 @@ async def test_pkg_search__paging():
 
 @pytest.mark.asyncio
 @patch("conda_meta_mcp.tools.pkg_search._package_search", side_effect=Exception("MOCKED"))
-async def test_pkg_search__error__handled(mock_pkg_search):
-    server = setup_server()
+async def test_pkg_search__error__handled(mock_pkg_search, server):
     with pytest.raises(ToolError):
         async with Client(server) as client:
             await client.call_tool(

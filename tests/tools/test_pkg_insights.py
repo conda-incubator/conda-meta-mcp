@@ -4,12 +4,9 @@ import pytest
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
-from conda_meta_mcp.server import setup_server
-
 
 @pytest.mark.asyncio
-async def test_info__package_insights__correct_schema():
-    server = setup_server()
+async def test_info__package_insights__correct_schema(server):
     async with Client(server) as client:
         result = await client.call_tool(
             "package_insights",
@@ -25,8 +22,7 @@ async def test_info__package_insights__correct_schema():
 
 
 @pytest.mark.asyncio
-async def test_info__package_insights__all():
-    server = setup_server()
+async def test_info__package_insights__all(server):
     async with Client(server) as client:
         result = await client.call_tool(
             "package_insights",
@@ -41,8 +37,7 @@ async def test_info__package_insights__all():
 
 
 @pytest.mark.asyncio
-async def test_info__package_insights__list_without_content():
-    server = setup_server()
+async def test_info__package_insights__list_without_content(server):
     async with Client(server) as client:
         result = await client.call_tool(
             "package_insights",
@@ -60,8 +55,7 @@ async def test_info__package_insights__list_without_content():
 
 
 @pytest.mark.asyncio
-async def test_info__package_insights__single_file():
-    server = setup_server()
+async def test_info__package_insights__single_file(server):
     async with Client(server) as client:
         result = await client.call_tool(
             "package_insights",
@@ -75,8 +69,7 @@ async def test_info__package_insights__single_file():
 
 
 @pytest.mark.asyncio
-async def test_info__package_insights__single_file_paging():
-    server = setup_server()
+async def test_info__package_insights__single_file_paging(server):
     async with Client(server) as client:
         # Get full content
         full = await client.call_tool(
@@ -105,8 +98,7 @@ async def test_info__package_insights__single_file_paging():
 
 @pytest.mark.asyncio
 @patch("conda_meta_mcp.tools.pkg_insights._package_insights", side_effect=Exception("MOCKED"))
-async def test_info__package_insights__error__handled(mock_pkg_insights):
-    server = setup_server()
+async def test_info__package_insights__error__handled(mock_pkg_insights, server):
     with pytest.raises(ToolError):
         async with Client(server) as client:
             await client.call_tool(
