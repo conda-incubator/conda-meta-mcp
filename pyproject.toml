@@ -46,6 +46,7 @@ libmambapy = ">=2.3.1"
 dev = ["test"]
 
 [tool.pixi.feature.test.dependencies]
+pixi-diff-to-markdown = "*"
 pre-commit = "*"
 pytest = "*"
 pytest-asyncio = "*"
@@ -55,6 +56,7 @@ pytest-mock = "*"
 ty = "*"
 
 [tool.pixi.feature.test.tasks]
+pixi-diff-to-markdown = 'pixi exec pixi diff-to-markdown'
 pre-commit = 'pre-commit run --all-files --color=always'
 test = 'python -m pytest'
 
