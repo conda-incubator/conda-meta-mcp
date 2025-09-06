@@ -5,7 +5,7 @@ from functools import lru_cache
 from typing import TYPE_CHECKING
 
 from fastmcp.exceptions import ToolError
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 if TYPE_CHECKING:
     from fastmcp import FastMCP
@@ -21,8 +21,7 @@ class PackageRecord(BaseModel):
     url: str
     depends: str
 
-    class Config:
-        allow_mutation = False  # make instances immutable
+    model_config = ConfigDict(frozen=True)
 
     def __hash__(self):
         return hash((self.version, self.build_number, self.build, self.url, self.depends))

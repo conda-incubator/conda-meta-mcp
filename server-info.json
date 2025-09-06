@@ -214,6 +214,63 @@
       }
     },
     {
+      "name": "repoquery",
+      "title": null,
+      "description": "Run a conda repoquery (depends | whoneeds) for a single spec\nand channel. Installed packages excluded. Supports pagination via offset/limit.\n- depends/whoneeds: raw structure unpaginated; sliced pkgs list with offset/limit/total\n  when paginated\n\nArgs:\n    subcmd (str): e.g. \"depends\": show dependencies of this package,\n                       \"whoneeds\": show packages that depend on this package.\n    channel (str): e.g. \"defaults\", \"conda-forge\", \"bioconda\", \"nvidia\"\n    platform (str): e.g. \"linux-64\", \"linux-aarch64\", \"osx-64\", \"osx-arm64\", \"win-64\"\n    limit (int): for pagination / slicing\n    offset (int): for pagination / slicing",
+      "inputSchema": {
+        "properties": {
+          "subcmd": {
+            "title": "Subcmd",
+            "type": "string"
+          },
+          "spec": {
+            "title": "Spec",
+            "type": "string"
+          },
+          "channel": {
+            "title": "Channel",
+            "type": "string"
+          },
+          "platform": {
+            "default": "linux-64",
+            "title": "Platform",
+            "type": "string"
+          },
+          "tree": {
+            "default": false,
+            "title": "Tree",
+            "type": "boolean"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
+            "type": "integer"
+          },
+          "limit": {
+            "default": 30,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "subcmd",
+          "spec",
+          "channel"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
+    },
+    {
       "name": "import_mapping",
       "title": null,
       "description": "Map a (possibly dotted) Python import name to the most likely conda package\nand expose supporting context.\n\nWhat this does:\n  - Normalizes the import to its top-level module (e.g. \"numpy.linalg\" -> \"numpy\")\n  - Retrieves an approximate candidate set of conda packages that may provide it\n  - Applies a heuristic to pick a single \"best\" package\n  - Returns a structured result with the decision rationale\n\nHeuristic labels:\n  - identity:          No candidates known; fallback to normalized import\n  - identity_present:  Candidates exist AND the normalized import name is among them\n  - ranked_selection:  Best package chosen via ranked hubs authorities ordering\n  - fallback:          Best package not in candidates (unexpected edge case)\n\nReturned dict schema:\n  {\n    \"query_import\":      original query string supplied by caller\n    \"normalized_import\": top-level portion used for lookup\n    \"best_package\":      chosen conda package name (may equal normalized_import)\n    \"candidate_packages\": sorted list of possible supplying packages (may be empty)\n    \"heuristic\":         one of the heuristic labels above\n  }\n\nArgs:\n  import_name:\n    Import string, e.g. \"yaml\", \"matplotlib.pyplot\", \"sklearn.model_selection\".",
