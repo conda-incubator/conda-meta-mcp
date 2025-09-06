@@ -16,6 +16,7 @@ Currently available:
 - Version metadata (MCP tool/library versions) via the `info` tool
 - Package info tarball data via the `package_insights` tool
 - Package search via the `package_search` tool
+- Import to package heuristic mapping via the `import_mapping` tool
 - CLI help (for conda) via the `cli_help` tool
 
 Planned:
