@@ -239,6 +239,33 @@
           "tags": []
         }
       }
+    },
+    {
+      "name": "pypi_to_conda",
+      "title": null,
+      "description": "Map a (case-sensitive) PyPI distribution name to the most likely conda package name.\n\nReturns:\n  {\n    \"pypi_name\": original input (trimmed),\n    \"conda_name\": mapped (lowercase) conda name (fallback: pypi_name.lower()),\n    \"changed\": conda_name != pypi_name.lower()\n  }\n\n'changed' is True only when the resolved conda name differs from simple lowercase.",
+      "inputSchema": {
+        "properties": {
+          "pypi_name": {
+            "title": "Pypi Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pypi_name"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
     }
   ],
   "prompts": [],
