@@ -17,10 +17,7 @@ def _is_sorted_newest_first(records: list[dict]) -> bool:
 
     def key(r):
         version = VersionOrder(r["version"])
-        try:
-            bn = int(r["build_number"])
-        except Exception:
-            bn = -1
+        bn = int(r["build_number"])
         return (version, bn)
 
     return all(key(prev) >= key(curr) for prev, curr in pairwise(records))

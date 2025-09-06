@@ -212,6 +212,33 @@
           "tags": []
         }
       }
+    },
+    {
+      "name": "import_mapping",
+      "title": null,
+      "description": "Map a (possibly dotted) Python import name to the most likely conda package\nand expose supporting context.\n\nWhat this does:\n  - Normalizes the import to its top-level module (e.g. \"numpy.linalg\" -> \"numpy\")\n  - Retrieves an approximate candidate set of conda packages that may provide it\n  - Applies a heuristic to pick a single \"best\" package\n  - Returns a structured result with the decision rationale\n\nHeuristic labels:\n  - identity:          No candidates known; fallback to normalized import\n  - identity_present:  Candidates exist AND the normalized import name is among them\n  - ranked_selection:  Best package chosen via ranked hubs authorities ordering\n  - fallback:          Best package not in candidates (unexpected edge case)\n\nReturned dict schema:\n  {\n    \"query_import\":      original query string supplied by caller\n    \"normalized_import\": top-level portion used for lookup\n    \"best_package\":      chosen conda package name (may equal normalized_import)\n    \"candidate_packages\": sorted list of possible supplying packages (may be empty)\n    \"heuristic\":         one of the heuristic labels above\n  }\n\nArgs:\n  import_name:\n    Import string, e.g. \"yaml\", \"matplotlib.pyplot\", \"sklearn.model_selection\".",
+      "inputSchema": {
+        "properties": {
+          "import_name": {
+            "title": "Import Name",
+            "type": "string"
+          }
+        },
+        "required": [
+          "import_name"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
     }
   ],
   "prompts": [],
