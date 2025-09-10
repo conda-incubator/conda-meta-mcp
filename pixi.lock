@@ -482,7 +482,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pysocks-1.7.1-pyha55dd90_7.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-8.4.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-asyncio-1.1.0-pyhe01879c_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-6.2.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-7.0.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-memray-1.8.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-mock-3.15.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.13.7-h2b335a9_100_cp313.conda
@@ -674,7 +674,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pysocks-1.7.1-pyha55dd90_7.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-8.4.2-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-asyncio-1.1.0-pyhe01879c_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-6.2.1-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-7.0.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-memray-1.8.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-mock-3.15.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/python-3.13.7-h5c937ed_100_cp313.conda
@@ -1154,8 +1154,8 @@ packages:
   timestamp: 1745834587643
 - pypi: ./
   name: conda-meta-mcp
-  version: 0.1.dev26+g535559102.d20250906
-  sha256: 25ffaf3ed95d3d6d8ef1763448ca72b88571b8143036d570ca50f7bf696fbc86
+  version: 0.1.dev28+g1c3fe5689.d20250909
+  sha256: 01efb6c52baaf3270b5cff42eca79b8ccd04714ddaee5b4f48e0c2f93b490577
   requires_dist:
   - fastmcp
   requires_python: '>=3.13'
@@ -3337,20 +3337,21 @@ packages:
   - pkg:pypi/pytest-asyncio?source=hash-mapping
   size: 37590
   timestamp: 1753709606466
-- conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-6.2.1-pyhd8ed1ab_0.conda
-  sha256: 3a9fc07be76bc67aef355b78816b5117bfe686e7d8c6f28b45a1f89afe104761
-  md5: ce978e1b9ed8b8d49164e90a5cdc94cd
+- conda: https://conda.anaconda.org/conda-forge/noarch/pytest-cov-7.0.0-pyhd8ed1ab_0.conda
+  sha256: f04251f794324993bf9e328311dde4eccb4d4fdf3a5366d017ba7b548c87f962
+  md5: c4100b2ecb47d2d72fd835253e596d2f
   depends:
-  - coverage >=7.5
-  - pytest >=4.6
-  - python >=3.9
+  - coverage >=7.10.6
+  - pluggy >=1.2
+  - pytest >=7
+  - python >=3.10
   - toml
   license: MIT
   license_family: MIT
   purls:
   - pkg:pypi/pytest-cov?source=hash-mapping
-  size: 28216
-  timestamp: 1749778064293
+  size: 26776
+  timestamp: 1757441859135
 - conda: https://conda.anaconda.org/conda-forge/noarch/pytest-memray-1.8.0-pyhd8ed1ab_0.conda
   sha256: 03f9bc063bf51454bfcad859918dbb08673fb848d8d7b12f1b8130fa59fec9fa
   md5: 8ec1201026003252fb9a9c1c67c10ebf
