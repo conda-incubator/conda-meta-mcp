@@ -9,7 +9,7 @@ An MCP (Model Context Protocol) server exposing authoritative, read-only Conda e
 
 ## What “Meta” Means Here
 
-“Meta” refers to structured, machine-consumable ecosystem intelligence about packages — not the upstream project documentation itself. This server provides (see the schema [server-info.json](server-info.json) for current capabilities):
+“Meta” refers to structured, machine-consumable ecosystem intelligence about packages — not the upstream project documentation itself. This server provides (see also the schema [server-info.json](server-info.json) for current capabilities):
 
 Currently available:
 
@@ -39,7 +39,7 @@ Enable agents to answer packaging questions by providing up-to-date critical and
 ### Goals
 
 - Trustworthy machine interface
-- Read‑only, hostable, air‑gap friendly
+- Read‑only, hostable
 - Fast startup, low latency
 - Clear extension & testing pattern
 
@@ -58,13 +58,15 @@ Enable agents to answer packaging questions by providing up-to-date critical and
 
 ## 4. Quick Start
 
+Prerequisites: [pixi](https://pixi.sh/latest/installation/)
+
 ```shell
 git clone https://github.com/conda-incubator/conda-meta-mcp.git
 cd conda-meta-mcp
 pixi run cmm --help
 ```
 
-The `pixi` command can be used to run the MCP locally in clients such as VSCode, Cursor, Claude Desktop, and Zed:
+The `pixi` command can be used to run the MCP locally in clients such as VSCode, Cursor, Claude Desktop, Goose and Zed:
 
 ```json
 {
