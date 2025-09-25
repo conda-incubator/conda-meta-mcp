@@ -19,10 +19,10 @@ Currently available:
 - Import to package heuristic mapping via the `import_mapping` tool
 - PyPI name to conda package mapping via the `pypi_to_conda` tool
 - CLI help (for conda) via the `cli_help` tool
+- Repository metadata queries (depends / whoneeds) via the `repoquery` tool
 
 Planned:
 
-- Dependency & version metadata (graph / availability slices)
 - Solver feasibility signals (dry-run outputs)
 - Schema references and selected spec excerpts
 - Binary linkage information
