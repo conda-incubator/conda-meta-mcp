@@ -1,12 +1,14 @@
 {
   "environment": {
-    "fastmcp": "2.12.2",
-    "mcp": "1.13.1"
+    "fastmcp": "2.12.4",
+    "mcp": "1.15.0"
   },
   "serverInfo": {
     "name": "Conda ECO System Meta Data MCP",
     "title": null,
-    "version": "1.13.1"
+    "version": "1.15.0",
+    "websiteUrl": null,
+    "icons": null
   },
   "capabilities": {},
   "tools": [
@@ -18,17 +20,14 @@
         "properties": {
           "tool": {
             "default": "conda",
-            "title": "Tool",
             "type": "string"
           },
           "limit": {
             "default": 0,
-            "title": "Limit",
             "type": "integer"
           },
           "offset": {
             "default": 0,
-            "title": "Offset",
             "type": "integer"
           }
         },
@@ -37,17 +36,16 @@
       "outputSchema": {
         "properties": {
           "result": {
-            "title": "Result",
             "type": "string"
           }
         },
         "required": [
           "result"
         ],
-        "title": "_WrappedResult",
         "type": "object",
         "x-fastmcp-wrap-result": true
       },
+      "icons": null,
       "annotations": null,
       "_meta": {
         "_fastmcp": {
@@ -67,6 +65,7 @@
         "additionalProperties": true,
         "type": "object"
       },
+      "icons": null,
       "annotations": null,
       "_meta": {
         "_fastmcp": {
@@ -81,22 +80,18 @@
       "inputSchema": {
         "properties": {
           "url": {
-            "title": "Url",
             "type": "string"
           },
           "file": {
             "default": "some",
-            "title": "File",
             "type": "string"
           },
           "limit": {
             "default": 0,
-            "title": "Limit",
             "type": "integer"
           },
           "offset": {
             "default": 0,
-            "title": "Offset",
             "type": "integer"
           }
         },
@@ -111,6 +106,7 @@
         },
         "type": "object"
       },
+      "icons": null,
       "annotations": null,
       "_meta": {
         "_fastmcp": {
@@ -125,25 +121,20 @@
       "inputSchema": {
         "properties": {
           "package_ref_or_match_spec": {
-            "title": "Package Ref Or Match Spec",
             "type": "string"
           },
           "channel": {
-            "title": "Channel",
             "type": "string"
           },
           "platform": {
-            "title": "Platform",
             "type": "string"
           },
           "limit": {
             "default": 0,
-            "title": "Limit",
             "type": "integer"
           },
           "offset": {
             "default": 0,
-            "title": "Offset",
             "type": "integer"
           }
         },
@@ -159,23 +150,18 @@
           "PackageRecord": {
             "properties": {
               "version": {
-                "title": "Version",
                 "type": "string"
               },
               "build_number": {
-                "title": "Build Number",
                 "type": "string"
               },
               "build": {
-                "title": "Build",
                 "type": "string"
               },
               "url": {
-                "title": "Url",
                 "type": "string"
               },
               "depends": {
-                "title": "Depends",
                 "type": "string"
               }
             },
@@ -186,7 +172,6 @@
               "url",
               "depends"
             ],
-            "title": "PackageRecord",
             "type": "object"
           }
         },
@@ -195,17 +180,16 @@
             "items": {
               "$ref": "#/$defs/PackageRecord"
             },
-            "title": "Result",
             "type": "array"
           }
         },
         "required": [
           "result"
         ],
-        "title": "_WrappedResult",
         "type": "object",
         "x-fastmcp-wrap-result": true
       },
+      "icons": null,
       "annotations": null,
       "_meta": {
         "_fastmcp": {
@@ -220,35 +204,28 @@
       "inputSchema": {
         "properties": {
           "subcmd": {
-            "title": "Subcmd",
             "type": "string"
           },
           "spec": {
-            "title": "Spec",
             "type": "string"
           },
           "channel": {
-            "title": "Channel",
             "type": "string"
           },
           "platform": {
             "default": "linux-64",
-            "title": "Platform",
             "type": "string"
           },
           "tree": {
             "default": false,
-            "title": "Tree",
             "type": "boolean"
           },
           "offset": {
             "default": 0,
-            "title": "Offset",
             "type": "integer"
           },
           "limit": {
             "default": 30,
-            "title": "Limit",
             "type": "integer"
           }
         },
@@ -263,6 +240,7 @@
         "additionalProperties": true,
         "type": "object"
       },
+      "icons": null,
       "annotations": null,
       "_meta": {
         "_fastmcp": {
@@ -277,7 +255,6 @@
       "inputSchema": {
         "properties": {
           "import_name": {
-            "title": "Import Name",
             "type": "string"
           }
         },
@@ -290,6 +267,7 @@
         "additionalProperties": true,
         "type": "object"
       },
+      "icons": null,
       "annotations": null,
       "_meta": {
         "_fastmcp": {
@@ -304,7 +282,6 @@
       "inputSchema": {
         "properties": {
           "pypi_name": {
-            "title": "Pypi Name",
             "type": "string"
           }
         },
@@ -317,6 +294,7 @@
         "additionalProperties": true,
         "type": "object"
       },
+      "icons": null,
       "annotations": null,
       "_meta": {
         "_fastmcp": {
