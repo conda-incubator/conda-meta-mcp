@@ -1,6 +1,6 @@
 {
   "environment": {
-    "fastmcp": "2.12.4",
+    "fastmcp": "2.12.5",
     "mcp": "1.15.0"
   },
   "serverInfo": {
