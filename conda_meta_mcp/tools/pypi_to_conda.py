@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import asyncio
 from functools import lru_cache
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 
 from fastmcp.exceptions import ToolError
 
@@ -23,7 +23,11 @@ from conda_forge_metadata.autotick_bot.pypi_to_conda import (
 
 
 @lru_cache(maxsize=4096)
-def _map_pypi_name(pypi_name: str) -> dict:
+def _map_pypi_name(pypi_name: str) -> dict[str, Any]:
+    """Map PyPI name to conda name.
+
+    Returns dict with structure matching PyPiToCondaResult TypedDict.
+    """
     if not pypi_name or not pypi_name.strip():
         raise ValueError("pypi_name must be a non-empty string")
 
@@ -39,16 +43,15 @@ def _map_pypi_name(pypi_name: str) -> dict:
 
 def register_pypi_to_conda(mcp: FastMCP) -> None:
     @mcp.tool
-    async def pypi_to_conda(pypi_name: str) -> dict:
+    async def pypi_to_conda(pypi_name: str) -> dict[str, Any]:
         """
         Map a (case-sensitive) PyPI distribution name to the most likely conda package name.
 
         Returns:
-          {
-            "pypi_name": original input (trimmed),
-            "conda_name": mapped (lowercase) conda name (fallback: pypi_name.lower()),
-            "changed": conda_name != pypi_name.lower()
-          }
+          dict with structure matching PyPiToCondaResult TypedDict:
+            - pypi_name: original input (trimmed)
+            - conda_name: mapped (lowercase) conda name (fallback: pypi_name.lower())
+            - changed: conda_name != pypi_name.lower()
 
         'changed' is True only when the resolved conda name differs from simple lowercase.
         """
