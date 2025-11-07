@@ -54,7 +54,7 @@ pytest-asyncio = "*"
 pytest-cov = ">=7,<8"
 pytest-memray = "*"
 pytest-mock = "*"
-ty = "*"
+ty = "0.0.1a21.*"
 
 [tool.pixi.feature.test.tasks]
 pixi-diff-to-markdown = 'pixi exec pixi diff-to-markdown'
