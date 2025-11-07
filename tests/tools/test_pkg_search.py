@@ -35,12 +35,19 @@ async def test_pkg_search__basic_schema(server):
             },
         )
         data = result.data
-        assert isinstance(data, list)
-        assert len(data) > 0
+        assert isinstance(data, dict)
+        assert "results" in data
+        assert "total" in data
+        assert "limit" in data
+        assert "offset" in data
+
+        results = data["results"]
+        assert isinstance(results, list)
+        assert len(results) > 0
         required_keys = {"version", "build_number", "build", "url", "depends"}
-        for entry in data[:5]:  # sample a few to keep test lighter
+        for entry in results[:5]:  # sample a few to keep test lighter
             assert required_keys.issubset(entry.keys())
-        assert _is_sorted_newest_first(data)
+        assert _is_sorted_newest_first(results)
 
 
 @pytest.mark.asyncio
@@ -57,8 +64,9 @@ async def test_pkg_search__version_filter(server):
             },
         )
         data = result.data
-        assert len(data) > 0
-        assert all(entry["version"] == version_spec for entry in data)
+        results = data["results"]
+        assert len(results) > 0
+        assert all(entry["version"] == version_spec for entry in results)
 
 
 @pytest.mark.asyncio
@@ -75,7 +83,7 @@ async def test_pkg_search__paging(server):
                 "limit": baseline_limit,
             },
         )
-        base_list = baseline.data
+        base_list = baseline.data["results"]
         # Need enough records for paging validation.
         assert len(base_list) >= 6
 
@@ -113,9 +121,9 @@ async def test_pkg_search__paging(server):
             },
         )
 
-        p1 = page1.data
-        p2 = page2.data
-        p3 = page3.data
+        p1 = page1.data["results"]
+        p2 = page2.data["results"]
+        p3 = page3.data["results"]
 
         assert p1 == base_list[0:3]
         assert p2 == base_list[3:6]
@@ -139,7 +147,7 @@ async def test_pkg_search__paging(server):
                 "limit": 1,
             },
         )
-        assert newest.data[0] == base_list[0]
+        assert newest.data["results"][0] == base_list[0]
 
         # Offset beyond available -> empty
         far_offset = await client.call_tool(
@@ -152,7 +160,7 @@ async def test_pkg_search__paging(server):
                 "offset": 10_000,
             },
         )
-        assert far_offset.data == []
+        assert far_offset.data["results"] == []
 
 
 @pytest.mark.asyncio
