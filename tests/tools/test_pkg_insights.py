@@ -97,6 +97,78 @@ async def test_info__package_insights__single_file_paging(server):
 
 
 @pytest.mark.asyncio
+async def test_info__package_insights__get_keys_extracts_json_fields(server):
+    """get_keys parameter should extract specific fields from JSON files."""
+    async with Client(server) as client:
+        # Get full about.json
+        full_result = await client.call_tool(
+            "package_insights",
+            {
+                "url": "https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda",
+                "file": "info/about.json",
+            },
+        )
+        full_content = full_result.data["info/about.json"]
+        full_size = len(full_content)
+
+        # Get only specific keys
+        filtered_result = await client.call_tool(
+            "package_insights",
+            {
+                "url": "https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda",
+                "file": "info/about.json",
+                "get_keys": "channels,conda_build_version",
+            },
+        )
+        filtered_content = str(filtered_result.data["info/about.json"])
+        filtered_size = len(filtered_content)
+
+        # Filtered result should be smaller
+        assert filtered_size < full_size
+        # Filtered result should be a dict with only requested keys
+        assert isinstance(filtered_result.data["info/about.json"], dict)
+        assert "channels" in filtered_result.data["info/about.json"]
+        assert "conda_build_version" in filtered_result.data["info/about.json"]
+
+
+@pytest.mark.asyncio
+async def test_info__package_insights__get_keys_requires_single_file(server):
+    """get_keys requires exactly one file to be selected."""
+    async with Client(server) as client:
+        with pytest.raises(ToolError) as exc_info:
+            await client.call_tool(
+                "package_insights",
+                {
+                    "url": "https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda",
+                    "file": "some",  # This selects 3 files
+                    "get_keys": "channels",
+                },
+            )
+        assert "exactly one file" in str(exc_info.value).lower()
+
+
+@pytest.mark.asyncio
+async def test_info__package_insights__get_keys_empty_returns_full_content(server):
+    """Empty get_keys should return full file content (backward compatible)."""
+    async with Client(server) as client:
+        result = await client.call_tool(
+            "package_insights",
+            {
+                "url": "https://conda.anaconda.org/conda-forge/osx-arm64/zstd-1.5.7-h6491c7d_2.conda",
+                "file": "info/about.json",
+                "get_keys": "",  # Empty = no filtering
+            },
+        )
+        # Should return full string (not parsed)
+        assert isinstance(result.data["info/about.json"], str)
+        # Should contain valid JSON content
+        import json
+
+        parsed = json.loads(result.data["info/about.json"])
+        assert "channels" in parsed
+
+
+@pytest.mark.asyncio
 @patch("conda_meta_mcp.tools.pkg_insights._package_insights", side_effect=Exception("MOCKED"))
 async def test_info__package_insights__error__handled(mock_pkg_insights, server):
     with pytest.raises(ToolError):
