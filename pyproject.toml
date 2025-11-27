@@ -42,6 +42,7 @@ conda-forge-metadata = "*"
 conda-package-streaming = ">=0.12.0"
 fastmcp = ">=2.11.3"
 libmambapy = ">=2.3.1"
+pyyaml = ">=5.1"
 
 [tool.pixi.environments]
 dev = ["test"]
@@ -49,6 +50,7 @@ dev = ["test"]
 [tool.pixi.feature.test.dependencies]
 pixi-diff-to-markdown = "*"
 pre-commit = "*"
+psutil = "*"
 pytest = "*"
 pytest-asyncio = "*"
 pytest-cov = ">=7,<8"

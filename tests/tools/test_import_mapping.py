@@ -63,3 +63,44 @@ async def test_import_mapping__error_on_empty_input(server):
             )
         # Sanity check on error message clarity
         assert "invalid input" in str(exc.value).lower()
+
+
+@pytest.mark.asyncio
+async def test_import_mapping__get_keys_empty_returns_all(server):
+    """Empty get_keys should return all fields (backward compatible)."""
+    async with Client(server) as client:
+        result = await client.call_tool(
+            "import_mapping",
+            {
+                "import_name": "numpy",
+                "get_keys": "",  # Empty = all fields
+            },
+        )
+        data = result.data
+        # Should have all 5 fields
+        expected_keys = {
+            "query_import",
+            "normalized_import",
+            "best_package",
+            "candidate_packages",
+            "heuristic",
+        }
+        assert set(data.keys()) == expected_keys
+
+
+@pytest.mark.asyncio
+async def test_import_mapping__get_keys_filters_result(server):
+    """get_keys parameter should filter result to only requested fields."""
+    async with Client(server) as client:
+        result = await client.call_tool(
+            "import_mapping",
+            {
+                "import_name": "numpy",
+                "get_keys": "best_package,heuristic",  # Only these 2 fields
+            },
+        )
+        data = result.data
+        # Should have ONLY the requested fields
+        assert set(data.keys()) == {"best_package", "heuristic"}
+        assert "query_import" not in data
+        assert "normalized_import" not in data
