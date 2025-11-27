@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import asyncio
+import contextlib
 import sys
 from typing import TYPE_CHECKING
 
@@ -9,6 +11,8 @@ if TYPE_CHECKING:
     import argparse
 
 SERVICE_NAME = "Conda ECO System Meta Data MCP"
+
+_periodic_cleanup_task: asyncio.Task | None = None
 
 
 def setup_run(subparser: argparse._SubParsersAction):
@@ -25,11 +29,23 @@ def run_cmd(args):
 
 def setup_server(log_level: str | None = None) -> FastMCP:
     from conda_meta_mcp.tools import TOOLS
+    from conda_meta_mcp.tools.cache_utils import clear_external_library_caches
+
+    global _periodic_cleanup_task
 
     instance = FastMCP(name=SERVICE_NAME, log_level=log_level)
 
     for tool in TOOLS:
         tool(instance)
+
+    async def periodic_cleanup():
+        """Periodically clear external library caches to prevent memory growth."""
+        while True:
+            await asyncio.sleep(1800)  # 30 minutes
+            clear_external_library_caches()
+
+    with contextlib.suppress(RuntimeError):
+        _periodic_cleanup_task = asyncio.create_task(periodic_cleanup())
 
     return instance
 

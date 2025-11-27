@@ -16,14 +16,34 @@ from fastmcp.exceptions import ToolError
 if TYPE_CHECKING:
     from fastmcp import FastMCP
 
+
 from conda.base.context import context
 from conda.models.channel import Channel
 from conda_libmamba_solver.index import LibMambaIndexHelper
 
+from .cache_utils import register_external_cache_clearer
+
 ALLOWED_SUBCMDS = {"depends", "whoneeds"}
 
 
-@lru_cache(maxsize=512)
+def _filter_package_keys(pkg: dict[str, Any], get_keys: str) -> dict[str, Any]:
+    """Filter a package record to specified keys only.
+
+    Args:
+        pkg: Package record dictionary
+        get_keys: Comma-separated field names to include (empty = all fields)
+
+    Returns:
+        Filtered package dictionary
+    """
+    if not get_keys or not get_keys.strip():
+        return pkg
+
+    keys = set(k.strip() for k in get_keys.split(",") if k.strip())
+    return {k: v for k, v in pkg.items() if k in keys}
+
+
+@lru_cache(maxsize=64)
 def _cached_raw_query(subcmd: str, spec: str, channel: str, platform: str, tree: bool) -> dict:
     """
     Execute the underlying query once and cache the full (unpaginated) raw payload.
@@ -53,7 +73,12 @@ def _run_repoquery(
     tree: bool,
     offset: int,
     limit: int,
-) -> dict:
+    get_keys: str = "",
+) -> dict[str, Any]:
+    """Run the actual repoquery with pagination and field filtering.
+
+    Returns a RepoQueryResult dictionary containing query metadata and result payload.
+    """
     subcmd = subcmd.lower()
     if subcmd not in ALLOWED_SUBCMDS:
         raise ToolError(
@@ -75,7 +100,8 @@ def _run_repoquery(
         # Shallow copy outer + inner to avoid mutating cache
         new_outer = dict(raw_data)
         new_inner = dict(new_outer.get("result", {}))
-        new_inner["pkgs"] = slice_
+        # Apply field filtering if get_keys is specified
+        new_inner["pkgs"] = [_filter_package_keys(pkg, get_keys) for pkg in slice_]
         new_inner["offset"] = offset
         new_inner["limit"] = limit
         new_inner["total"] = total
@@ -83,6 +109,11 @@ def _run_repoquery(
         result_payload = new_outer
     else:
         result_payload = raw_data
+        # Apply field filtering to all packages if no pagination
+        if get_keys and "result" in result_payload and "pkgs" in result_payload["result"]:
+            result_payload["result"]["pkgs"] = [
+                _filter_package_keys(pkg, get_keys) for pkg in result_payload["result"]["pkgs"]
+            ]
 
     return {
         "query": {
@@ -101,6 +132,8 @@ def _run_repoquery(
 
 
 def register_repoquery(mcp: FastMCP) -> None:
+    register_external_cache_clearer(_cached_raw_query.cache_clear)
+
     @mcp.tool
     async def repoquery(
         subcmd: str,
@@ -110,7 +143,8 @@ def register_repoquery(mcp: FastMCP) -> None:
         tree: bool = False,
         offset: int = 0,
         limit: int = 30,
-    ) -> dict:
+        get_keys: str = "",
+    ) -> dict[str, Any]:
         """
         Run a conda repoquery (depends | whoneeds) for a single spec
         and channel. Installed packages excluded. Supports pagination via offset/limit.
@@ -124,6 +158,9 @@ def register_repoquery(mcp: FastMCP) -> None:
             platform (str): e.g. "linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"
             limit (int): for pagination / slicing
             offset (int): for pagination / slicing
+            get_keys (str): Comma-separated field names to include in results.
+                           Empty string returns all fields (default).
+                           Example: "name,version,url,license" reduces context by ~60-80%.
         """
         try:
             return await asyncio.to_thread(
@@ -135,6 +172,7 @@ def register_repoquery(mcp: FastMCP) -> None:
                 tree,
                 offset,
                 limit,
+                get_keys,
             )
         except Exception as e:
             raise ToolError(f"'repoquery' failed: {e}") from e

@@ -1,3 +1,4 @@
+from .cache_utils import register_cache_maintenance
 from .cli_help import register_cli_help
 from .import_mapping import register_import_mapping
 from .info import register_info
@@ -14,6 +15,7 @@ TOOLS = [
     register_repoquery,
     register_import_mapping,
     register_pypi_to_conda,
+    register_cache_maintenance,
 ]
 
 __all__ = ["TOOLS"]
