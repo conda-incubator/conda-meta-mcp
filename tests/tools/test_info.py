@@ -33,4 +33,5 @@ async def test_info__get_info__correct_schema(server):
             "conda_version",
             "fastmcp_version",
             "libmambapy_version",
+            "pixi_env_path",
         ]
