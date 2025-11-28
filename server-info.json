@@ -60,7 +60,7 @@
     {
       "name": "info",
       "title": null,
-      "description": "Display version information about the MCP instance.\n\nCan be compared with local output of \"conda info\" to see if they match.\n\nReturns:\n    dict[str, Any]: Version information for MCP instance and dependencies.\n        See InfoResult TypedDict for structure.",
+      "description": "Display information about the MCP instance (versions and pixi environment path)\n\nCan be compared with local output of \"conda info\" to see if they match.\n\nReturns:\n    dict[str, Any]: Version information for MCP instance and dependencies.\n        Includes pixi environment path if running in a pixi environment.\n        See InfoResult TypedDict for structure.",
       "inputSchema": {
         "properties": {},
         "type": "object"
@@ -245,6 +245,38 @@
         "additionalProperties": true,
         "type": "object"
       },
+      "icons": null,
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
+    },
+    {
+      "name": "file_path_search",
+      "title": null,
+      "description": "Find conda artifacts that contain a given file path.\n\nSearches the conda-forge-paths database for packages that ship the specified path.\n\nArgs:\n    path: The file path to search for (e.g., \"libcuda.so\", \"bin/conda\")\n    limit: Maximum number of results to return (0 means all)\n    offset: Number of results to skip before applying limit\n\nReturns:\n    dict with:\n    - query_path: the searched path\n    - artifacts: paginated list of artifact names\n    - count: number of artifacts in the returned page\n    - total: total number of matching artifacts\n    - limit: limit used in this query\n    - offset: offset used in this query",
+      "inputSchema": {
+        "properties": {
+          "path": {
+            "title": "Path"
+          },
+          "limit": {
+            "default": 0,
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "type": "object"
+      },
+      "outputSchema": null,
       "icons": null,
       "annotations": null,
       "_meta": {

@@ -17,6 +17,7 @@ Currently available:
 - Package info tarball data via the `package_insights` tool
 - Package search via the `package_search` tool
 - Import to package heuristic mapping via the `import_mapping` tool
+- File path to package mapping via the `file_path_search` tool
 - PyPI name to conda package mapping via the `pypi_to_conda` tool
 - CLI help (for conda) via the `cli_help` tool
 - Repository metadata queries (depends / whoneeds) via the `repoquery` tool
