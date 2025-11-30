@@ -17,7 +17,10 @@ concurrency:
 
 jobs:
   tests:
-    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm, macos-15-intel, macos-26]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
       - uses: prefix-dev/setup-pixi@82d477f15f3a381dbcc8adc1206ce643fe110fb7 # v0.9.3
@@ -31,6 +34,6 @@ jobs:
       - name: Archive coverage report
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
         with:
-          name: ci-artifacts
+          name: ci-artifacts-${{ matrix.os }}
           path: htmlcov/**
           retention-days: 5
