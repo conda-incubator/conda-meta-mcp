@@ -15,7 +15,6 @@ VALID_HEURISTICS = {
 
 
 @pytest.mark.asyncio
-@pytest.mark.skip("broken")
 async def test_import_mapping__success_basic(server):
     """
     Basic happy-path test: provide a dotted import and validate the response schema
@@ -67,7 +66,6 @@ async def test_import_mapping__error_on_empty_input(server):
 
 
 @pytest.mark.asyncio
-@pytest.mark.skip("broken")
 async def test_import_mapping__get_keys_empty_returns_all(server):
     """Empty get_keys should return all fields (backward compatible)."""
     async with Client(server) as client:
@@ -91,7 +89,6 @@ async def test_import_mapping__get_keys_empty_returns_all(server):
 
 
 @pytest.mark.asyncio
-@pytest.mark.skip("broken")
 async def test_import_mapping__get_keys_filters_result(server):
     """get_keys parameter should filter result to only requested fields."""
     async with Client(server) as client:
