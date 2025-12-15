@@ -26,7 +26,7 @@ jobs:
           PIXI_VERSION: v0.61.0
         with:
           pixi-version: ${{ env.PIXI_VERSION }}
-      - uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+      - uses: actions/cache@9255dc7a253b0ccc959486e2bca901246202afeb # v5.0.1
         with:
           path: |
             ~/.cache/pre-commit
