@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-import pytest  # type: ignore[import-not-found]
+import pytest
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 

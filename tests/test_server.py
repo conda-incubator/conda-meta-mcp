@@ -11,8 +11,8 @@ def test_setup_server__called__tools_registered(monkeypatch):
             self.name = name
             self.log_level = log_level
 
-        def tool(self, func):
-            tools.append(func.__name__)
+        def tool(self, func, name=None):
+            tools.append(name or func.__name__)
             return func
 
     monkeypatch.setattr(server, "FastMCP", FakeFastMCP)

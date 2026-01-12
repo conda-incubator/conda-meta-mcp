@@ -133,12 +133,23 @@ Tasks (pixi):
 
 ## 7. Extending (New Tool)
 
-1. Add `conda_meta_mcp/tools/<name>.py` (see existing tools)
-1. Implement `register_<name>` with an `@mcp.tool` async function
-1. Append to `TOOLS` in `tools/__init__.py`
+1. Create `conda_meta_mcp/tools/<name>.py` with:
+
+   ```python
+   from .registry import register_tool
+
+   @register_tool  # or @register_tool(cache_clearers=[...]) for custom cache clearers
+   async def my_tool(...) -> dict:
+       """Tool description (becomes MCP tool description)."""
+       return await asyncio.to_thread(_helper_function, ...)
+   ```
+
 1. Add unit tests (mock heavy deps)
+
 1. `pixi run pre-commit`
+
 1. `pixi run test`
+
 1. Open PR
 
 ## 8. Safety Model

@@ -55,7 +55,7 @@ async def _hammer_tools(client: Any, iterations: int = 2) -> None:
 
 @pytest.mark.asyncio
 async def test_cache_maintenance__called__memory_freed() -> None:
-    from fastmcp.client import Client  # type: ignore[import-not-found]
+    from fastmcp.client import Client
 
     server = setup_server(log_level="INFO")
 

@@ -10,17 +10,13 @@ from __future__ import annotations
 import asyncio
 import json
 from functools import lru_cache
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 import yaml
+from conda_package_streaming.url import stream_conda_info
 from fastmcp.exceptions import ToolError
 
-if TYPE_CHECKING:
-    from fastmcp import FastMCP
-
-from conda_package_streaming.url import stream_conda_info
-
-from .cache_utils import register_external_cache_clearer
+from .registry import register_tool
 
 SOME_FILES = {"info/recipe/meta.yaml", "info/about.json", "info/run_exports.json"}
 
@@ -123,46 +119,43 @@ def _package_insights(
     return selected
 
 
-def register_package_insights(mcp: FastMCP) -> None:
-    register_external_cache_clearer(_read_all.cache_clear)
+@register_tool(cache_clearers=[_read_all.cache_clear])
+async def package_insights(
+    url: str, file: str = "some", limit: int = 0, offset: int = 0, get_keys: str = ""
+) -> dict[str, Any]:
+    """
+    Provides insights into a package's info tarball
 
-    @mcp.tool
-    async def package_insights(
-        url: str, file: str = "some", limit: int = 0, offset: int = 0, get_keys: str = ""
-    ) -> dict[str, Any]:
-        """
-        Provides insights into a package's info tarball
+    That includes the rendered recipe (meta.yaml) that allows for easy inspection of the
+    package's build process, e.g. see build, host and run time dependencies. Which have
+    big influence on what packages are linked against. The run_exports which end up as
+    run time dependencies for other packages linked against this package. And the about
+    information which contain the remote_url and sha to the repo location where the
+    package recipe is maintained. That helps to open PRs in the right location to fix
+    issues with the recipe.
 
-        That includes the rendered recipe (meta.yaml) that allows for easy inspection of the
-        package's build process, e.g. see build, host and run time dependencies. Which have
-        big influence on what packages are linked against. The run_exports which end up as
-        run time dependencies for other packages linked against this package. And the about
-        information which contain the remote_url and sha to the repo location where the
-        package recipe is maintained. That helps to open PRs in the right location to fix
-        issues with the recipe.
+    Args:
+      url: The full package URL, e.g.
+      "https://conda.anaconda.org/conda-forge/linux-64/numpy-1.24.3-py311h7f8727e_0.tar.bz2"
 
-        Args:
-          url: The full package URL, e.g.
-          "https://conda.anaconda.org/conda-forge/linux-64/numpy-1.24.3-py311h7f8727e_0.tar.bz2"
-
-          file: can be set to "some", "all", "list-without-content" or a specific filename
-          limit: max number of lines returned per file (0 means all; ignored for
-            list-without-content)
-          offset: number of initial lines skipped per file (ignored for
-            list-without-content)
-           get_keys: Comma-separated keys to extract from parsed file content (YAML/JSON).
-                    Empty string returns full file content (default).
-                    Example: "channels,conda_build_version" extracts those fields from
-                    about.json. Requires exactly one file (use 'file' parameter).
-                    Significantly reduces context by returning only needed fields.
-           Returns:
-             A dictionary with key=filename, value=content or parsed object.
-        """
-        try:
-            return await asyncio.to_thread(_package_insights, url, file, limit, offset, get_keys)
-        except ValueError as ve:
-            raise ToolError(f"[validation_error] Invalid input: {ve}") from ve
-        except KeyError as ke:
-            raise ToolError(f"[not_found_error] File not found: {ke}") from ke
-        except Exception as e:
-            raise ToolError(f"[unknown_error] 'package_insights' failed: {e}") from e
+      file: can be set to "some", "all", "list-without-content" or a specific filename
+      limit: max number of lines returned per file (0 means all; ignored for
+        list-without-content)
+      offset: number of initial lines skipped per file (ignored for
+        list-without-content)
+       get_keys: Comma-separated keys to extract from parsed file content (YAML/JSON).
+                Empty string returns full file content (default).
+                Example: "channels,conda_build_version" extracts those fields from
+                about.json. Requires exactly one file (use 'file' parameter).
+                Significantly reduces context by returning only needed fields.
+       Returns:
+         A dictionary with key=filename, value=content or parsed object.
+    """
+    try:
+        return await asyncio.to_thread(_package_insights, url, file, limit, offset, get_keys)
+    except ValueError as ve:
+        raise ToolError(f"[validation_error] Invalid input: {ve}") from ve
+    except KeyError as ke:
+        raise ToolError(f"[not_found_error] File not found: {ke}") from ke
+    except Exception as e:
+        raise ToolError(f"[unknown_error] 'package_insights' failed: {e}") from e

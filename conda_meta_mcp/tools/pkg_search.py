@@ -3,19 +3,14 @@ from __future__ import annotations
 import asyncio
 import contextlib
 from functools import lru_cache
-from typing import TYPE_CHECKING, Any
-
-from fastmcp.exceptions import ToolError
-from pydantic import BaseModel, ConfigDict
-
-if TYPE_CHECKING:
-    from fastmcp import FastMCP
-
+from typing import Any
 
 from conda.api import SubdirData
 from conda.models.version import VersionOrder
+from fastmcp.exceptions import ToolError
+from pydantic import BaseModel, ConfigDict
 
-from .cache_utils import register_external_cache_clearer
+from .registry import register_tool
 
 
 class PackageRecord(BaseModel):
@@ -129,59 +124,55 @@ def _package_search(
     }
 
 
-def register_package_search(mcp: FastMCP) -> None:
-    register_external_cache_clearer(_full_package_search.cache_clear)
-    register_external_cache_clearer(_clear_conda_subdirdata_cache_for_pkg_search)
+@register_tool(cache_clearers=[_clear_conda_subdirdata_cache_for_pkg_search])
+async def package_search(
+    package_ref_or_match_spec: str,
+    channel: str,
+    platform: str,
+    limit: int = 0,
+    offset: int = 0,
+    get_keys: str = "",
+) -> dict[str, Any]:
+    """
+    Search available conda packages matching the given package_ref_or_match_spec, channel, and
+    platform.
 
-    @mcp.tool
-    async def package_search(
-        package_ref_or_match_spec: str,
-        channel: str,
-        platform: str,
-        limit: int = 0,
-        offset: int = 0,
-        get_keys: str = "",
-    ) -> dict[str, Any]:
-        """
-        Search available conda packages matching the given package_ref_or_match_spec, channel, and
-        platform.
+    Features:
+      - Results are deduplicated.
+      - Ordered by newest (version, then build_number descending).
+      - limit=1 reliably returns the single newest record.
+      - Supports paging via (offset, limit).
+      - Optional field filtering via get_keys parameter.
 
-        Features:
-          - Results are deduplicated.
-          - Ordered by newest (version, then build_number descending).
-          - limit=1 reliably returns the single newest record.
-          - Supports paging via (offset, limit).
-          - Optional field filtering via get_keys parameter.
+    Args:
+      package_ref_or_match_spec (PackageRef or MatchSpec or str):
+        e.g. "numpy", "numpy>=1.20", "numpy=1.20.3", "numpy=1.20.3=py38h550f1ac_0"
+      channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
+      platform (str): e.g. "linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"
+      limit (int): Maximum number of results to return (0 means all).
+      offset (int): Number of results to skip before applying limit (for paging).
+      get_keys (str): Comma-separated field names to include in results.
+                     Empty string returns all fields (default).
+                     Example: "version,build,url" reduces context by ~60-70%.
 
-        Args:
-          package_ref_or_match_spec (PackageRef or MatchSpec or str):
-            e.g. "numpy", "numpy>=1.20", "numpy=1.20.3", "numpy=1.20.3=py38h550f1ac_0"
-          channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
-          platform (str): e.g. "linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"
-          limit (int): Maximum number of results to return (0 means all).
-          offset (int): Number of results to skip before applying limit (for paging).
-          get_keys (str): Comma-separated field names to include in results.
-                         Empty string returns all fields (default).
-                         Example: "version,build,url" reduces context by ~60-70%.
-
-        Returns:
-          dict with keys:
-            - results: list of package records (filtered by get_keys if specified)
-            - total: total number of matching packages
-            - limit: limit used in this query
-            - offset: offset used in this query
-        """
-        try:
-            return await asyncio.to_thread(
-                _package_search,
-                package_ref_or_match_spec,
-                channel,
-                platform,
-                limit,
-                offset,
-                get_keys,
-            )
-        except ValueError as ve:
-            raise ToolError(f"[validation_error] Invalid input: {ve}") from ve
-        except Exception as e:
-            raise ToolError(f"[unknown_error] 'package_search' failed: {e}") from e
+    Returns:
+      dict with keys:
+        - results: list of package records (filtered by get_keys if specified)
+        - total: total number of matching packages
+        - limit: limit used in this query
+        - offset: offset used in this query
+    """
+    try:
+        return await asyncio.to_thread(
+            _package_search,
+            package_ref_or_match_spec,
+            channel,
+            platform,
+            limit,
+            offset,
+            get_keys,
+        )
+    except ValueError as ve:
+        raise ToolError(f"[validation_error] Invalid input: {ve}") from ve
+    except Exception as e:
+        raise ToolError(f"[unknown_error] 'package_search' failed: {e}") from e
