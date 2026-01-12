@@ -7,6 +7,8 @@
 
 An MCP (Model Context Protocol) server exposing authoritative, read-only Conda ecosystem metadata for AI agents.
 
+📖 **Read the introduction blog post:** [conda-meta-mcp: Expert Conda Ecosystem Data for AI Agents](https://conda.org/blog/conda-meta-mcp)
+
 ## What “Meta” Means Here
 
 “Meta” refers to structured, machine-consumable ecosystem intelligence about packages — not the upstream project documentation itself. This server provides (see also the schema [server-info.json](server-info.json) for current capabilities):
