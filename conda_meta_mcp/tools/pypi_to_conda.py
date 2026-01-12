@@ -9,19 +9,12 @@ from __future__ import annotations
 
 import asyncio
 from functools import lru_cache
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
+from conda_forge_metadata.autotick_bot.pypi_to_conda import map_pypi_to_conda
 from fastmcp.exceptions import ToolError
 
-if TYPE_CHECKING:
-    from fastmcp import FastMCP
-
-
-from conda_forge_metadata.autotick_bot.pypi_to_conda import (
-    map_pypi_to_conda,
-)
-
-from .cache_utils import register_external_cache_clearer
+from .registry import register_tool
 
 
 @lru_cache(maxsize=4096)
@@ -43,25 +36,22 @@ def _map_pypi_name(pypi_name: str) -> dict[str, Any]:
     }
 
 
-def register_pypi_to_conda(mcp: FastMCP) -> None:
-    register_external_cache_clearer(_map_pypi_name.cache_clear)
+@register_tool(cache_clearers=[_map_pypi_name.cache_clear])
+async def pypi_to_conda(pypi_name: str) -> dict[str, Any]:
+    """
+    Map a (case-sensitive) PyPI distribution name to the most likely conda package name.
 
-    @mcp.tool
-    async def pypi_to_conda(pypi_name: str) -> dict[str, Any]:
-        """
-        Map a (case-sensitive) PyPI distribution name to the most likely conda package name.
+    Returns:
+      dict with structure matching PyPiToCondaResult TypedDict:
+        - pypi_name: original input (trimmed)
+        - conda_name: mapped (lowercase) conda name (fallback: pypi_name.lower())
+        - changed: conda_name != pypi_name.lower()
 
-        Returns:
-          dict with structure matching PyPiToCondaResult TypedDict:
-            - pypi_name: original input (trimmed)
-            - conda_name: mapped (lowercase) conda name (fallback: pypi_name.lower())
-            - changed: conda_name != pypi_name.lower()
-
-        'changed' is True only when the resolved conda name differs from simple lowercase.
-        """
-        try:
-            return await asyncio.to_thread(_map_pypi_name, pypi_name)
-        except ValueError as ve:
-            raise ToolError(f"'pypi_to_conda' invalid input: {ve}") from ve
-        except Exception as e:  # pragma: no cover
-            raise ToolError(f"'pypi_to_conda' failed: {e}") from e
+    'changed' is True only when the resolved conda name differs from simple lowercase.
+    """
+    try:
+        return await asyncio.to_thread(_map_pypi_name, pypi_name)
+    except ValueError as ve:
+        raise ToolError(f"'pypi_to_conda' invalid input: {ve}") from ve
+    except Exception as e:  # pragma: no cover
+        raise ToolError(f"'pypi_to_conda' failed: {e}") from e

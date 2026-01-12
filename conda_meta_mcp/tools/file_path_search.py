@@ -4,7 +4,7 @@ from functools import lru_cache
 import requests
 from fastmcp.exceptions import ToolError
 
-from .cache_utils import register_external_cache_clearer
+from .registry import register_tool
 
 
 @lru_cache(maxsize=1024)
@@ -101,33 +101,30 @@ def _file_path_search(path, limit: int = 0, offset: int = 0):
     }
 
 
-def register_file_path_search(mcp):
-    register_external_cache_clearer(_file_path_search_raw.cache_clear)
+@register_tool(cache_clearers=[_file_path_search_raw.cache_clear])
+async def file_path_search(path, limit: int = 0, offset: int = 0):
+    """
+    Find conda artifacts that contain a given file path.
 
-    @mcp.tool
-    async def file_path_search(path, limit: int = 0, offset: int = 0):
-        """
-        Find conda artifacts that contain a given file path.
+    Searches the conda-forge-paths database for packages that ship the specified path.
 
-        Searches the conda-forge-paths database for packages that ship the specified path.
+    Args:
+        path: The file path to search for (e.g., "libcuda.so", "bin/conda")
+        limit: Maximum number of results to return (0 means all)
+        offset: Number of results to skip before applying limit
 
-        Args:
-            path: The file path to search for (e.g., "libcuda.so", "bin/conda")
-            limit: Maximum number of results to return (0 means all)
-            offset: Number of results to skip before applying limit
-
-        Returns:
-            dict with:
-            - query_path: the searched path
-            - artifacts: paginated list of artifact names
-            - count: number of artifacts in the returned page
-            - total: total number of matching artifacts
-            - limit: limit used in this query
-            - offset: offset used in this query
-        """
-        try:
-            return await asyncio.to_thread(_file_path_search, path, limit, offset)
-        except ValueError as ve:
-            raise ToolError(f"'file_path_search' invalid input: {ve}") from ve
-        except Exception as e:
-            raise ToolError(f"'file_path_search' failed: {e}") from e
+    Returns:
+        dict with:
+        - query_path: the searched path
+        - artifacts: paginated list of artifact names
+        - count: number of artifacts in the returned page
+        - total: total number of matching artifacts
+        - limit: limit used in this query
+        - offset: offset used in this query
+    """
+    try:
+        return await asyncio.to_thread(_file_path_search, path, limit, offset)
+    except ValueError as ve:
+        raise ToolError(f"'file_path_search' invalid input: {ve}") from ve
+    except Exception as e:
+        raise ToolError(f"'file_path_search' failed: {e}") from e

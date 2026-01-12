@@ -9,12 +9,10 @@ from __future__ import annotations
 import asyncio
 import re
 from functools import cache
-from typing import TYPE_CHECKING
 
 from fastmcp.exceptions import ToolError
 
-if TYPE_CHECKING:
-    from fastmcp import FastMCP
+from .registry import register_tool
 
 
 @cache
@@ -46,32 +44,29 @@ def _cli_help(tool: str = "conda", limit: int = 0, offset: int = 0, grep: str = 
             raise ToolError(f"Unknown/ not yet implemented tool: {tool}")
 
 
-def register_cli_help(mcp: FastMCP) -> None:
-    @mcp.tool
-    async def cli_help(
-        tool: str = "conda", limit: int = 0, offset: int = 0, grep: str = ""
-    ) -> str:
-        """
-        Provides the full help text for the given tool including all subcommands and options.
+@register_tool
+async def cli_help(tool: str = "conda", limit: int = 0, offset: int = 0, grep: str = "") -> str:
+    """
+    Provides the full help text for the given tool including all subcommands and options.
 
-        To be used to answer advanced CLI questions beyond the knowledge cutoff of models,
-        to e.g. help with new features that recently landed in the tool.
+    To be used to answer advanced CLI questions beyond the knowledge cutoff of models,
+    to e.g. help with new features that recently landed in the tool.
 
-        Args:
-            tool: str = "conda"
-            limit: max number of lines returned (0 means all)
-            offset: number of initial lines skipped
-            grep: Regular expression pattern to filter help lines (case-insensitive).
-                  Empty string returns all lines (default).
-                  Example: "install|update|create" returns lines matching any of these.
-                  Reduces context by ~90% for targeted queries.
+    Args:
+        tool: str = "conda"
+        limit: max number of lines returned (0 means all)
+        offset: number of initial lines skipped
+        grep: Regular expression pattern to filter help lines (case-insensitive).
+              Empty string returns all lines (default).
+              Example: "install|update|create" returns lines matching any of these.
+              Reduces context by ~90% for targeted queries.
 
-        Returns:
-          A string with the help text
-        """
-        try:
-            return await asyncio.to_thread(_cli_help, tool, limit, offset, grep)
-        except ValueError as ve:
-            raise ToolError(f"[validation_error] Invalid input: {ve}") from ve
-        except Exception as e:
-            raise ToolError(f"[unknown_error] 'cli_help' failed: {e}") from e
+    Returns:
+      A string with the help text
+    """
+    try:
+        return await asyncio.to_thread(_cli_help, tool, limit, offset, grep)
+    except ValueError as ve:
+        raise ToolError(f"[validation_error] Invalid input: {ve}") from ve
+    except Exception as e:
+        raise ToolError(f"[unknown_error] 'cli_help' failed: {e}") from e

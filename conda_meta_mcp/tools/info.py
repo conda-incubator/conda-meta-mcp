@@ -3,13 +3,12 @@ from __future__ import annotations
 import asyncio
 import sys
 from functools import cache
-from typing import TYPE_CHECKING, Any
+from typing import Any
 
 from fastmcp import Context  # noqa: TC002
 from fastmcp.exceptions import ToolError
 
-if TYPE_CHECKING:
-    from fastmcp import FastMCP
+from .registry import register_tool
 
 
 @cache
@@ -42,23 +41,22 @@ def _get_info() -> dict[str, Any]:
     }
 
 
-def register_info(mcp: FastMCP) -> None:
-    @mcp.tool
-    async def info(ctx: Context) -> dict[str, Any]:
-        """
-        Display information about the MCP instance (versions and pixi environment path)
+@register_tool
+async def info(ctx: Context) -> dict[str, Any]:
+    """
+    Display information about the MCP instance (versions and pixi environment path)
 
-        Can be compared with local output of "conda info" to see if they match.
+    Can be compared with local output of "conda info" to see if they match.
 
-        Returns:
-            dict[str, Any]: Version information for MCP instance and dependencies.
-                Includes pixi environment path if running in a pixi environment.
-                See InfoResult TypedDict for structure.
-        """
-        await ctx.info("Info got called")
-        try:
-            return await asyncio.to_thread(_get_info)
-        except ImportError as ie:
-            raise ToolError(f"[import_error] Failed to load dependencies: {ie}") from ie
-        except Exception as e:
-            raise ToolError(f"[unknown_error] 'info' failed: {e}") from e
+    Returns:
+        dict[str, Any]: Version information for MCP instance and dependencies.
+            Includes pixi environment path if running in a pixi environment.
+            See InfoResult TypedDict for structure.
+    """
+    await ctx.info("Info got called")
+    try:
+        return await asyncio.to_thread(_get_info)
+    except ImportError as ie:
+        raise ToolError(f"[import_error] Failed to load dependencies: {ie}") from ie
+    except Exception as e:
+        raise ToolError(f"[unknown_error] 'info' failed: {e}") from e

@@ -28,15 +28,17 @@ def run_cmd(args):
 
 
 def setup_server(log_level: str | None = None) -> FastMCP:
-    from conda_meta_mcp.tools import TOOLS
+    from conda_meta_mcp.tools import discover_tools
     from conda_meta_mcp.tools.cache_utils import clear_external_library_caches
 
     global _periodic_cleanup_task
 
     instance = FastMCP(name=SERVICE_NAME, log_level=log_level)
 
-    for tool in TOOLS:
-        tool(instance)
+    for tool_fn in discover_tools():
+        default_name = getattr(tool_fn, "__name__", "unknown")
+        tool_name = getattr(tool_fn, "__mcp_tool_name__", default_name)
+        instance.tool(tool_fn, name=tool_name)
 
     async def periodic_cleanup():
         """Periodically clear external library caches to prevent memory growth."""

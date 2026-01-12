@@ -1,15 +1,12 @@
-"""Minimal external cache clearing registry and on-demand MCP tool."""
+"""Minimal external cache clearing registry utilities."""
 
 from __future__ import annotations
 
 from collections.abc import Callable
 from contextlib import suppress
-from typing import TYPE_CHECKING, TypeVar
+from typing import TypeVar
 
-if TYPE_CHECKING:
-    from fastmcp import FastMCP
-
-T = TypeVar("T")
+F = TypeVar("F", bound=Callable)
 
 ExternalCacheClearer = Callable[[], None]
 _external_cache_clearers: list[ExternalCacheClearer] = []
@@ -25,17 +22,3 @@ def clear_external_library_caches() -> None:
     for clearer in list(_external_cache_clearers):
         with suppress(Exception):
             clearer()
-
-
-def register_cache_maintenance(mcp: FastMCP) -> None:
-    """Register an MCP tool to trigger cache maintenance on demand."""
-
-    @mcp.tool
-    async def cache_maintenance() -> str:
-        """
-        Run cache maintenance for all registered external and tool-level caches.
-
-        Returns a short status message after cleanup has been triggered.
-        """
-        clear_external_library_caches()
-        return "External and tool-level caches cleared."

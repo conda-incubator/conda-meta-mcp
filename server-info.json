@@ -13,6 +13,34 @@
   "capabilities": {},
   "tools": [
     {
+      "name": "cache_maintenance",
+      "title": null,
+      "description": "Run cache maintenance for all registered external and tool-level caches.\n\nReturns a short status message after cleanup has been triggered.",
+      "inputSchema": {
+        "properties": {},
+        "type": "object"
+      },
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "type": "object",
+        "x-fastmcp-wrap-result": true
+      },
+      "icons": null,
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
+    },
+    {
       "name": "cli_help",
       "title": null,
       "description": "Provides the full help text for the given tool including all subcommands and options.\n\nTo be used to answer advanced CLI questions beyond the knowledge cutoff of models,\nto e.g. help with new features that recently landed in the tool.\n\nArgs:\n    tool: str = \"conda\"\n    limit: max number of lines returned (0 means all)\n    offset: number of initial lines skipped\n    grep: Regular expression pattern to filter help lines (case-insensitive).\n          Empty string returns all lines (default).\n          Example: \"install|update|create\" returns lines matching any of these.\n          Reduces context by ~90% for targeted queries.\n\nReturns:\n  A string with the help text",
@@ -48,6 +76,69 @@
         ],
         "type": "object",
         "x-fastmcp-wrap-result": true
+      },
+      "icons": null,
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
+    },
+    {
+      "name": "file_path_search",
+      "title": null,
+      "description": "Find conda artifacts that contain a given file path.\n\nSearches the conda-forge-paths database for packages that ship the specified path.\n\nArgs:\n    path: The file path to search for (e.g., \"libcuda.so\", \"bin/conda\")\n    limit: Maximum number of results to return (0 means all)\n    offset: Number of results to skip before applying limit\n\nReturns:\n    dict with:\n    - query_path: the searched path\n    - artifacts: paginated list of artifact names\n    - count: number of artifacts in the returned page\n    - total: total number of matching artifacts\n    - limit: limit used in this query\n    - offset: offset used in this query",
+      "inputSchema": {
+        "properties": {
+          "path": {
+            "title": "Path"
+          },
+          "limit": {
+            "default": 0,
+            "type": "integer"
+          },
+          "offset": {
+            "default": 0,
+            "type": "integer"
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "type": "object"
+      },
+      "outputSchema": null,
+      "icons": null,
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
+    },
+    {
+      "name": "import_mapping",
+      "title": null,
+      "description": "Map a (possibly dotted) Python import name to the most likely conda package\nand expose supporting context.\n\nWhat this does:\n  - Normalizes the import to its top-level module (e.g. \"numpy.linalg\" -> \"numpy\")\n  - Retrieves an approximate candidate set of conda packages that may provide it\n  - Applies a heuristic to pick a single \"best\" package\n  - Returns a structured result with the decision rationale\n\nHeuristic labels:\n  - identity:          No candidates known; fallback to normalized import\n  - identity_present:  Candidates exist AND the normalized import name is among them\n  - ranked_selection:  Best package chosen via ranked hubs authorities ordering\n  - fallback:          Best package not in candidates (unexpected edge case)\n\nReturns:\n  dict with structure matching ImportMappingResult TypedDict:\n    - query_import: original query string supplied by caller\n    - normalized_import: top-level portion used for lookup\n    - best_package: chosen conda package name (may equal normalized_import)\n    - candidate_packages: sorted list of possible supplying packages (may be empty)\n    - heuristic: one of the heuristic labels above\n\nArgs:\n  import_name:\n    Import string, e.g. \"yaml\", \"matplotlib.pyplot\", \"sklearn.model_selection\".\n  get_keys:\n    Comma-separated field names to include in results.\n    Empty string returns all fields (default).\n    Example: \"best_package,heuristic\" returns only key fields.",
+      "inputSchema": {
+        "properties": {
+          "import_name": {
+            "type": "string"
+          },
+          "get_keys": {
+            "default": "",
+            "type": "string"
+          }
+        },
+        "required": [
+          "import_name"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
       },
       "icons": null,
       "annotations": null,
@@ -168,6 +259,33 @@
       }
     },
     {
+      "name": "pypi_to_conda",
+      "title": null,
+      "description": "Map a (case-sensitive) PyPI distribution name to the most likely conda package name.\n\nReturns:\n  dict with structure matching PyPiToCondaResult TypedDict:\n    - pypi_name: original input (trimmed)\n    - conda_name: mapped (lowercase) conda name (fallback: pypi_name.lower())\n    - changed: conda_name != pypi_name.lower()\n\n'changed' is True only when the resolved conda name differs from simple lowercase.",
+      "inputSchema": {
+        "properties": {
+          "pypi_name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "pypi_name"
+        ],
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "_meta": {
+        "_fastmcp": {
+          "tags": []
+        }
+      }
+    },
+    {
       "name": "repoquery",
       "title": null,
       "description": "Run a conda repoquery (depends | whoneeds) for a single spec\nand channel. Installed packages excluded. Supports pagination via offset/limit.\n- depends/whoneeds: raw structure unpaginated; sliced pkgs list with offset/limit/total\n  when paginated\n\nArgs:\n    subcmd (str): e.g. \"depends\": show dependencies of this package,\n                       \"whoneeds\": show packages that depend on this package.\n    channel (str): e.g. \"defaults\", \"conda-forge\", \"bioconda\", \"nvidia\"\n    platform (str): e.g. \"linux-64\", \"linux-aarch64\", \"osx-64\", \"osx-arm64\", \"win-64\"\n    limit (int): for pagination / slicing\n    offset (int): for pagination / slicing\n    get_keys (str): Comma-separated field names to include in results.\n                   Empty string returns all fields (default).\n                   Example: \"name,version,url,license\" reduces context by ~60-80%.",
@@ -213,124 +331,6 @@
       "outputSchema": {
         "additionalProperties": true,
         "type": "object"
-      },
-      "icons": null,
-      "annotations": null,
-      "_meta": {
-        "_fastmcp": {
-          "tags": []
-        }
-      }
-    },
-    {
-      "name": "import_mapping",
-      "title": null,
-      "description": "Map a (possibly dotted) Python import name to the most likely conda package\nand expose supporting context.\n\nWhat this does:\n  - Normalizes the import to its top-level module (e.g. \"numpy.linalg\" -> \"numpy\")\n  - Retrieves an approximate candidate set of conda packages that may provide it\n  - Applies a heuristic to pick a single \"best\" package\n  - Returns a structured result with the decision rationale\n\nHeuristic labels:\n  - identity:          No candidates known; fallback to normalized import\n  - identity_present:  Candidates exist AND the normalized import name is among them\n  - ranked_selection:  Best package chosen via ranked hubs authorities ordering\n  - fallback:          Best package not in candidates (unexpected edge case)\n\nReturns:\n  dict with structure matching ImportMappingResult TypedDict:\n    - query_import: original query string supplied by caller\n    - normalized_import: top-level portion used for lookup\n    - best_package: chosen conda package name (may equal normalized_import)\n    - candidate_packages: sorted list of possible supplying packages (may be empty)\n    - heuristic: one of the heuristic labels above\n\nArgs:\n  import_name:\n    Import string, e.g. \"yaml\", \"matplotlib.pyplot\", \"sklearn.model_selection\".\n  get_keys:\n    Comma-separated field names to include in results.\n    Empty string returns all fields (default).\n    Example: \"best_package,heuristic\" returns only key fields.",
-      "inputSchema": {
-        "properties": {
-          "import_name": {
-            "type": "string"
-          },
-          "get_keys": {
-            "default": "",
-            "type": "string"
-          }
-        },
-        "required": [
-          "import_name"
-        ],
-        "type": "object"
-      },
-      "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "icons": null,
-      "annotations": null,
-      "_meta": {
-        "_fastmcp": {
-          "tags": []
-        }
-      }
-    },
-    {
-      "name": "file_path_search",
-      "title": null,
-      "description": "Find conda artifacts that contain a given file path.\n\nSearches the conda-forge-paths database for packages that ship the specified path.\n\nArgs:\n    path: The file path to search for (e.g., \"libcuda.so\", \"bin/conda\")\n    limit: Maximum number of results to return (0 means all)\n    offset: Number of results to skip before applying limit\n\nReturns:\n    dict with:\n    - query_path: the searched path\n    - artifacts: paginated list of artifact names\n    - count: number of artifacts in the returned page\n    - total: total number of matching artifacts\n    - limit: limit used in this query\n    - offset: offset used in this query",
-      "inputSchema": {
-        "properties": {
-          "path": {
-            "title": "Path"
-          },
-          "limit": {
-            "default": 0,
-            "type": "integer"
-          },
-          "offset": {
-            "default": 0,
-            "type": "integer"
-          }
-        },
-        "required": [
-          "path"
-        ],
-        "type": "object"
-      },
-      "outputSchema": null,
-      "icons": null,
-      "annotations": null,
-      "_meta": {
-        "_fastmcp": {
-          "tags": []
-        }
-      }
-    },
-    {
-      "name": "pypi_to_conda",
-      "title": null,
-      "description": "Map a (case-sensitive) PyPI distribution name to the most likely conda package name.\n\nReturns:\n  dict with structure matching PyPiToCondaResult TypedDict:\n    - pypi_name: original input (trimmed)\n    - conda_name: mapped (lowercase) conda name (fallback: pypi_name.lower())\n    - changed: conda_name != pypi_name.lower()\n\n'changed' is True only when the resolved conda name differs from simple lowercase.",
-      "inputSchema": {
-        "properties": {
-          "pypi_name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "pypi_name"
-        ],
-        "type": "object"
-      },
-      "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
-      },
-      "icons": null,
-      "annotations": null,
-      "_meta": {
-        "_fastmcp": {
-          "tags": []
-        }
-      }
-    },
-    {
-      "name": "cache_maintenance",
-      "title": null,
-      "description": "Run cache maintenance for all registered external and tool-level caches.\n\nReturns a short status message after cleanup has been triggered.",
-      "inputSchema": {
-        "properties": {},
-        "type": "object"
-      },
-      "outputSchema": {
-        "properties": {
-          "result": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "result"
-        ],
-        "type": "object",
-        "x-fastmcp-wrap-result": true
       },
       "icons": null,
       "annotations": null,

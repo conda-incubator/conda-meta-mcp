@@ -9,19 +9,14 @@ from __future__ import annotations
 
 import asyncio
 from functools import lru_cache
-from typing import TYPE_CHECKING, Any, cast
-
-from fastmcp.exceptions import ToolError
-
-if TYPE_CHECKING:
-    from fastmcp import FastMCP
-
+from typing import Any, cast
 
 from conda.base.context import context
 from conda.models.channel import Channel
 from conda_libmamba_solver.index import LibMambaIndexHelper
+from fastmcp.exceptions import ToolError
 
-from .cache_utils import register_external_cache_clearer
+from .registry import register_tool
 
 ALLOWED_SUBCMDS = {"depends", "whoneeds"}
 
@@ -59,10 +54,10 @@ def _cached_raw_query(subcmd: str, spec: str, channel: str, platform: str, tree:
 
     if subcmd == "depends":
         raw = index.depends(spec, tree=tree, return_type="raw")
-        return cast("Any", raw).to_dict()  # type: ignore[call-attr]
+        return cast("Any", raw).to_dict()
     else:  # whoneeds
         raw = index.whoneeds(spec, tree=tree, return_type="raw")
-        return cast("Any", raw).to_dict()  # type: ignore[call-attr]
+        return cast("Any", raw).to_dict()
 
 
 def _run_repoquery(
@@ -131,48 +126,45 @@ def _run_repoquery(
     }
 
 
-def register_repoquery(mcp: FastMCP) -> None:
-    register_external_cache_clearer(_cached_raw_query.cache_clear)
+@register_tool(cache_clearers=[_cached_raw_query.cache_clear])
+async def repoquery(
+    subcmd: str,
+    spec: str,
+    channel: str,
+    platform: str = "linux-64",
+    tree: bool = False,
+    offset: int = 0,
+    limit: int = 30,
+    get_keys: str = "",
+) -> dict[str, Any]:
+    """
+    Run a conda repoquery (depends | whoneeds) for a single spec
+    and channel. Installed packages excluded. Supports pagination via offset/limit.
+    - depends/whoneeds: raw structure unpaginated; sliced pkgs list with offset/limit/total
+      when paginated
 
-    @mcp.tool
-    async def repoquery(
-        subcmd: str,
-        spec: str,
-        channel: str,
-        platform: str = "linux-64",
-        tree: bool = False,
-        offset: int = 0,
-        limit: int = 30,
-        get_keys: str = "",
-    ) -> dict[str, Any]:
-        """
-        Run a conda repoquery (depends | whoneeds) for a single spec
-        and channel. Installed packages excluded. Supports pagination via offset/limit.
-        - depends/whoneeds: raw structure unpaginated; sliced pkgs list with offset/limit/total
-          when paginated
-
-        Args:
-            subcmd (str): e.g. "depends": show dependencies of this package,
-                               "whoneeds": show packages that depend on this package.
-            channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
-            platform (str): e.g. "linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"
-            limit (int): for pagination / slicing
-            offset (int): for pagination / slicing
-            get_keys (str): Comma-separated field names to include in results.
-                           Empty string returns all fields (default).
-                           Example: "name,version,url,license" reduces context by ~60-80%.
-        """
-        try:
-            return await asyncio.to_thread(
-                _run_repoquery,
-                subcmd,
-                spec,
-                channel,
-                platform,
-                tree,
-                offset,
-                limit,
-                get_keys,
-            )
-        except Exception as e:
-            raise ToolError(f"'repoquery' failed: {e}") from e
+    Args:
+        subcmd (str): e.g. "depends": show dependencies of this package,
+                           "whoneeds": show packages that depend on this package.
+        channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
+        platform (str): e.g. "linux-64", "linux-aarch64", "osx-64", "osx-arm64", "win-64"
+        limit (int): for pagination / slicing
+        offset (int): for pagination / slicing
+        get_keys (str): Comma-separated field names to include in results.
+                       Empty string returns all fields (default).
+                       Example: "name,version,url,license" reduces context by ~60-80%.
+    """
+    try:
+        return await asyncio.to_thread(
+            _run_repoquery,
+            subcmd,
+            spec,
+            channel,
+            platform,
+            tree,
+            offset,
+            limit,
+            get_keys,
+        )
+    except Exception as e:
+        raise ToolError(f"'repoquery' failed: {e}") from e

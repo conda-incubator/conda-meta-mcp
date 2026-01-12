@@ -6,7 +6,7 @@ if TYPE_CHECKING:
     from typing import Final
 
 try:
-    from ._version import __version__  # ty: ignore[unresolved-import]
+    from ._version import __version__
 except ImportError:  # pragma: no cover
     __version__ = "0.0.0.dev0+placeholder"
 
