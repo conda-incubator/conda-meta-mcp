@@ -1,4 +1,4 @@
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+[![prek](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/j178/prek/master/docs/assets/badge-v0.json)](https://github.com/j178/prek)
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
 [![ty](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ty/main/assets/badge/v0.json)](https://github.com/astral-sh/ty)
 [![Tests](https://github.com/conda-incubator/conda-meta-mcp/actions/workflows/tests.yml/badge.svg)](https://github.com/conda-incubator/conda-meta-mcp/actions/workflows/tests.yml)
@@ -146,7 +146,7 @@ Tasks (pixi):
 
 1. Add unit tests (mock heavy deps)
 
-1. `pixi run pre-commit`
+1. `pixi run prek`
 
 1. `pixi run test`
 
