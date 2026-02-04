@@ -59,7 +59,35 @@ Enable agents to answer packaging questions by providing up-to-date critical and
 - Test + pre‑commit enforced consistency
 - Incremental expansion
 
-## 4. Quick Start
+## 4. Installation
+
+### Via pixi (recommended)
+
+Install globally as a tool:
+
+```shell
+pixi global install conda-meta-mcp
+```
+
+Or add to your project:
+
+```shell
+pixi add conda-meta-mcp
+```
+
+### Via conda/mamba
+
+```shell
+conda install -c conda-forge conda-meta-mcp
+```
+
+Or with mamba/micromamba:
+
+```shell
+mamba install -c conda-forge conda-meta-mcp
+```
+
+### From source (development)
 
 Prerequisites: [pixi](https://pixi.sh/latest/installation/)
 
@@ -68,6 +96,8 @@ git clone https://github.com/conda-incubator/conda-meta-mcp.git
 cd conda-meta-mcp
 pixi run cmm --help
 ```
+
+## 5. Quick Start
 
 The `pixi` command can be used to run the MCP locally in clients such as VSCode, Cursor, Claude Desktop, Goose and Zed:
 
@@ -90,7 +120,7 @@ The `pixi` command can be used to run the MCP locally in clients such as VSCode,
 
 Or call `pixi run cmm mcp-json`, which emits a JSON snippet with absolute paths that can be pasted into an MCP client configuration.
 
-## 5. Usage inside GitHub Copilot coding agent
+## 6. Usage inside GitHub Copilot coding agent
 
 Create a GitHub workflow named `copilot-setup-steps.yml` containing (see also [GitHub Documentation](https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/use-copilot-agents/coding-agent/customize-the-agent-environment)):
 
@@ -124,14 +154,14 @@ Add this MCP configuration inside your repository under Settings -> Copilot -> C
 }
 ```
 
-## 6. Development
+## 7. Development
 
 Tasks (pixi):
 
 - Tests: `pixi run test` (for coverage open `htmlcov/index.html`)
 - Lint / format / type / regenerate metadata: `pixi run pre-commit`
 
-## 7. Extending (New Tool)
+## 8. Extending (New Tool)
 
 1. Create `conda_meta_mcp/tools/<name>.py` with:
 
