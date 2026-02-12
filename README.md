@@ -97,28 +97,15 @@ cd conda-meta-mcp
 pixi run cmm --help
 ```
 
-## 5. Quick Start
+## 5. Agent Setup
 
-The `pixi` command can be used to run the MCP locally in clients such as VSCode, Cursor, Claude Desktop, Goose and Zed:
+### Installed as conda package
 
-```json
-{
-  "conda-meta-mcp": {
-    "command": "pixi",
-    "args": [
-      "run",
-      "--manifest-path",
-      "/path/to/pyproject.toml",
-      "cmm",
-      "run",
-      "-v"
-    ],
-    "env": {}
-  }
-}
-```
+Call `cmm mcp-json` to get an json snippet containing the command with args to add to your agent configuration.
 
-Or call `pixi run cmm mcp-json`, which emits a JSON snippet with absolute paths that can be pasted into an MCP client configuration.
+### Installed from source
+
+Call `pixi run cmm mcp-json` to get an json snippet containing the command with args to add to your agent configuration.
 
 ## 6. Usage inside GitHub Copilot coding agent
 
