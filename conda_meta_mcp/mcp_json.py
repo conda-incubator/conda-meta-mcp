@@ -1,8 +1,8 @@
 import argparse
 import json
+import os
+import sys
 from pathlib import Path
-
-from .server import SERVICE_NAME
 
 
 def setup_mcp_json(subparser: argparse._SubParsersAction):
@@ -13,11 +13,21 @@ def setup_mcp_json(subparser: argparse._SubParsersAction):
 
 
 def run_mcp_json(args):
-    pyproject_path = Path(__file__).resolve().parent.parent / "pyproject.toml"
+    manifest = os.getenv("PIXI_PROJECT_MANIFEST")
+    manifest_path = Path(manifest) if manifest else None
+    cmm_path = Path(sys.argv[0])
+    command = ""
+    args = []
+    if manifest_path and manifest_path.exists():
+        command = "pixi"
+        args = ["run", "--manifest-path", str(manifest_path), "cmm", "run"]
+    elif cmm_path and cmm_path.exists() and cmm_path.name.endswith("cmm"):
+        command = str(cmm_path)
+        args = ["run"]
     config = {
-        SERVICE_NAME: {
-            "command": "pixi",
-            "args": ["run", "--manifest-path", str(pyproject_path), "cmm", "run"],
+        "conda-meta-mcp": {
+            "command": command,
+            "args": args,
             "env": {},
         }
     }
