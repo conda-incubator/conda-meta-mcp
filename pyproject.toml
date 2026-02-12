@@ -61,7 +61,7 @@ pytest-mock = ">=3.15.1,<4"
 ty = ">=0.0.16,<0.0.17"
 
 [tool.pixi.feature.test.tasks]
-pixi-diff-to-markdown = 'pixi exec pixi diff-to-markdown'
+pixi-diff-to-markdown = 'pixi-diff-to-markdown'
 prek = 'prek run --all-files --color=always'
 test = 'python -m pytest'
 
