@@ -2541,8 +2541,8 @@ packages:
   timestamp: 1770137431666
 - pypi: ./
   name: conda-meta-mcp
-  version: 0.1.dev131+g33e28765a.d20260212
-  sha256: c4855d03f116793f4265136d4610d53c0e0384ab12114a073d3bcc7b38772c18
+  version: 0.1.dev132+g77418208a
+  sha256: 7cb6f59ffa5c31d4a053ab046305b4753d632f2831b59735988dda69e059bcf5
   requires_dist:
   - fastmcp
   requires_python: '>=3.13'
