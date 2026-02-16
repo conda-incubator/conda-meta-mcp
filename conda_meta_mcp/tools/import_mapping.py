@@ -8,43 +8,14 @@ This tool is based on (and wraps) logic from:
 from __future__ import annotations
 
 import asyncio
-import sys
 from functools import lru_cache
-from typing import TYPE_CHECKING, Any
-
-from fastmcp.exceptions import ToolError
-
-if TYPE_CHECKING:
-    from collections.abc import Callable
+from typing import Any
 
 from conda_forge_metadata.autotick_bot.import_to_pkg import (
     get_pkgs_for_import,
     map_import_to_package,
 )
-
-# Temporary windows runtime patch: normalize path separators from Windows (\\) to slash (/)
-# so URLs constructed by the upstream module won't include backslashes. This is a
-# temporary workaround until the upstream `conda-forge-metadata` package includes
-# a fix that uses posix-style paths for URL building.
-if sys.platform.startswith("win"):
-    try:
-        import conda_forge_metadata.autotick_bot.import_to_pkg as _import_to_pkg_mod
-
-        _orig_get_bot_sharded_path = getattr(_import_to_pkg_mod, "_get_bot_sharded_path", None)
-        if _orig_get_bot_sharded_path is not None:
-            orig: Callable[[str, int], str] = _orig_get_bot_sharded_path
-
-            def _patched_get_bot_sharded_path(file_path: str, n_dirs: int = 5) -> str:
-                p = orig(file_path, n_dirs)
-                # Convert any Windows backslash separators to forward slashes for URL safety.
-                if "\\" in p:
-                    p = p.replace("\\", "/")
-                return p
-
-            _import_to_pkg_mod._get_bot_sharded_path = _patched_get_bot_sharded_path
-    except Exception:  # noqa: S110
-        # Silently ignore patching failures (e.g., if module isn't available in some envs).
-        pass
+from fastmcp.exceptions import ToolError
 
 from .registry import register_tool
 
