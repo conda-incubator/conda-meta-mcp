@@ -63,7 +63,7 @@ repos:
         additional_dependencies:
           - mdformat-config==0.2.1
   - repo: https://github.com/crate-ci/typos
-    rev: v1.43.4
+    rev: v1.43.5
     hooks:
       - id: typos
   - repo: meta
