@@ -1016,7 +1016,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/tomli-2.4.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tqdm-4.67.3-pyh8f84b5b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/truststore-0.10.4-pyhcf101f3_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/ty-0.0.17-h4e94fc0_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/ty-0.0.18-h4e94fc0_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-0.20.1-pyhd0b5f5c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-0.20.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-standard-0.20.1-h058c98f_0.conda
@@ -1213,7 +1213,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/tomli-2.4.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tqdm-4.67.3-pyh8f84b5b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/truststore-0.10.4-pyhcf101f3_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ty-0.0.17-h1339683_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ty-0.0.18-h1339683_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-0.20.1-pyhd0b5f5c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-0.20.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-standard-0.20.1-h058c98f_0.conda
@@ -1397,7 +1397,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/tomli-2.4.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tqdm-4.67.3-pyh8f84b5b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/truststore-0.10.4-pyhcf101f3_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-64/ty-0.0.17-h479939e_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/ty-0.0.18-h479939e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-0.20.1-pyhd0b5f5c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-0.20.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-standard-0.20.1-h058c98f_0.conda
@@ -1572,7 +1572,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/tomli-2.4.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tqdm-4.67.3-pyh8f84b5b_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/truststore-0.10.4-pyhcf101f3_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ty-0.0.17-ha73ee7d_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/ty-0.0.18-ha73ee7d_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-0.20.1-pyhd0b5f5c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-0.20.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-standard-0.20.1-h058c98f_0.conda
@@ -1740,7 +1740,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/tomli-2.4.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/tqdm-4.67.3-pyha7b4d00_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/truststore-0.10.4-pyhcf101f3_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/win-64/ty-0.0.17-hc21aad4_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/ty-0.0.18-hc21aad4_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-0.20.1-pyhd0b5f5c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-0.20.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/typer-slim-standard-0.20.1-h058c98f_0.conda
@@ -2538,8 +2538,8 @@ packages:
   timestamp: 1770137431666
 - pypi: ./
   name: conda-meta-mcp
-  version: 0.1.dev138+gbe5196410.d20260216
-  sha256: ce3c2b04e97369937bb75cca5657ba77d2c09941442915bd9ed9740b82c2d6b9
+  version: 0.1.dev141+g4846542a4.d20260221
+  sha256: 944e5a1317a2f94cb13d6a72a6da7636b124d87b575c049d2d365c8666efb336
   requires_dist:
   - fastmcp
   requires_python: '>=3.13'
@@ -7419,10 +7419,10 @@ packages:
   - pkg:pypi/truststore?source=hash-mapping
   size: 24279
   timestamp: 1766494826559
-- conda: https://conda.anaconda.org/conda-forge/linux-64/ty-0.0.17-h4e94fc0_0.conda
+- conda: https://conda.anaconda.org/conda-forge/linux-64/ty-0.0.18-h4e94fc0_0.conda
   noarch: python
-  sha256: b32a7d2c8bb7d83ba3d9006a9fc410ce3ce15390233a7ad6f6d515d8f76fc434
-  md5: cf21ed084862165e329cb6b8a926e639
+  sha256: 362984f8c3e5e178aafce182d067b831216e871864b5cff6e9f2ad85b87df73a
+  md5: 0d4c73eb9a7387a7f2daae35a498fa53
   depends:
   - python
   - __glibc >=2.17,<3.0.a0
@@ -7434,12 +7434,12 @@ packages:
   license: MIT
   purls:
   - pkg:pypi/ty?source=compressed-mapping
-  size: 9080764
-  timestamp: 1770996192559
-- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ty-0.0.17-h1339683_0.conda
+  size: 9121788
+  timestamp: 1771658009002
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/ty-0.0.18-h1339683_0.conda
   noarch: python
-  sha256: c00281067b3fd3df615e3c4adeec8dd0cddc44034a7d50cf085eb215593c03fa
-  md5: 5f12e9219670580acb1b1fce88ac40a5
+  sha256: ee8a4f6959ddacc89a7387a73bbc5a06213abdadc8ec6135afdbc62748db799e
+  md5: 5f9f38379b1faab7b5a70da6c852217f
   depends:
   - python
   - libgcc >=14
@@ -7450,12 +7450,12 @@ packages:
   license: MIT
   purls:
   - pkg:pypi/ty?source=compressed-mapping
-  size: 8744176
-  timestamp: 1770996204365
-- conda: https://conda.anaconda.org/conda-forge/osx-64/ty-0.0.17-h479939e_0.conda
+  size: 8779183
+  timestamp: 1771658031524
+- conda: https://conda.anaconda.org/conda-forge/osx-64/ty-0.0.18-h479939e_0.conda
   noarch: python
-  sha256: 8e98bfaea8e44d47304450a21e14ffe18c80d2a5176a05431e3c561d9758cb2b
-  md5: 5c8bb10a7b34c81945abbc37e9b3ba52
+  sha256: 4fdf17b6c7d9cf6cc92f982d79d51c55050bd5811d99b52040e62b933e6e257d
+  md5: 8a8ecce747508c065e6a7c02bb6e9371
   depends:
   - python
   - __osx >=11.0
@@ -7466,12 +7466,12 @@ packages:
   license: MIT
   purls:
   - pkg:pypi/ty?source=compressed-mapping
-  size: 8768760
-  timestamp: 1770996237510
-- conda: https://conda.anaconda.org/conda-forge/osx-arm64/ty-0.0.17-ha73ee7d_0.conda
+  size: 8803679
+  timestamp: 1771658034883
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/ty-0.0.18-ha73ee7d_0.conda
   noarch: python
-  sha256: 3f192f411477e9b231407900db4ef49f8e89ac7fc05cfbc272f719ff8afa700f
-  md5: 81b8698e8ed98fa8fe428e1f8bf253d9
+  sha256: ec1723a73f3fd22b80173694230087669f77e839b4aafe09bd37ba1ce7488b8d
+  md5: 1490f271f4d2d98f1617f324898596dd
   depends:
   - python
   - __osx >=11.0
@@ -7482,12 +7482,12 @@ packages:
   license: MIT
   purls:
   - pkg:pypi/ty?source=compressed-mapping
-  size: 8207428
-  timestamp: 1770996251417
-- conda: https://conda.anaconda.org/conda-forge/win-64/ty-0.0.17-hc21aad4_0.conda
+  size: 8232904
+  timestamp: 1771658028980
+- conda: https://conda.anaconda.org/conda-forge/win-64/ty-0.0.18-hc21aad4_0.conda
   noarch: python
-  sha256: e9065733114238c154a2abcdb14ceedd5b4a6ac03770d0bc5c15e1543fe35a0b
-  md5: 11f027e1f0b83c19ef051cd0e4dabd46
+  sha256: e00b3b4e30ad370f17e94033ac8e92a6454950fcf45756ba4ec669f4c56bdd7d
+  md5: 6a493e4fbf1922bf026253def918a31f
   depends:
   - python
   - vc >=14.3,<15
@@ -7498,8 +7498,8 @@ packages:
   license: MIT
   purls:
   - pkg:pypi/ty?source=compressed-mapping
-  size: 9063124
-  timestamp: 1770996238041
+  size: 9135555
+  timestamp: 1771658053750
 - conda: https://conda.anaconda.org/conda-forge/noarch/typer-0.20.1-pyhd0b5f5c_0.conda
   sha256: 478396f445c0387addb75d5fe0ce85910c8d2fec4cec4b1c1ab85c50c5b1b64e
   md5: 44582b13b4e5cfe2e4afe91e8f39fc48
