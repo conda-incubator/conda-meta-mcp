@@ -7,19 +7,17 @@ def test_setup_server__called__tools_registered(monkeypatch):
     tools = []
 
     class FakeFastMCP:
-        def __init__(self, name, log_level=None):
+        def __init__(self, name):
             self.name = name
-            self.log_level = log_level
 
         def tool(self, func, name=None):
             tools.append(name or func.__name__)
             return func
 
     monkeypatch.setattr(server, "FastMCP", FakeFastMCP)
-    m = server.setup_server(log_level="INFO")
+    m = server.setup_server()
 
     assert m.name == server.SERVICE_NAME
-    assert m.log_level == "INFO"  # type: ignore[attr-defined]
     assert "info" in tools
 
 
@@ -30,11 +28,13 @@ def test_run_cmd(monkeypatch):
         def run(self, **kw):
             calls["kw"] = kw
 
-    def fake_setup_server(log_level=None):
-        calls["level"] = log_level
+    def fake_setup_server():
+        calls["setup_called"] = True
         return Dummy()
 
     monkeypatch.setattr(server, "setup_server", fake_setup_server)
+    monkeypatch.delenv("FASTMCP_LOG_LEVEL", raising=False)
     server.run_cmd(types.SimpleNamespace(verbose=True))
-    assert calls["level"] == "DEBUG"
+    assert calls["setup_called"]
+    assert server.os.environ["FASTMCP_LOG_LEVEL"] == "DEBUG"
     assert calls["kw"] == {"transport": "stdio", "show_banner": False}

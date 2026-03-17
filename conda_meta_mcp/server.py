@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import asyncio
 import contextlib
+import os
 import sys
 from typing import TYPE_CHECKING
 
@@ -23,17 +24,18 @@ def setup_run(subparser: argparse._SubParsersAction):
 
 def run_cmd(args):
     log_level = "DEBUG" if args.verbose else "INFO"
-    mcp = setup_server(log_level=log_level)
+    os.environ["FASTMCP_LOG_LEVEL"] = log_level
+    mcp = setup_server()
     mcp.run(transport="stdio", show_banner=False)
 
 
-def setup_server(log_level: str | None = None) -> FastMCP:
+def setup_server() -> FastMCP:
     from conda_meta_mcp.tools import discover_tools
     from conda_meta_mcp.tools.cache_utils import clear_external_library_caches
 
     global _periodic_cleanup_task
 
-    instance = FastMCP(name=SERVICE_NAME, log_level=log_level)
+    instance = FastMCP(name=SERVICE_NAME)
 
     for tool_fn in discover_tools():
         default_name = getattr(tool_fn, "__name__", "unknown")

@@ -4,6 +4,10 @@ from fastmcp.exceptions import ToolError
 
 
 @pytest.mark.asyncio
+@pytest.mark.xfail(
+    reason="Temporarily allow failure: depends on external cforge.quansight.dev API availability",
+    strict=False,
+)
 async def test_file_path_search__success(server):
     async with Client(server) as client:
         result = await client.call_tool(
@@ -30,6 +34,10 @@ async def test_file_path_search__success(server):
 
 
 @pytest.mark.asyncio
+@pytest.mark.xfail(
+    reason="Temporarily allow failure: depends on external cforge.quansight.dev API availability",
+    strict=False,
+)
 async def test_file_path_search__pagination(server):
     async with Client(server) as client:
         r0 = await client.call_tool(
