@@ -44,7 +44,8 @@ def register_tool(
     from .cache_utils import register_external_cache_clearer
 
     def _decorate(f: Callable[..., Any]) -> Callable[..., Any]:
-        f.__mcp_tool_name__ = name or f.__name__  # type: ignore[attr-defined]
+        tool_name = name or getattr(f, "__name__", f.__class__.__name__)
+        setattr(f, "__mcp_tool_name__", tool_name)
         AVAILABLE_TOOLS.append(f)
 
         if cache_clearers:
