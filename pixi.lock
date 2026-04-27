@@ -2691,10 +2691,19 @@ packages:
   timestamp: 1770137431666
 - pypi: ./
   name: conda-meta-mcp
-  version: 0.1.1.dev14+g508700c14.d20260427
-  sha256: 4d03665519838a3e557aa6bbd565fc7a943762d379b7fea05bc1c3fc49da0d51
+  version: 0.1.1.dev15+geefb37d6c.d20260427
+  sha256: b19137442cb084f9fc218bbacf7ea44a5a059d7003589d8558a2ae96bad81f24
   requires_dist:
-  - fastmcp
+  - argparse-manpage>=4.7,<5
+  - conda-libmamba-solver
+  - conda-package-streaming>=0.12.0,<0.13
+  - conda>=26.1,<27
+  - fastmcp>=3.1.0
+  - pydantic>=2
+  - pyyaml>=6.0.3,<7
+  - requests>=2
+  - pydantic-monty ; extra == 'code-mode'
+  - conda-forge-metadata>=0.13,<0.14 ; extra == 'conda-forge-metadata'
   requires_python: '>=3.13'
 - conda: https://conda.anaconda.org/conda-forge/noarch/conda-oci-mirror-0.2.3-pyhd8ed1ab_0.conda
   sha256: 64e9684a38d97cc8eb7779c14d857452efe99b47e0fcc61b7b6924fa771489a2

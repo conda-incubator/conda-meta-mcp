@@ -4,6 +4,8 @@ import pytest
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
+from conda_meta_mcp.tools import import_mapping as import_mapping_module
+
 # Heuristic labels the tool may legitimately emit. Keeping a central set makes the
 # success test resilient to minor internal mapping changes upstream.
 VALID_HEURISTICS = {
@@ -63,6 +65,18 @@ async def test_import_mapping__error_on_empty_input(server):
             )
         # Sanity check on error message clarity
         assert "invalid input" in str(exc.value).lower()
+
+
+@pytest.mark.asyncio
+async def test_import_mapping__disabled_when_dependency_missing(monkeypatch):
+    import_mapping_module._map_import.cache_clear()
+    monkeypatch.setattr(import_mapping_module, "get_pkgs_for_import", None)
+
+    with pytest.raises(ToolError) as exc:
+        await import_mapping_module.import_mapping("numpy")
+
+    assert str(exc.value) == "Disabled, enable via installing the package conda-forge-metadata"
+    import_mapping_module._map_import.cache_clear()
 
 
 @pytest.mark.asyncio
