@@ -51,9 +51,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/fmt-12.1.0-hff5e90c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/frozendict-2.4.7-py314h5bd0f2a_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -69,6 +70,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jeepney-0.9.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -131,7 +133,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-core-2.41.5-py314h2e6c369_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-monty-0.0.9-py314h2e6c369_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-monty-0.0.11-py314h2e6c369_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -236,9 +238,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/fmt-12.1.0-h20c602a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/frozendict-2.4.7-py314h51f160d_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -254,6 +257,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jeepney-0.9.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -316,7 +320,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-core-2.41.5-py314h451b6cc_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-monty-0.0.9-py314h451b6cc_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-monty-0.0.11-py314h451b6cc_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -419,9 +423,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/fmt-12.1.0-hda137b5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/frozendict-2.4.7-py314h6482030_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -436,6 +441,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.4.0-pyhcf101f3_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -488,7 +494,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-core-2.41.5-py314ha7b6dee_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-monty-0.0.9-py314h8916c15_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-monty-0.0.11-py314h8916c15_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -582,9 +588,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/fmt-12.1.0-h403dcb5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/frozendict-2.4.7-py314h0612a62_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -599,6 +606,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.4.0-pyhcf101f3_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -651,7 +659,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-core-2.41.5-py314haad56a0_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-monty-0.0.9-py314h54f3292_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-monty-0.0.11-py314h54f3292_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -745,9 +753,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/fmt-12.1.0-h7f4e812_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/frozendict-2.4.7-py314h5a2d7ad_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -761,6 +770,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.4.0-pyhcf101f3_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -808,7 +818,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-core-2.41.5-py314h9f07db2_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-monty-0.0.9-py314h9f07db2_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-monty-0.0.11-py314h9f07db2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -920,9 +930,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/fmt-12.1.0-hff5e90c_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/frozendict-2.4.7-py314h5bd0f2a_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -939,6 +950,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jeepney-0.9.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -1006,7 +1018,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-core-2.41.5-py314h2e6c369_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-monty-0.0.9-py314h2e6c369_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-monty-0.0.11-py314h2e6c369_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -1123,9 +1135,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/fmt-12.1.0-h20c602a_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/frozendict-2.4.7-py314h51f160d_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -1142,6 +1155,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jeepney-0.9.0-pyhd8ed1ab_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -1209,7 +1223,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-core-2.41.5-py314h451b6cc_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-monty-0.0.9-py314h451b6cc_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-monty-0.0.11-py314h451b6cc_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -1324,9 +1338,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/fmt-12.1.0-hda137b5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/frozendict-2.4.7-py314h6482030_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -1342,6 +1357,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.4.0-pyhcf101f3_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -1399,7 +1415,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-core-2.41.5-py314ha7b6dee_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-monty-0.0.9-py314h8916c15_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-monty-0.0.11-py314h8916c15_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -1505,9 +1521,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/fmt-12.1.0-h403dcb5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/frozendict-2.4.7-py314h0612a62_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -1523,6 +1540,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.4.0-pyhcf101f3_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -1580,7 +1598,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-core-2.41.5-py314haad56a0_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-monty-0.0.9-py314h54f3292_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-monty-0.0.11-py314h54f3292_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -1685,9 +1703,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docutils-0.22.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/fmt-12.1.0-h7f4e812_0.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/frozendict-2.4.7-py314h5a2d7ad_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.3.0-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/hpack-4.1.0-pyhd8ed1ab_0.conda
@@ -1702,6 +1721,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.classes-3.4.0-pyhcf101f3_3.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.context-6.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jaraco.functools-4.4.0-pyhcf101f3_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpointer-3.1.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/jsonref-1.1.0-pyhd8ed1ab_0.conda
@@ -1754,7 +1774,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/pycparser-2.22-pyh29332c3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-2.12.5-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-core-2.41.5-py314h9f07db2_1.conda
-      - conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-monty-0.0.9-py314h9f07db2_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-monty-0.0.11-py314h9f07db2_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pygments-2.20.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/pyjwt-2.12.1-pyhcf101f3_0.conda
@@ -2671,8 +2691,8 @@ packages:
   timestamp: 1770137431666
 - pypi: ./
   name: conda-meta-mcp
-  version: 0.1.1.dev9+g603923360.d20260421
-  sha256: 4453b7dfc3f356ab015e39c606971374f8842f4ed4aa0e9837fcae1aeefd37a3
+  version: 0.1.1.dev14+g508700c14.d20260427
+  sha256: 4d03665519838a3e557aa6bbd565fc7a943762d379b7fea05bc1c3fc49da0d51
   requires_dist:
   - fastmcp
   requires_python: '>=3.13'
@@ -3080,26 +3100,28 @@ packages:
   - pkg:pypi/exceptiongroup?source=hash-mapping
   size: 21333
   timestamp: 1763918099466
-- conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.1.0-pyhc364b38_1.conda
-  sha256: 547fe4a1df30d1c84ca89fb35220b72a202b2c26da3b80541cf857f100c2ecb9
-  md5: 93fa60b21a0d4ad360cc4abf4a7407bd
+- conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-3.2.4-pyhcf101f3_0.conda
+  sha256: bff23ba99f856ca043a41197b0a45e19eebc8e81dc7eaf13355aece405e4cd47
+  md5: b1737d3853dc66efbcf87f0532e17a1a
   depends:
   - python >=3.10,<4
-  - python-dotenv >=1.1.0
+  - authlib >=1.6.5
+  - cyclopts >=4.0.0
   - exceptiongroup >=1.2.2
+  - griffelib >=2.0.0
   - httpx >=0.28.1,<1.0
+  - joserfc
   - mcp >=1.24.0,<2.0
   - openapi-pydantic >=0.5.1
   - opentelemetry-api >=1.20.0
   - packaging >=24.0
   - platformdirs >=4.0.0
   - rich >=13.9.4
-  - cyclopts >=4.0.0
-  - authlib >=1.6.5
   - pydantic >=2.11.7
   - email-validator >=2.0.0
   - pyyaml >=6.0,<7.0
   - pyperclip >=1.9.0
+  - python-dotenv >=1.1.0
   - py-key-value-aio >=0.4.4,<0.5.0
   - aiofile >=3.5.0
   - anyio >=4.4.0
@@ -3114,15 +3136,19 @@ packages:
   - python
   constrains:
   - openai >=1.102.0
-  - anthropic >=0.40.0
+  - anthropic >=0.48.0
   - azure-identity >=1.16.0
-  - pydocket >=0.17.2
+  - google-genai >=1.18.0
+  - prefab-ui >=0.18.0
+  - pydocket >=0.19.0
+  - pydantic-monty ==0.0.11
+  - pyjwt >=2.12.0
   license: Apache-2.0
   license_family: APACHE
   purls:
   - pkg:pypi/fastmcp?source=hash-mapping
-  size: 425957
-  timestamp: 1774160258653
+  size: 489355
+  timestamp: 1777150707941
 - conda: https://conda.anaconda.org/conda-forge/linux-64/fmt-12.1.0-hff5e90c_0.conda
   sha256: d4e92ba7a7b4965341dc0fca57ec72d01d111b53c12d11396473115585a9ead6
   md5: f7d7a4104082b39e3b3473fbd4a38229
@@ -3250,6 +3276,17 @@ packages:
   - pkg:pypi/frozendict?source=hash-mapping
   size: 32072
   timestamp: 1763082973024
+- conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.0.2-pyhcf101f3_0.conda
+  sha256: f4d0fe5835a6d1e3e828320a1df2117c96a769c788429d78a75ddcafda3cec67
+  md5: f7b9e67b788f78c6facf79b3e12b1e13
+  depends:
+  - python >=3.10
+  - python
+  license: ISC
+  purls:
+  - pkg:pypi/griffelib?source=hash-mapping
+  size: 117111
+  timestamp: 1774621473366
 - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
   sha256: 96cac6573fd35ae151f4d6979bab6fbc90cb6b1fb99054ba19eb075da9822fcb
   md5: b8993c19b0c32a2f7b66cbb58ca27069
@@ -3485,6 +3522,18 @@ packages:
   - pkg:pypi/jeepney?source=hash-mapping
   size: 40015
   timestamp: 1740828380668
+- conda: https://conda.anaconda.org/conda-forge/noarch/joserfc-1.6.4-pyhd8ed1ab_0.conda
+  sha256: 44f7004883c0d1cc23db4b761f4df6e9d622283b7505f388664ee0b6a6055bde
+  md5: cc57e57da8f8ee25df8489888d875dc3
+  depends:
+  - cryptography >=45.0.1
+  - python >=3.10
+  license: BSD-3-Clause
+  license_family: BSD
+  purls:
+  - pkg:pypi/joserfc?source=hash-mapping
+  size: 53367
+  timestamp: 1776105147063
 - conda: https://conda.anaconda.org/conda-forge/noarch/jsonpatch-1.33-pyhd8ed1ab_1.conda
   sha256: 304955757d1fedbe344af43b12b5467cca072f83cce6109361ba942e186b3993
   md5: cb60ae9cf02b9fcb8004dec4089e5691
@@ -6266,13 +6315,14 @@ packages:
   - pkg:pypi/pydantic-core?source=hash-mapping
   size: 1971476
   timestamp: 1762989023313
-- conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-monty-0.0.9-py314h2e6c369_0.conda
-  sha256: a40ec23fa296212f0683d22fac465932aaedaba1c69438c4c180f0ccc7cd56fc
-  md5: 56242392072ae6a0f754a34bdae61be4
+- conda: https://conda.anaconda.org/conda-forge/linux-64/pydantic-monty-0.0.11-py314h2e6c369_0.conda
+  sha256: eed44c503489d111a84342290b32cd5fa7f7ac6c1e10223b3e1a52b165e35bd9
+  md5: 4688059d51810b2d7bb1495bca66fb77
   depends:
   - python
+  - typing_extensions >=4.5
+  - libgcc >=14
   - __glibc >=2.17,<3.0.a0
-  - libgcc >=14
   - python_abi 3.14.* *_cp314
   constrains:
   - __glibc >=2.17
@@ -6280,15 +6330,16 @@ packages:
   license_family: MIT
   purls:
   - pkg:pypi/pydantic-monty?source=hash-mapping
-  size: 5848323
-  timestamp: 1774719737374
-- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-monty-0.0.9-py314h451b6cc_0.conda
-  sha256: 4734719c4ab2ed5ecc1b7b645b1dfb02d44755de324f096194c4a60a28e1fea5
-  md5: 4c13da262a2b2a0c2286ad513bdfbe81
+  size: 6125634
+  timestamp: 1775819121759
+- conda: https://conda.anaconda.org/conda-forge/linux-aarch64/pydantic-monty-0.0.11-py314h451b6cc_0.conda
+  sha256: 58141a09dc9b8e8d375eef61df1304e0530523b577971230b5b75506238806d8
+  md5: 4819e0dbeee63772a5abf115dffd34e1
   depends:
   - python
+  - typing_extensions >=4.5
+  - libgcc >=14
   - python 3.14.* *_cp314
-  - libgcc >=14
   - python_abi 3.14.* *_cp314
   constrains:
   - __glibc >=2.17
@@ -6296,13 +6347,14 @@ packages:
   license_family: MIT
   purls:
   - pkg:pypi/pydantic-monty?source=hash-mapping
-  size: 5583878
-  timestamp: 1774719748311
-- conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-monty-0.0.9-py314h8916c15_0.conda
-  sha256: b5e75ab0f9bf3a92a852b02a0e0b6129e930cf53684fb66feb014a1de96a8f39
-  md5: 3c832e875257fb83f355dce593e93b75
+  size: 5840412
+  timestamp: 1775819131652
+- conda: https://conda.anaconda.org/conda-forge/osx-64/pydantic-monty-0.0.11-py314h8916c15_0.conda
+  sha256: 4b71aa3113f9fff25798a3c532eaa0c148314156d1ffc22cc2ad1bd8fef71fa0
+  md5: a98aeb723185ae6895f7ee2cb6521ced
   depends:
   - python
+  - typing_extensions >=4.5
   - __osx >=11.0
   - python_abi 3.14.* *_cp314
   constrains:
@@ -6311,13 +6363,14 @@ packages:
   license_family: MIT
   purls:
   - pkg:pypi/pydantic-monty?source=hash-mapping
-  size: 5780461
-  timestamp: 1774719911889
-- conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-monty-0.0.9-py314h54f3292_0.conda
-  sha256: 7434351cbe57d3025e66767e9cde0d9e8b4b5470925166cb66debf711c736986
-  md5: 8a73c79ac27dddbd3eebdb402f0d6204
+  size: 6060018
+  timestamp: 1775819470926
+- conda: https://conda.anaconda.org/conda-forge/osx-arm64/pydantic-monty-0.0.11-py314h54f3292_0.conda
+  sha256: b57eeb54ac8ce84227f043dfdebc04b7e33f62ad361af8b25ee90cf317fca646
+  md5: e39ac2792f4c685f07c662ad639bf666
   depends:
   - python
+  - typing_extensions >=4.5
   - python 3.14.* *_cp314
   - __osx >=11.0
   - python_abi 3.14.* *_cp314
@@ -6327,13 +6380,14 @@ packages:
   license_family: MIT
   purls:
   - pkg:pypi/pydantic-monty?source=hash-mapping
-  size: 5378298
-  timestamp: 1774719901179
-- conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-monty-0.0.9-py314h9f07db2_0.conda
-  sha256: d0387eb0b38b73db71a7684f7315304a9a6e1e9a79b11067b2734ee364e0d95e
-  md5: 56a9a7beffd95f633996815192bfe17c
+  size: 5632003
+  timestamp: 1775819374194
+- conda: https://conda.anaconda.org/conda-forge/win-64/pydantic-monty-0.0.11-py314h9f07db2_0.conda
+  sha256: c5cb9456fc65513febfd08edca09660b667bebaa20141c1b840dde4b654da779
+  md5: bda169e3c338f07778ad5c3713008433
   depends:
   - python
+  - typing_extensions >=4.5
   - vc >=14.3,<15
   - vc14_runtime >=14.44.35208
   - ucrt >=10.0.20348.0
@@ -6342,8 +6396,8 @@ packages:
   license_family: MIT
   purls:
   - pkg:pypi/pydantic-monty?source=hash-mapping
-  size: 6018057
-  timestamp: 1774719789886
+  size: 6380038
+  timestamp: 1775819182514
 - conda: https://conda.anaconda.org/conda-forge/noarch/pydantic-settings-2.13.1-pyhd8ed1ab_0.conda
   sha256: 343988d65c08477a87268d4fbeba59d0295514143965d2755ac4519b73155479
   md5: cc0da73801948100ae97383b8da12993
