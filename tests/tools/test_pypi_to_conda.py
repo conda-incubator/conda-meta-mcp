@@ -4,6 +4,8 @@ import pytest
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
+from conda_meta_mcp.tools import pypi_to_conda as pypi_to_conda_module
+
 
 @pytest.mark.asyncio
 @pytest.mark.parametrize(
@@ -47,3 +49,15 @@ async def test_pypi_to_conda__error_empty_input(server):
     async with Client(server) as client:
         with pytest.raises(ToolError):
             await client.call_tool("pypi_to_conda", {"pypi_name": ""})
+
+
+@pytest.mark.asyncio
+async def test_pypi_to_conda__disabled_when_dependency_missing(monkeypatch):
+    pypi_to_conda_module._map_pypi_name.cache_clear()
+    monkeypatch.setattr(pypi_to_conda_module, "map_pypi_to_conda", None)
+
+    with pytest.raises(ToolError) as exc:
+        await pypi_to_conda_module.pypi_to_conda("authzed")
+
+    assert str(exc.value) == "Disabled, enable via installing the package conda-forge-metadata"
+    pypi_to_conda_module._map_pypi_name.cache_clear()

@@ -8,16 +8,34 @@ This tool is based on (and wraps) logic from:
 from __future__ import annotations
 
 import asyncio
+from collections.abc import Callable
 from functools import lru_cache
 from typing import Any
 
-from conda_forge_metadata.autotick_bot.import_to_pkg import (
-    get_pkgs_for_import,
-    map_import_to_package,
-)
 from fastmcp.exceptions import ToolError
 
 from .registry import register_tool
+
+DISABLED_MESSAGE = "Disabled, enable via installing the package conda-forge-metadata"
+
+GetPkgsForImport = Callable[[str], tuple[set[str] | None, str]]
+MapImportToPackage = Callable[[str], str]
+get_pkgs_for_import: GetPkgsForImport | None
+map_import_to_package: MapImportToPackage | None
+
+try:
+    from conda_forge_metadata.autotick_bot.import_to_pkg import (
+        get_pkgs_for_import as _get_pkgs_for_import,
+    )
+    from conda_forge_metadata.autotick_bot.import_to_pkg import (
+        map_import_to_package as _map_import_to_package,
+    )
+except ImportError:
+    get_pkgs_for_import = None
+    map_import_to_package = None
+else:
+    get_pkgs_for_import = _get_pkgs_for_import
+    map_import_to_package = _map_import_to_package
 
 
 @lru_cache(maxsize=1024)
@@ -28,6 +46,8 @@ def _map_import(import_name: str, get_keys: str = "") -> dict[str, Any]:
     """
     if not import_name or not import_name.strip():
         raise ValueError("import_name must be a non-empty string")
+    if get_pkgs_for_import is None or map_import_to_package is None:
+        raise ToolError(DISABLED_MESSAGE)
 
     query = import_name.strip()
 
@@ -105,6 +125,8 @@ async def import_mapping(import_name: str, get_keys: str = "") -> dict[str, Any]
     """
     try:
         return await asyncio.to_thread(_map_import, import_name, get_keys)
+    except ToolError:
+        raise
     except ValueError as ve:
         raise ToolError(f"'import_mapping' invalid input: {ve}") from ve
     except Exception as e:  # pragma: no cover - generic protection

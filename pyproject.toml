@@ -11,7 +11,14 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "fastmcp",
+  "argparse-manpage>=4.7,<5",
+  "conda>=26.1,<27",
+  "conda-libmamba-solver",
+  "conda-package-streaming>=0.12.0,<0.13",
+  "fastmcp>=3.1.0",
+  "pydantic>=2",
+  "pyyaml>=6.0.3,<7",
+  "requests>=2",
 ]
 description = "A Model Context Protocol server providing conda eco system context"
 dynamic = ["version"]
@@ -19,6 +26,10 @@ keywords = ["conda", "mcp", "llm", "automation"]
 name = "conda-meta-mcp"
 readme = "README.md"
 requires-python = ">=3.13"
+
+[project.optional-dependencies]
+code-mode = ["pydantic-monty"]
+conda-forge-metadata = ["conda-forge-metadata>=0.13,<0.14"]
 
 [project.scripts]
 cmm = "conda_meta_mcp.cli:main"
@@ -39,11 +50,13 @@ source = "vcs"
 argparse-manpage = ">=4.7,<5"
 conda = ">=26.1,<27"
 conda-forge-metadata = ">=0.13,<0.14"
+conda-libmamba-solver = "*"
 conda-package-streaming = ">=0.12.0,<0.13"
-fastmcp = ">=3.2.4,<3.3.0"
+fastmcp = ">=3.1.0,<3.3.0"
 libmambapy = ">=2.4.0,<3"
 pydantic-monty = "*"
 pyyaml = ">=6.0.3,<7"
+requests = ">=2,<3"
 
 [tool.pixi.environments]
 dev = ["test"]
@@ -67,7 +80,7 @@ prek = 'prek run --all-files --color=always'
 test = 'python -m pytest'
 
 [tool.pixi.pypi-dependencies]
-conda-meta-mcp = {path = ".", editable = true}
+conda-meta-mcp = {path = ".", editable = true, extras = ["code-mode", "conda-forge-metadata"]}
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
