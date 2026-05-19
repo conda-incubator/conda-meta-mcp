@@ -24,7 +24,7 @@ def _file_path_search_raw(path):
 
     try:
         r = requests.get(
-            "https://cforge.quansight.dev/path_to_artifacts/find_artifacts.json",
+            "https://conda-db.openteams.ai/path_to_artifacts/find_artifacts.json",
             params={"path": query},
             timeout=10,
         )
