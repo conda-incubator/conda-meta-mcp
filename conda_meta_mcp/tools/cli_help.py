@@ -9,16 +9,30 @@ from __future__ import annotations
 import asyncio
 import re
 from functools import cache
+from typing import Any
 
 from fastmcp.exceptions import ToolError
 
 from .registry import register_tool
 
+DISABLED_MESSAGE = "Disabled, enable via installing the package argparse-manpage"
+
+Manpage: Any | None
+
+try:
+    from argparse_manpage.manpage import Manpage as _Manpage
+except ImportError:
+    Manpage = None
+else:
+    Manpage = _Manpage
+
 
 @cache
 def _get_conda_help() -> str:
-    from argparse_manpage.manpage import Manpage
     from conda.cli.conda_argparse import generate_parser
+
+    if Manpage is None:
+        raise ToolError(DISABLED_MESSAGE)
 
     return str(Manpage(generate_parser(add_help=True, prog="conda")))
 
@@ -66,6 +80,8 @@ async def cli_help(tool: str = "conda", limit: int = 0, offset: int = 0, grep: s
     """
     try:
         return await asyncio.to_thread(_cli_help, tool, limit, offset, grep)
+    except ToolError:
+        raise
     except ValueError as ve:
         raise ToolError(f"[validation_error] Invalid input: {ve}") from ve
     except Exception as e:

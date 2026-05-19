@@ -8730,7 +8730,6 @@ packages:
 - pypi: .
   name: conda-meta-mcp
   requires_dist:
-  - argparse-manpage>=4.7,<5
   - conda-libmamba-solver
   - conda-package-streaming>=0.12.0,<0.13
   - conda>=26.1,<27
@@ -8738,6 +8737,7 @@ packages:
   - pydantic>=2
   - pyyaml>=6.0.3,<7
   - requests>=2
+  - argparse-manpage>=4.7,<5 ; extra == 'argparse-manpage'
   - pydantic-monty ; extra == 'code-mode'
   - conda-forge-metadata>=0.13,<0.14 ; extra == 'conda-forge-metadata'
   requires_python: '>=3.13'

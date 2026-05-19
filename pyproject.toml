@@ -11,7 +11,6 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "argparse-manpage>=4.7,<5",
   "conda>=26.1,<27",
   "conda-libmamba-solver",
   "conda-package-streaming>=0.12.0,<0.13",
@@ -28,6 +27,7 @@ readme = "README.md"
 requires-python = ">=3.13"
 
 [project.optional-dependencies]
+argparse-manpage = ["argparse-manpage>=4.7,<5"]
 code-mode = ["pydantic-monty"]
 conda-forge-metadata = ["conda-forge-metadata>=0.13,<0.14"]
 
@@ -80,7 +80,7 @@ prek = 'prek run --all-files --color=always'
 test = 'python -m pytest'
 
 [tool.pixi.pypi-dependencies]
-conda-meta-mcp = {path = ".", editable = true, extras = ["code-mode", "conda-forge-metadata"]}
+conda-meta-mcp = {path = ".", editable = true, extras = ["argparse-manpage", "code-mode", "conda-forge-metadata"]}
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
