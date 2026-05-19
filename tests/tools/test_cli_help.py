@@ -4,6 +4,8 @@ import pytest
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
+from conda_meta_mcp.tools import cli_help as cli_help_module
+
 
 @pytest.mark.asyncio
 async def test_cli_help__success(server):
@@ -18,6 +20,18 @@ async def test_cli_help__unknown_tool_error(server):
     with pytest.raises(ToolError):
         async with Client(server) as client:
             await client.call_tool("cli_help", {"tool": "unknown_tool_xyz"})
+
+
+@pytest.mark.asyncio
+async def test_cli_help__disabled_when_dependency_missing(monkeypatch):
+    cli_help_module._get_conda_help.cache_clear()
+    monkeypatch.setattr(cli_help_module, "Manpage", None)
+
+    with pytest.raises(ToolError) as exc:
+        await cli_help_module.cli_help()
+
+    assert str(exc.value) == "Disabled, enable via installing the package argparse-manpage"
+    cli_help_module._get_conda_help.cache_clear()
 
 
 @pytest.mark.asyncio
