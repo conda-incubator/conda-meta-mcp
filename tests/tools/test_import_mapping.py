@@ -30,6 +30,7 @@ async def test_import_mapping__success_basic(server):
             "import_mapping",
             {
                 "import_name": "numpy.linalg",
+                "channel": "conda-forge",
             },
         )
         data = result.data
@@ -61,6 +62,7 @@ async def test_import_mapping__error_on_empty_input(server):
                 "import_mapping",
                 {
                     "import_name": "",
+                    "channel": "conda-forge",
                 },
             )
         # Sanity check on error message clarity
@@ -73,9 +75,23 @@ async def test_import_mapping__disabled_when_dependency_missing(monkeypatch):
     monkeypatch.setattr(import_mapping_module, "get_pkgs_for_import", None)
 
     with pytest.raises(ToolError) as exc:
-        await import_mapping_module.import_mapping("numpy")
+        await import_mapping_module.import_mapping("numpy", "conda-forge")
 
     assert str(exc.value) == "Disabled, enable via installing the package conda-forge-metadata"
+    import_mapping_module._map_import.cache_clear()
+
+
+@pytest.mark.asyncio
+async def test_import_mapping__unsupported_channel_before_dependency_missing(monkeypatch):
+    import_mapping_module._map_import.cache_clear()
+    monkeypatch.setattr(import_mapping_module, "get_pkgs_for_import", None)
+
+    with pytest.raises(ToolError) as exc:
+        await import_mapping_module.import_mapping("numpy", "defaults")
+
+    message = str(exc.value)
+    assert "No data available for channel 'defaults'" in message
+    assert "Try a different channel" in message
     import_mapping_module._map_import.cache_clear()
 
 
@@ -87,6 +103,7 @@ async def test_import_mapping__get_keys_empty_returns_all(server):
             "import_mapping",
             {
                 "import_name": "numpy",
+                "channel": "conda-forge",
                 "get_keys": "",  # Empty = all fields
             },
         )
@@ -110,6 +127,7 @@ async def test_import_mapping__get_keys_filters_result(server):
             "import_mapping",
             {
                 "import_name": "numpy",
+                "channel": "conda-forge",
                 "get_keys": "best_package,heuristic",  # Only these 2 fields
             },
         )

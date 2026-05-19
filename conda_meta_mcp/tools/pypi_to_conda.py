@@ -14,6 +14,7 @@ from typing import Any
 
 from fastmcp.exceptions import ToolError
 
+from ._channels import require_conda_forge_channel
 from .registry import register_tool
 
 DISABLED_MESSAGE = "Disabled, enable via installing the package conda-forge-metadata"
@@ -32,13 +33,14 @@ else:
 
 
 @lru_cache(maxsize=4096)
-def _map_pypi_name(pypi_name: str) -> dict[str, Any]:
+def _map_pypi_name(pypi_name: str, channel: str) -> dict[str, Any]:
     """Map PyPI name to conda name.
 
     Returns dict with structure matching PyPiToCondaResult TypedDict.
     """
     if not pypi_name or not pypi_name.strip():
         raise ValueError("pypi_name must be a non-empty string")
+    require_conda_forge_channel(channel)
     if map_pypi_to_conda is None:
         raise ToolError(DISABLED_MESSAGE)
 
@@ -53,7 +55,7 @@ def _map_pypi_name(pypi_name: str) -> dict[str, Any]:
 
 
 @register_tool(cache_clearers=[_map_pypi_name.cache_clear])
-async def pypi_to_conda(pypi_name: str) -> dict[str, Any]:
+async def pypi_to_conda(pypi_name: str, channel: str) -> dict[str, Any]:
     """
     Map a (case-sensitive) PyPI distribution name to the most likely conda package name.
 
@@ -64,9 +66,14 @@ async def pypi_to_conda(pypi_name: str) -> dict[str, Any]:
         - changed: conda_name != pypi_name.lower()
 
     'changed' is True only when the resolved conda name differs from simple lowercase.
+
+    Args:
+      pypi_name: PyPI distribution name.
+      channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
     """
     try:
-        return await asyncio.to_thread(_map_pypi_name, pypi_name)
+        channel = require_conda_forge_channel(channel)
+        return await asyncio.to_thread(_map_pypi_name, pypi_name, channel)
     except ToolError:
         raise
     except ValueError as ve:

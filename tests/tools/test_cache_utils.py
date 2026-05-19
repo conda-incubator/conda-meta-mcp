@@ -49,6 +49,7 @@ async def _hammer_tools(client: Any, iterations: int = 2) -> None:
             "pypi_to_conda",
             {
                 "pypi_name": "numpy",
+                "channel": "conda-forge",
             },
         )
 
