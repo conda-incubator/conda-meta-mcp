@@ -10,6 +10,7 @@ async def test_file_path_search__success(server):
             "file_path_search",
             {
                 "path": "bin/fzf",
+                "channel": "conda-forge",
                 "limit": 3,
                 "offset": 0,
             },
@@ -36,6 +37,7 @@ async def test_file_path_search__pagination(server):
             "file_path_search",
             {
                 "path": "bin/fzf",
+                "channel": "conda-forge",
                 "limit": 1,
                 "offset": 0,
             },
@@ -44,6 +46,7 @@ async def test_file_path_search__pagination(server):
             "file_path_search",
             {
                 "path": "bin/fzf",
+                "channel": "conda-forge",
                 "limit": 1,
                 "offset": 1,
             },
@@ -72,6 +75,23 @@ async def test_file_path_search__error_on_empty_input(server):
                 "file_path_search",
                 {
                     "path": "",
+                    "channel": "conda-forge",
                 },
             )
         assert "invalid input" in str(exc.value).lower()
+
+
+@pytest.mark.asyncio
+async def test_file_path_search__unsupported_channel(server):
+    async with Client(server) as client:
+        with pytest.raises(ToolError) as exc:
+            await client.call_tool(
+                "file_path_search",
+                {
+                    "path": "bin/fzf",
+                    "channel": "defaults",
+                },
+            )
+        message = str(exc.value)
+        assert "No data available for channel 'defaults'" in message
+        assert "Try a different channel" in message

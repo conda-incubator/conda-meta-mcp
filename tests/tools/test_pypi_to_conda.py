@@ -28,7 +28,9 @@ async def test_pypi_to_conda__success_parametrized(
       * `changed` flag matches the tool's definition (conda_name != pypi_name.lower()).
     """
     async with Client(server) as client:
-        result = await client.call_tool("pypi_to_conda", {"pypi_name": pypi_name})
+        result = await client.call_tool(
+            "pypi_to_conda", {"pypi_name": pypi_name, "channel": "conda-forge"}
+        )
         data = result.data
 
         assert sorted(data.keys()) == ["changed", "conda_name", "pypi_name"]
@@ -48,7 +50,7 @@ async def test_pypi_to_conda__error_empty_input(server):
     """
     async with Client(server) as client:
         with pytest.raises(ToolError):
-            await client.call_tool("pypi_to_conda", {"pypi_name": ""})
+            await client.call_tool("pypi_to_conda", {"pypi_name": "", "channel": "conda-forge"})
 
 
 @pytest.mark.asyncio
@@ -57,7 +59,21 @@ async def test_pypi_to_conda__disabled_when_dependency_missing(monkeypatch):
     monkeypatch.setattr(pypi_to_conda_module, "map_pypi_to_conda", None)
 
     with pytest.raises(ToolError) as exc:
-        await pypi_to_conda_module.pypi_to_conda("authzed")
+        await pypi_to_conda_module.pypi_to_conda("authzed", "conda-forge")
 
     assert str(exc.value) == "Disabled, enable via installing the package conda-forge-metadata"
+    pypi_to_conda_module._map_pypi_name.cache_clear()
+
+
+@pytest.mark.asyncio
+async def test_pypi_to_conda__unsupported_channel_before_dependency_missing(monkeypatch):
+    pypi_to_conda_module._map_pypi_name.cache_clear()
+    monkeypatch.setattr(pypi_to_conda_module, "map_pypi_to_conda", None)
+
+    with pytest.raises(ToolError) as exc:
+        await pypi_to_conda_module.pypi_to_conda("authzed", "defaults")
+
+    message = str(exc.value)
+    assert "No data available for channel 'defaults'" in message
+    assert "Try a different channel" in message
     pypi_to_conda_module._map_pypi_name.cache_clear()

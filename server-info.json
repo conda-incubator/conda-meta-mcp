@@ -103,6 +103,10 @@
           "path": {
             "description": "The file path to search for (e.g., \"libcuda.so\", \"bin/conda\")"
           },
+          "channel": {
+            "type": "string",
+            "description": "e.g. \"defaults\", \"conda-forge\", \"bioconda\", \"nvidia\""
+          },
           "limit": {
             "default": 0,
             "type": "integer",
@@ -115,7 +119,8 @@
           }
         },
         "required": [
-          "path"
+          "path",
+          "channel"
         ],
         "type": "object"
       },
@@ -140,6 +145,10 @@
             "type": "string",
             "description": "\nImport string, e.g. \"yaml\", \"matplotlib.pyplot\", \"sklearn.model_selection\"."
           },
+          "channel": {
+            "type": "string",
+            "description": "e.g. \"defaults\", \"conda-forge\", \"bioconda\", \"nvidia\""
+          },
           "get_keys": {
             "default": "",
             "type": "string",
@@ -147,7 +156,8 @@
           }
         },
         "required": [
-          "import_name"
+          "import_name",
+          "channel"
         ],
         "type": "object"
       },
@@ -293,16 +303,22 @@
     {
       "name": "pypi_to_conda",
       "title": null,
-      "description": "Map a (case-sensitive) PyPI distribution name to the most likely conda package name.\n\nReturns:\n  dict with structure matching PyPiToCondaResult TypedDict:\n    - pypi_name: original input (trimmed)\n    - conda_name: mapped (lowercase) conda name (fallback: pypi_name.lower())\n    - changed: conda_name != pypi_name.lower()\n\n'changed' is True only when the resolved conda name differs from simple lowercase.",
+      "description": "Map a (case-sensitive) PyPI distribution name to the most likely conda package name.",
       "inputSchema": {
         "additionalProperties": false,
         "properties": {
           "pypi_name": {
-            "type": "string"
+            "type": "string",
+            "description": "PyPI distribution name."
+          },
+          "channel": {
+            "type": "string",
+            "description": "e.g. \"defaults\", \"conda-forge\", \"bioconda\", \"nvidia\""
           }
         },
         "required": [
-          "pypi_name"
+          "pypi_name",
+          "channel"
         ],
         "type": "object"
       },

@@ -4,6 +4,7 @@ from functools import lru_cache
 import requests
 from fastmcp.exceptions import ToolError
 
+from ._channels import require_conda_forge_channel
 from .registry import register_tool
 
 
@@ -39,7 +40,7 @@ def _file_path_search_raw(path):
         raise ToolError(f"Failed to search for path: {e}")
 
 
-def _file_path_search(path, limit: int = 0, offset: int = 0):
+def _file_path_search(path, channel: str, limit: int = 0, offset: int = 0):
     """
     Paginate results for the given path from the raw fetch function.
 
@@ -61,6 +62,7 @@ def _file_path_search(path, limit: int = 0, offset: int = 0):
     # Basic validation
     if not path or not path.strip():
         raise ValueError("path must be a non-empty string")
+    require_conda_forge_channel(channel)
 
     try:
         limit = int(limit or 0)
@@ -102,7 +104,7 @@ def _file_path_search(path, limit: int = 0, offset: int = 0):
 
 
 @register_tool(cache_clearers=[_file_path_search_raw.cache_clear])
-async def file_path_search(path, limit: int = 0, offset: int = 0):
+async def file_path_search(path, channel: str, limit: int = 0, offset: int = 0):
     """
     Find conda artifacts that contain a given file path.
 
@@ -110,6 +112,7 @@ async def file_path_search(path, limit: int = 0, offset: int = 0):
 
     Args:
         path: The file path to search for (e.g., "libcuda.so", "bin/conda")
+        channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
         limit: Maximum number of results to return (0 means all)
         offset: Number of results to skip before applying limit
 
@@ -123,7 +126,10 @@ async def file_path_search(path, limit: int = 0, offset: int = 0):
         - offset: offset used in this query
     """
     try:
-        return await asyncio.to_thread(_file_path_search, path, limit, offset)
+        channel = require_conda_forge_channel(channel)
+        return await asyncio.to_thread(_file_path_search, path, channel, limit, offset)
+    except ToolError:
+        raise
     except ValueError as ve:
         raise ToolError(f"'file_path_search' invalid input: {ve}") from ve
     except Exception as e:

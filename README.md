@@ -24,6 +24,9 @@ Currently available:
 - CLI help (for conda) via the `cli_help` tool
 - Repository metadata queries (depends / whoneeds) via the `repoquery` tool
 
+Tools backed by channel-specific data sources require an explicit `channel` argument and
+fail for unsupported channels before reading their data source.
+
 Planned:
 
 - Solver feasibility signals (dry-run outputs)

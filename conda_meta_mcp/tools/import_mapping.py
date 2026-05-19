@@ -14,6 +14,7 @@ from typing import Any
 
 from fastmcp.exceptions import ToolError
 
+from ._channels import require_conda_forge_channel
 from .registry import register_tool
 
 DISABLED_MESSAGE = "Disabled, enable via installing the package conda-forge-metadata"
@@ -39,13 +40,14 @@ else:
 
 
 @lru_cache(maxsize=1024)
-def _map_import(import_name: str, get_keys: str = "") -> dict[str, Any]:
+def _map_import(import_name: str, channel: str, get_keys: str = "") -> dict[str, Any]:
     """Map import name to package.
 
     Returns dict with structure matching ImportMappingResult TypedDict.
     """
     if not import_name or not import_name.strip():
         raise ValueError("import_name must be a non-empty string")
+    require_conda_forge_channel(channel)
     if get_pkgs_for_import is None or map_import_to_package is None:
         raise ToolError(DISABLED_MESSAGE)
 
@@ -90,7 +92,7 @@ def _map_import(import_name: str, get_keys: str = "") -> dict[str, Any]:
 
 
 @register_tool(cache_clearers=[_map_import.cache_clear])
-async def import_mapping(import_name: str, get_keys: str = "") -> dict[str, Any]:
+async def import_mapping(import_name: str, channel: str, get_keys: str = "") -> dict[str, Any]:
     """
     Map a (possibly dotted) Python import name to the most likely conda package
     and expose supporting context.
@@ -118,13 +120,15 @@ async def import_mapping(import_name: str, get_keys: str = "") -> dict[str, Any]
     Args:
       import_name:
         Import string, e.g. "yaml", "matplotlib.pyplot", "sklearn.model_selection".
+      channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
       get_keys:
         Comma-separated field names to include in results.
         Empty string returns all fields (default).
         Example: "best_package,heuristic" returns only key fields.
     """
     try:
-        return await asyncio.to_thread(_map_import, import_name, get_keys)
+        channel = require_conda_forge_channel(channel)
+        return await asyncio.to_thread(_map_import, import_name, channel, get_keys)
     except ToolError:
         raise
     except ValueError as ve:
