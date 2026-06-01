@@ -2,7 +2,7 @@
 pypi_to_conda tool
 
 This tool is based on (and wraps) logic from:
-`conda_forge_metadata.autotick_bot.pypi_to_conda`
+`conda_forge_metadata.conda_forge_bot.pypi_to_conda`
 """
 
 from __future__ import annotations
@@ -23,7 +23,7 @@ MapPypiToConda = Callable[[str], str]
 map_pypi_to_conda: MapPypiToConda | None
 
 try:
-    from conda_forge_metadata.autotick_bot.pypi_to_conda import (
+    from conda_forge_metadata.conda_forge_bot.pypi_to_conda import (
         map_pypi_to_conda as _map_pypi_to_conda,
     )
 except ImportError:
