@@ -2,7 +2,7 @@
 import_mapping tool
 
 This tool is based on (and wraps) logic from:
-`conda_forge_metadata.autotick_bot.import_to_pkg`
+`conda_forge_metadata.conda_forge_bot.import_to_pkg`
 """
 
 from __future__ import annotations
@@ -25,10 +25,10 @@ get_pkgs_for_import: GetPkgsForImport | None
 map_import_to_package: MapImportToPackage | None
 
 try:
-    from conda_forge_metadata.autotick_bot.import_to_pkg import (
+    from conda_forge_metadata.conda_forge_bot.import_to_pkg import (
         get_pkgs_for_import as _get_pkgs_for_import,
     )
-    from conda_forge_metadata.autotick_bot.import_to_pkg import (
+    from conda_forge_metadata.conda_forge_bot.import_to_pkg import (
         map_import_to_package as _map_import_to_package,
     )
 except ImportError:
