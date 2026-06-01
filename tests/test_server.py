@@ -81,6 +81,115 @@ def test_build_code_mode_transform__configured(monkeypatch):
     }
 
 
+def test_parent_watchdog_worker__exits_after_parent_exit():
+    calls = {}
+
+    def wait_for_process_exit(pid):
+        calls["pid"] = pid
+        return True
+
+    def exit_process(code):
+        calls["exit_code"] = code
+
+    server._parent_watchdog_worker(123, wait_for_process_exit, exit_process)
+
+    assert calls == {"pid": 123, "exit_code": 0}
+
+
+def test_parent_watchdog_worker__does_not_exit_if_parent_wait_unavailable():
+    calls = {}
+
+    def wait_for_process_exit(pid):
+        calls["pid"] = pid
+        return False
+
+    def exit_process(code):
+        calls["exit_code"] = code
+
+    server._parent_watchdog_worker(123, wait_for_process_exit, exit_process)
+
+    assert calls == {"pid": 123}
+
+
+def test_wait_for_parent_exit__returns_after_parent_changes(monkeypatch):
+    parent_pids = iter([123, 1])
+
+    monkeypatch.setattr(server.os, "name", "posix")
+    monkeypatch.setattr(server.os, "getppid", lambda: next(parent_pids))
+    monkeypatch.setattr(server.time, "sleep", lambda seconds: None)
+
+    assert server._wait_for_parent_exit(123) is True
+
+
+def test_start_parent_watchdog__starts(monkeypatch):
+    calls = {}
+
+    class FakeThread:
+        def __init__(self, *, target, args, name, daemon):
+            calls["target"] = target
+            calls["args"] = args
+            calls["name"] = name
+            calls["daemon"] = daemon
+
+        def start(self):
+            calls["started"] = True
+
+    monkeypatch.setattr(server, "_parent_pid", lambda: 123)
+    monkeypatch.setattr(server.threading, "Thread", FakeThread)
+
+    thread = server._start_parent_watchdog()
+
+    assert isinstance(thread, FakeThread)
+    assert calls == {
+        "target": server._parent_watchdog_worker,
+        "args": (123,),
+        "name": "conda-meta-mcp-parent-watchdog",
+        "daemon": True,
+        "started": True,
+    }
+
+
+def test_start_parent_watchdog__skips_when_disabled(monkeypatch):
+    monkeypatch.setenv("CONDA_META_MCP_PARENT_WATCHDOG", "0")
+
+    assert server._start_parent_watchdog() is None
+
+
+def test_run_cmd__starts_parent_watchdog_before_setup(monkeypatch):
+    calls = {}
+    order = []
+
+    class Dummy:
+        def run(self, **kw):
+            calls["kw"] = kw
+
+    def fake_start_watchdog():
+        order.append("watchdog")
+
+    def fake_setup_server(code=False):
+        order.append("setup")
+        return Dummy()
+
+    monkeypatch.setattr(server, "setup_server", fake_setup_server)
+    monkeypatch.setattr(server, "_start_parent_watchdog", fake_start_watchdog)
+
+    server.run_cmd(
+        types.SimpleNamespace(
+            verbose=False,
+            code=False,
+            transport="streamable-http",
+            port=4042,
+        )
+    )
+
+    assert order == ["watchdog", "setup"]
+    assert calls["kw"] == {
+        "transport": "streamable-http",
+        "show_banner": False,
+        "port": 4042,
+    }
+
+
 def test_run_cmd(monkeypatch):
     calls = {}
 
@@ -94,6 +203,7 @@ def test_run_cmd(monkeypatch):
         return Dummy()
 
     monkeypatch.setattr(server, "setup_server", fake_setup_server)
+    monkeypatch.setattr(server, "_start_parent_watchdog", lambda: None)
     monkeypatch.delenv("FASTMCP_LOG_LEVEL", raising=False)
     server.run_cmd(types.SimpleNamespace(verbose=True, code=False, transport="stdio", port=None))
     assert calls["setup_called"]
@@ -110,6 +220,7 @@ def test_run_cmd__streamable_http_with_port(monkeypatch):
             calls["kw"] = kw
 
     monkeypatch.setattr(server, "setup_server", lambda code=False: Dummy())
+    monkeypatch.setattr(server, "_start_parent_watchdog", lambda: None)
     server.run_cmd(
         types.SimpleNamespace(
             verbose=False,
