@@ -10,7 +10,7 @@ An MCP (Model Context Protocol) server exposing authoritative, read-only Conda e
 📖 **Read the introduction blog post:** [conda-meta-mcp: Expert Conda Ecosystem Data for AI Agents](https://conda.org/blog/conda-meta-mcp)
 
 > [!NOTE]
-> `conda-meta-mcp` provides read-only access to Conda ecosystem metadata from channel data
+> `conda-meta-mcp` provides read-only access to conda ecosystem metadata from channel data
 > (packages and repodata), conda-forge data, and the OpenTeams search index for package
 > content. Users are solely responsible for all requests they initiate, authorize, automate,
 > or cause to be made through `conda-meta-mcp`, including compliance with any applicable
