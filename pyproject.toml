@@ -29,7 +29,7 @@ requires-python = ">=3.13"
 [project.optional-dependencies]
 argparse-manpage = ["argparse-manpage>=4.7,<5"]
 code-mode = ["pydantic-monty"]
-conda-forge-metadata = ["conda-forge-metadata>=0.16,<0.17"]
+conda-forge-metadata = ["conda-forge-metadata>=0.15,<0.17"]
 
 [project.scripts]
 cmm = "conda_meta_mcp.cli:main"

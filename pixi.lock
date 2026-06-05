@@ -8741,5 +8741,5 @@ packages:
   - requests>=2
   - argparse-manpage>=4.7,<5 ; extra == 'argparse-manpage'
   - pydantic-monty ; extra == 'code-mode'
-  - conda-forge-metadata>=0.16,<0.17 ; extra == 'conda-forge-metadata'
+  - conda-forge-metadata>=0.15,<0.17 ; extra == 'conda-forge-metadata'
   requires_python: '>=3.13'
