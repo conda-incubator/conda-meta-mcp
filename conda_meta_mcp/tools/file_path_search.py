@@ -106,13 +106,16 @@ def _file_path_search(path, channel: str, limit: int = 0, offset: int = 0):
 @register_tool(cache_clearers=[_file_path_search_raw.cache_clear])
 async def file_path_search(path, channel: str, limit: int = 0, offset: int = 0):
     """
-    Find conda artifacts that contain a given file path.
+    Find conda artifacts that contain an exact file path.
 
-    Searches the conda-forge-paths database for packages that ship the specified path.
+    Searches package path metadata for packages that ship the specified path.
+    Requires the full path as it exists within the package (exact match only).
 
     Args:
-        path: The file path to search for (e.g., "libcuda.so", "bin/conda")
-        channel (str): e.g. "defaults", "conda-forge", "bioconda", "nvidia"
+        path: The exact file path to search for. Must include directory prefix.
+              Examples: "lib/libssl.so.3", "bin/python", "include/openssl/ssl.h"
+              Note: Partial matches and wildcards are NOT supported.
+        channel (str): Package channel to search, e.g. "defaults", "conda-forge", "bioconda"
         limit: Maximum number of results to return (0 means all)
         offset: Number of results to skip before applying limit
 

@@ -96,16 +96,16 @@
     {
       "name": "file_path_search",
       "title": null,
-      "description": "Find conda artifacts that contain a given file path.\n\nSearches the conda-forge-paths database for packages that ship the specified path.",
+      "description": "Find conda artifacts that contain an exact file path.\n\nSearches package path metadata for packages that ship the specified path.\nRequires the full path as it exists within the package (exact match only).",
       "inputSchema": {
         "additionalProperties": false,
         "properties": {
           "path": {
-            "description": "The file path to search for (e.g., \"libcuda.so\", \"bin/conda\")"
+            "description": "The exact file path to search for. Must include directory prefix.\n  Examples: \"lib/libssl.so.3\", \"bin/python\", \"include/openssl/ssl.h\"\n  Note: Partial matches and wildcards are NOT supported."
           },
           "channel": {
             "type": "string",
-            "description": "e.g. \"defaults\", \"conda-forge\", \"bioconda\", \"nvidia\""
+            "description": "Package channel to search, e.g. \"defaults\", \"conda-forge\", \"bioconda\""
           },
           "limit": {
             "default": 0,
