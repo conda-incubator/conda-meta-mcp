@@ -13,7 +13,7 @@ classifiers = [
 dependencies = [
   "conda>=26.1,<27",
   "conda-libmamba-solver",
-  "conda-package-streaming>=0.12.0,<0.13",
+  "conda-package-streaming>=0.13,<0.14",
   "fastmcp>=3.1.0",
   "pydantic>=2",
   "pyyaml>=6.0.3,<7",
