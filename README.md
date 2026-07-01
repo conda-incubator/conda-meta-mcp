@@ -33,6 +33,8 @@ Currently available:
 - File path to package mapping via the `file_path_search` tool
 - PyPI name to conda package mapping via the `pypi_to_conda` tool
 - CLI help (for conda) via the `cli_help` tool
+- Structured conda CLI command metadata from conda-completion's cache via the
+  `conda_cli_command` tool
 - Repository metadata queries (depends / whoneeds) via the `repoquery` tool
 
 Tools backed by channel-specific data sources require an explicit `channel` argument and
