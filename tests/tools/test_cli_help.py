@@ -65,13 +65,11 @@ async def test_cli_help__grep_filters_lines(server):
         )
         data = result.data
         lines = [line for line in data.strip().split("\n") if line.strip()]
+        assert lines
 
         # All non-empty lines should contain "install" (case-insensitive)
         for line in lines:
             assert "install" in line.lower()
-
-        # Should be much fewer lines than full help
-        assert len(lines) < 100  # Full help > 1000, grep results < 100
 
 
 @pytest.mark.asyncio

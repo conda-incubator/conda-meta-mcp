@@ -1,12 +1,12 @@
 {
   "environment": {
-    "fastmcp": "3.4.0",
-    "mcp": "1.26.0"
+    "fastmcp": "3.4.2",
+    "mcp": "1.28.1"
   },
   "serverInfo": {
     "name": "Conda ECO System Meta Data MCP",
     "title": null,
-    "version": "3.4.0",
+    "version": "3.4.2",
     "websiteUrl": null,
     "icons": null
   },

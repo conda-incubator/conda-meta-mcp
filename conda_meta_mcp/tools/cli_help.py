@@ -34,7 +34,7 @@ def _get_conda_help() -> str:
     if Manpage is None:
         raise ToolError(DISABLED_MESSAGE)
 
-    return str(Manpage(generate_parser(add_help=True, prog="conda")))
+    return str(Manpage(generate_parser(add_help=True)))
 
 
 def _cli_help(tool: str = "conda", limit: int = 0, offset: int = 0, grep: str = "") -> str:

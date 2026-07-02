@@ -11,7 +11,7 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
 ]
 dependencies = [
-  "conda>=26.1,<27",
+  "conda>=26.5,<27",
   "conda-libmamba-solver",
   "conda-package-streaming>=0.12,<0.14",
   "fastmcp>=3.1.0",
@@ -48,7 +48,7 @@ source = "vcs"
 
 [tool.pixi.dependencies]
 argparse-manpage = ">=4.7,<5"
-conda = ">=26.1,<27"
+conda = ">=26.5,<27"
 conda-forge-metadata = ">=0.16,<0.17"
 conda-libmamba-solver = "*"
 conda-package-streaming = ">=0.12.0,<0.14"
