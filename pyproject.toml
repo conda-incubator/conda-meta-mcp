@@ -15,6 +15,7 @@ dependencies = [
   "conda-libmamba-solver",
   "conda-package-streaming>=0.12,<0.14",
   "fastmcp>=3.1.0",
+  "msgpack>=1.1",
   "pydantic>=2",
   "pyyaml>=6.0.3,<7",
   "requests>=2",
@@ -54,6 +55,7 @@ conda-libmamba-solver = "*"
 conda-package-streaming = ">=0.12.0,<0.14"
 fastmcp = ">=3.4.0,<3.5.0"
 libmambapy = ">=2.4.0,<3"
+msgpack-python = ">=1.1"
 pydantic-monty = "*"
 pyyaml = ">=6.0.3,<7"
 requests = ">=2,<3"
