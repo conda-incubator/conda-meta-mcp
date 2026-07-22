@@ -1,14 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "config:recommended",
-    "helpers:pinGitHubActionDigestsToSemver",
-    "customManagers:githubActionsVersions"
-  ],
-  "pixi": {
-    "enabled": true
-  },
-  "pre-commit": {
-    "enabled": true
-  }
+    "github>conda-incubator/renovate-config"
+  ]
 }
