@@ -1,4 +1,4 @@
-import conda_meta_mcp.parent_watcher as parent_watcher
+from conda_meta_mcp import parent_watcher
 
 
 def test_parent_watcher_worker__interrupts_after_parent_exit(monkeypatch):

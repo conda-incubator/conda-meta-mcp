@@ -104,10 +104,8 @@ docstring-code-format = true
 docstring-code-line-length = 88
 
 [tool.ruff.lint]
-# Allow fix for all enabled rules (when `--fix`) is provided.
-fixable = ["ALL"]
 # see https://docs.astral.sh/ruff/rules/
-select = [
+extend-select = [
   "A",  # flake8-builtins
   "C90",  # mccabe
   "E",  # pycodestyle errors
@@ -126,6 +124,8 @@ select = [
   "UP",  # pyupgrade
   "W",  # pycodestyle warnings
 ]
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["S"]

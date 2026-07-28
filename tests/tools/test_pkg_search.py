@@ -130,12 +130,8 @@ async def test_pkg_search__paging(server):
         assert p3 == base_list[6:9]
 
         # Ensure no overlap between consecutive pages
-        assert not set(tuple(r.items()) for r in p1).intersection(
-            set(tuple(r.items()) for r in p2)
-        )
-        assert not set(tuple(r.items()) for r in p2).intersection(
-            set(tuple(r.items()) for r in p3)
-        )
+        assert not {tuple(r.items()) for r in p1}.intersection({tuple(r.items()) for r in p2})
+        assert not {tuple(r.items()) for r in p2}.intersection({tuple(r.items()) for r in p3})
 
         # limit=1 should return the newest record (same as baseline[0])
         newest = await client.call_tool(

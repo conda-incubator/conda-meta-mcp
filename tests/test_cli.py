@@ -1,6 +1,5 @@
 def test_main__run__called(monkeypatch):
-    import conda_meta_mcp.server as server
-    from conda_meta_mcp import cli
+    from conda_meta_mcp import cli, server
 
     rec = {}
 
@@ -19,8 +18,7 @@ def test_main__run__called(monkeypatch):
 
 
 def test_main__run__transport_and_port(monkeypatch):
-    import conda_meta_mcp.server as server
-    from conda_meta_mcp import cli
+    from conda_meta_mcp import cli, server
 
     rec = {}
 
@@ -35,8 +33,7 @@ def test_main__run__transport_and_port(monkeypatch):
 
 
 def test_main__run__parent_watcher_defaults_to_enabled(monkeypatch):
-    import conda_meta_mcp.server as server
-    from conda_meta_mcp import cli
+    from conda_meta_mcp import cli, server
 
     rec = {}
 
@@ -50,8 +47,7 @@ def test_main__run__parent_watcher_defaults_to_enabled(monkeypatch):
 
 
 def test_main__run__parent_watcher_uses_env_fallback(monkeypatch):
-    import conda_meta_mcp.server as server
-    from conda_meta_mcp import cli
+    from conda_meta_mcp import cli, server
 
     rec = {}
 

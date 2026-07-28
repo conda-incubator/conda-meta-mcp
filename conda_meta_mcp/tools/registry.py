@@ -45,7 +45,7 @@ def register_tool(
 
     def _decorate(f: Callable[..., Any]) -> Callable[..., Any]:
         tool_name = name or getattr(f, "__name__", f.__class__.__name__)
-        setattr(f, "__mcp_tool_name__", tool_name)
+        setattr(f, "__mcp_tool_name__", tool_name)  # noqa: B010 - decorator metadata
         AVAILABLE_TOOLS.append(f)
 
         if cache_clearers:

@@ -34,7 +34,7 @@ def _filter_package_keys(pkg: dict[str, Any], get_keys: str) -> dict[str, Any]:
     if not get_keys or not get_keys.strip():
         return pkg
 
-    keys = set(k.strip() for k in get_keys.split(",") if k.strip())
+    keys = {k.strip() for k in get_keys.split(",") if k.strip()}
     return {k: v for k, v in pkg.items() if k in keys}
 
 
