@@ -85,7 +85,7 @@ def _map_import(import_name: str, channel: str, get_keys: str = "") -> dict[str,
 
     # Apply field filtering if get_keys is specified
     if get_keys and get_keys.strip():
-        keys = set(k.strip() for k in get_keys.split(",") if k.strip())
+        keys = {k.strip() for k in get_keys.split(",") if k.strip()}
         result = {k: v for k, v in result.items() if k in keys}
 
     return result

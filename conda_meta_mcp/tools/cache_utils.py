@@ -19,6 +19,6 @@ def register_external_cache_clearer(clearer: ExternalCacheClearer) -> None:
 
 def clear_external_library_caches() -> None:
     """Call all registered cache clearers (best-effort; ignore their errors)."""
-    for clearer in list(_external_cache_clearers):
+    for clearer in _external_cache_clearers:
         with suppress(Exception):
             clearer()

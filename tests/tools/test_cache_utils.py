@@ -1,5 +1,4 @@
 import asyncio
-import time
 from typing import Any
 
 import psutil
@@ -72,7 +71,7 @@ async def test_cache_maintenance__called__memory_freed() -> None:
         import gc
 
         gc.collect()
-        time.sleep(0.5)
+        await asyncio.sleep(0.5)
 
         after_cleanup = _current_rss_mb()
 

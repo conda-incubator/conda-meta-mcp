@@ -31,7 +31,7 @@ def _read_all(url: str) -> dict[str, str]:
     for tar, member in stream_conda_info(url):
         try:
             data[member.name] = tar.extractfile(member).read().decode()
-        except Exception as e:
+        except Exception as e:  # noqa: BLE001 - report per-file extraction failures
             data[member.name] = f"error while extracting: {e}"
     return data
 
@@ -40,7 +40,7 @@ def _parse_file_content(content: str, filepath: str) -> Any:
     """Parse file content based on file type (YAML/JSON)."""
     if filepath.endswith(".json"):
         return json.loads(content)
-    elif filepath.endswith(".yaml") or filepath.endswith(".yml"):
+    elif filepath.endswith((".yaml", ".yml")):
         return yaml.safe_load(content)
     else:
         # For non-structured files, return as-is
@@ -52,7 +52,7 @@ def _extract_keys_from_dict(data: Any, keys_str: str) -> Any:
     if not keys_str or not keys_str.strip():
         return data
 
-    keys = set(k.strip() for k in keys_str.split(",") if k.strip())
+    keys = {k.strip() for k in keys_str.split(",") if k.strip()}
 
     if isinstance(data, dict):
         return {k: v for k, v in data.items() if k in keys}

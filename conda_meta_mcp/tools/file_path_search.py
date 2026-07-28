@@ -36,7 +36,7 @@ def _file_path_search_raw(path):
             return {"ok": True, "artifacts": artifacts}
         else:
             return {"ok": False, "artifacts": [], "error": data.get("error", "Unknown error")}
-    except Exception as e:
+    except (requests.RequestException, AttributeError, IndexError, TypeError) as e:
         raise ToolError(f"Failed to search for path: {e}")
 
 
@@ -67,7 +67,7 @@ def _file_path_search(path, channel: str, limit: int = 0, offset: int = 0):
     try:
         limit = int(limit or 0)
         offset = int(offset or 0)
-    except Exception:
+    except (TypeError, ValueError):
         raise ValueError("limit and offset must be integers")
 
     if limit < 0 or offset < 0:

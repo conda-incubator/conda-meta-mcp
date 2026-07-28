@@ -37,24 +37,22 @@ class PackageRecord(BaseModel):
 
 @lru_cache(maxsize=32)
 def _full_package_search(package_ref_or_match_spec, channel, platform) -> list[PackageRecord]:
-    return list(
-        sorted(
-            {
-                PackageRecord(
-                    version=str(match.version),
-                    build_number=str(match.build_number),
-                    build=str(match.build),
-                    url=str(match.url),
-                    depends=str(match.depends),
-                )
-                for match in SubdirData.query_all(
-                    package_ref_or_match_spec,
-                    channels=[f"{channel}/{platform}"],
-                    subdirs=[platform],
-                )
-            },
-            reverse=True,
-        )
+    return sorted(
+        {
+            PackageRecord(
+                version=str(match.version),
+                build_number=str(match.build_number),
+                build=str(match.build),
+                url=str(match.url),
+                depends=str(match.depends),
+            )
+            for match in SubdirData.query_all(
+                package_ref_or_match_spec,
+                channels=[f"{channel}/{platform}"],
+                subdirs=[platform],
+            )
+        },
+        reverse=True,
     )
 
 
@@ -92,7 +90,7 @@ def _filter_keys(results: list[PackageRecord], get_keys: str) -> list[dict]:
         # Return as dict to maintain serialization
         return [r.model_dump() for r in results]
 
-    keys = set(k.strip() for k in get_keys.split(",") if k.strip())
+    keys = {k.strip() for k in get_keys.split(",") if k.strip()}
     return [{k: v for k, v in r.model_dump().items() if k in keys} for r in results]
 
 

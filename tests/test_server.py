@@ -1,6 +1,6 @@
 import types
 
-import conda_meta_mcp.server as server
+from conda_meta_mcp import server
 
 
 def test_setup_server__called__tools_registered(monkeypatch):
