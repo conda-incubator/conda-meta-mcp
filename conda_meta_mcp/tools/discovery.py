@@ -31,4 +31,7 @@ def discover_tools() -> list[Callable[..., Any]]:
 
         importlib.import_module(mod_info.name)
 
-    return sorted(AVAILABLE_TOOLS, key=lambda fn: getattr(fn, "__mcp_tool_name__", fn.__name__))
+    return sorted(
+        AVAILABLE_TOOLS,
+        key=lambda fn: getattr(fn, "__mcp_tool_name__", fn.__class__.__name__),
+    )
