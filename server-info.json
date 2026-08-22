@@ -94,6 +94,49 @@
       "execution": null
     },
     {
+      "name": "conda_cli_command",
+      "title": null,
+      "description": "Read conda-completion's completion.msgpack and return structured conda CLI metadata.",
+      "inputSchema": {
+        "additionalProperties": false,
+        "properties": {
+          "command_path": {
+            "default": "",
+            "type": "string",
+            "description": "Space-separated conda command path, e.g. \"\", \"install\", \"env list\",\nor \"conda install\". Empty string returns root command metadata."
+          },
+          "include_options": {
+            "default": true,
+            "type": "boolean",
+            "description": "Include command options and flag metadata."
+          },
+          "include_positionals": {
+            "default": true,
+            "type": "boolean",
+            "description": "Include positional argument metadata."
+          },
+          "include_subcommands": {
+            "default": true,
+            "type": "boolean",
+            "description": "Include direct child subcommands."
+          }
+        },
+        "type": "object"
+      },
+      "outputSchema": {
+        "additionalProperties": true,
+        "type": "object"
+      },
+      "icons": null,
+      "annotations": null,
+      "_meta": {
+        "fastmcp": {
+          "tags": []
+        }
+      },
+      "execution": null
+    },
+    {
       "name": "file_path_search",
       "title": null,
       "description": "Find conda artifacts that contain an exact file path.\n\nSearches package path metadata for packages that ship the specified path.\nRequires the full path as it exists within the package (exact match only).",
