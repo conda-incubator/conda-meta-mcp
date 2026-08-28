@@ -8,7 +8,7 @@ branding:
 runs:
   using: composite
   steps:
-    - uses: prefix-dev/setup-pixi@f00437f565399d418b0acc85936d12c1fb668347 # v0.10.1
+    - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e # v0.10.2
       env:
         # renovate: datasource=github-releases depName=prefix-dev/pixi
         PIXI_VERSION: v0.77.1
