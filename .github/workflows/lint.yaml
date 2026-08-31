@@ -23,7 +23,7 @@ jobs:
       - uses: prefix-dev/setup-pixi@d3f436a425481402e6a95a1d1fc10331c708cd9e # v0.10.2
         env:
           # renovate: datasource=github-releases depName=prefix-dev/pixi
-          PIXI_VERSION: v0.77.1
+          PIXI_VERSION: v0.78.0
         with:
           pixi-version: ${{ env.PIXI_VERSION }}
       - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
