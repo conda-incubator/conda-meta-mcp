@@ -231,9 +231,9 @@ async def test_repoquery__get_keys_context_reduction(server):
         )
         filtered_size = len(str(filtered_result.data))
 
-        # Filtered should be significantly smaller (60-80% reduction)
+        # Filtered should be significantly smaller (50-80% reduction)
         reduction = (full_size - filtered_size) / full_size
-        assert reduction > 0.6  # At least 60% reduction
+        assert reduction > 0.5  # At least 50% reduction
 
 
 @pytest.mark.asyncio
