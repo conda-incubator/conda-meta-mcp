@@ -80,7 +80,7 @@ prek = 'prek run --all-files --color=always'
 test = 'python -m pytest'
 
 [tool.pixi.pypi-dependencies]
-conda-meta-mcp = {path = ".", editable = true, extras = ["argparse-manpage", "code-mode", "conda-forge-metadata"]}
+conda-meta-mcp = { path = ".", editable = true, extras = ["argparse-manpage", "code-mode", "conda-forge-metadata"] }
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]

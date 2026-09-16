@@ -46,6 +46,7 @@ repos:
         exclude: ^recipe/  # conda recipes use Jinja2 templating
       - id: pretty-format-toml
         args: [--autofix, --trailing-commas]
+        additional_dependencies: [toml-sort==0.25.0]
   - repo: https://github.com/abravalheri/validate-pyproject
     rev: 0.26
     hooks:
