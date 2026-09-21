@@ -1,26 +1,29 @@
 {
   "environment": {
-    "fastmcp": "3.4.2",
-    "mcp": "1.28.1"
+    "fastmcp": "4.0.5",
+    "mcp": "2.2.0"
   },
   "serverInfo": {
     "name": "Conda ECO System Meta Data MCP",
     "title": null,
-    "version": "3.4.2",
+    "version": "4.0.5",
+    "description": null,
     "websiteUrl": null,
     "icons": null
   },
+  "instructions": null,
   "capabilities": {},
   "tools": [
     {
       "name": "cache_maintenance",
-      "title": null,
+      "title": "Cache Maintenance",
       "description": "Run cache maintenance for all registered external and tool-level caches.\n\nReturns a short status message after cleanup has been triggered.",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {},
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
         "properties": {
           "result": {
@@ -39,15 +42,13 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "cli_help",
-      "title": null,
+      "title": "Cli Help",
       "description": "Provides the full help text for the given tool including all subcommands and options.\n\nTo be used to answer advanced CLI questions beyond the knowledge cutoff of models,\nto e.g. help with new features that recently landed in the tool.",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {
           "tool": {
             "default": "conda",
@@ -70,8 +71,10 @@
             "description": "Regular expression pattern to filter help lines (case-insensitive).\n  Empty string returns all lines (default).\n  Example: \"install|update|create\" returns lines matching any of these.\n  Reduces context by ~90% for targeted queries."
           }
         },
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
         "properties": {
           "result": {
@@ -90,15 +93,13 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "file_path_search",
-      "title": null,
+      "title": "File Path Search",
       "description": "Find conda artifacts that contain an exact file path.\n\nSearches package path metadata for packages that ship the specified path.\nRequires the full path as it exists within the package (exact match only).",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {
           "path": {
             "description": "The exact file path to search for. Must include directory prefix.\n  Examples: \"lib/libssl.so.3\", \"bin/python\", \"include/openssl/ssl.h\"\n  Note: Partial matches and wildcards are NOT supported."
@@ -122,8 +123,10 @@
           "path",
           "channel"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": null,
       "icons": null,
       "annotations": null,
@@ -131,15 +134,13 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "import_mapping",
-      "title": null,
+      "title": "Import Mapping",
       "description": "Map a (possibly dotted) Python import name to the most likely conda package\nand expose supporting context.",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {
           "import_name": {
             "type": "string",
@@ -159,11 +160,13 @@
           "import_name",
           "channel"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
+        "type": "object",
+        "additionalProperties": true
       },
       "icons": null,
       "annotations": null,
@@ -171,21 +174,21 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "info",
-      "title": null,
+      "title": "Info",
       "description": "Display information about the MCP instance (versions and pixi environment path)\n\nCan be compared with local output of \"conda info\" to see if they match.\n\nReturns:\n    dict[str, Any]: Version information for MCP instance and dependencies.\n        Includes pixi environment path if running in a pixi environment.\n        See InfoResult TypedDict for structure.",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {},
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
+        "type": "object",
+        "additionalProperties": true
       },
       "icons": null,
       "annotations": null,
@@ -193,15 +196,13 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "package_insights",
-      "title": null,
+      "title": "Package Insights",
       "description": "Provides insights into a package's info tarball\n\nThat includes the rendered recipe (meta.yaml) that allows for easy inspection of the\npackage's build process, e.g. see build, host and run time dependencies. Which have\nbig influence on what packages are linked against. The run_exports which end up as\nrun time dependencies for other packages linked against this package. And the about\ninformation which contain the remote_url and sha to the repo location where the\npackage recipe is maintained. That helps to open PRs in the right location to fix\nissues with the recipe.",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {
           "url": {
             "type": "string",
@@ -230,11 +231,13 @@
         "required": [
           "url"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
+        "type": "object",
+        "additionalProperties": true
       },
       "icons": null,
       "annotations": null,
@@ -242,15 +245,13 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "package_search",
-      "title": null,
+      "title": "Package Search",
       "description": "Search available conda packages matching the given package_ref_or_match_spec, channel, and\nplatform.",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {
           "package_ref_or_match_spec": {
             "type": "string",
@@ -285,11 +286,13 @@
           "channel",
           "platform"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
+        "type": "object",
+        "additionalProperties": true
       },
       "icons": null,
       "annotations": null,
@@ -297,15 +300,13 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "pypi_to_conda",
-      "title": null,
+      "title": "Pypi To Conda",
       "description": "Map a (case-sensitive) PyPI distribution name to the most likely conda package name.",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {
           "pypi_name": {
             "type": "string",
@@ -320,11 +321,13 @@
           "pypi_name",
           "channel"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
+        "type": "object",
+        "additionalProperties": true
       },
       "icons": null,
       "annotations": null,
@@ -332,15 +335,13 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     },
     {
       "name": "repoquery",
-      "title": null,
+      "title": "Repoquery",
       "description": "Run a conda repoquery (depends | whoneeds) for a single spec\nand channel. Installed packages excluded. Supports pagination via offset/limit.\n- depends/whoneeds: raw structure unpaginated; sliced pkgs list with offset/limit/total\n  when paginated",
       "inputSchema": {
-        "additionalProperties": false,
         "properties": {
           "subcmd": {
             "type": "string",
@@ -383,11 +384,13 @@
           "spec",
           "channel"
         ],
-        "type": "object"
+        "type": "object",
+        "additionalProperties": false
       },
+      "execution": null,
       "outputSchema": {
-        "additionalProperties": true,
-        "type": "object"
+        "type": "object",
+        "additionalProperties": true
       },
       "icons": null,
       "annotations": null,
@@ -395,8 +398,7 @@
         "fastmcp": {
           "tags": []
         }
-      },
-      "execution": null
+      }
     }
   ],
   "prompts": [],
