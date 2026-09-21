@@ -11,7 +11,10 @@ from conda_meta_mcp.tools import pypi_to_conda as pypi_to_conda_module
 @pytest.mark.parametrize(
     "pypi_name,expected_conda,expected_changed",
     [
-        ("authzed", "authzed-py", True),
+        # Only assert on entries with mapping_source "static" in the upstream
+        # grayskull_pypi_mapping.json; "regro-bot" sourced entries are
+        # regenerated hourly and disappear without notice.
+        ("docker", "docker-py", True),
         ("cashews", "cashews", False),
         ("PyYAML", "pyyaml", False),
     ],
@@ -59,7 +62,7 @@ async def test_pypi_to_conda__disabled_when_dependency_missing(monkeypatch):
     monkeypatch.setattr(pypi_to_conda_module, "map_pypi_to_conda", None)
 
     with pytest.raises(ToolError) as exc:
-        await pypi_to_conda_module.pypi_to_conda("authzed", "conda-forge")
+        await pypi_to_conda_module.pypi_to_conda("docker", "conda-forge")
 
     assert str(exc.value) == "Disabled, enable via installing the package conda-forge-metadata"
     pypi_to_conda_module._map_pypi_name.cache_clear()
@@ -71,7 +74,7 @@ async def test_pypi_to_conda__unsupported_channel_before_dependency_missing(monk
     monkeypatch.setattr(pypi_to_conda_module, "map_pypi_to_conda", None)
 
     with pytest.raises(ToolError) as exc:
-        await pypi_to_conda_module.pypi_to_conda("authzed", "defaults")
+        await pypi_to_conda_module.pypi_to_conda("docker", "defaults")
 
     message = str(exc.value)
     assert "No data available for channel 'defaults'" in message
