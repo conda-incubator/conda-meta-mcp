@@ -158,8 +158,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -367,8 +367,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -491,8 +491,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -678,8 +678,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -864,8 +864,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -1144,8 +1144,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -1365,8 +1365,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -1497,8 +1497,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -1696,8 +1696,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -1894,8 +1894,8 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/docstring_parser-0.18.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/email-validator-2.3.0-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/exceptiongroup-1.3.1-pyhd8ed1ab_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+      - conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/frozendict-2.4.7-pyh851646a_2.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.1.0-pyhcf101f3_0.conda
@@ -5592,12 +5592,12 @@ packages:
   run_exports: {}
   size: 21333
   timestamp: 1763918099466
-- conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.0.5-pyh5ded981_0.conda
-  sha256: 89d54dbc5ce6e10dab468c019a7abdcb8e7e5d51f880756f92c366d7d12c838f
-  md5: 4afed690377c7b07bf3cdf417c6912a7
+- conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-4.1.0-pyh5ded981_0.conda
+  sha256: 7c4468500b30309d5527deafd9db1bc5ff14a525f4bfadabd04b61230e26d64b
+  md5: 74bc7b96140dc8b13fb7c9e9f6ece867
   depends:
   - python >=3.11,<4
-  - fastmcp-slim 4.0.5.*
+  - fastmcp-slim 4.1.0.*
   - authlib >=1.6.11
   - cyclopts >=4.0.0
   - exceptiongroup >=1.2.2
@@ -5636,13 +5636,13 @@ packages:
   license: Apache-2.0
   license_family: APACHE
   purls:
-  - pkg:pypi/fastmcp?source=compressed-mapping
+  - pkg:pypi/fastmcp?source=hash-mapping
   run_exports: {}
-  size: 22951
-  timestamp: 1789942023494
-- conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.0.5-pyh5ded981_0.conda
-  sha256: 9d76ed839eb85a94a82a16fe4fc5fe6b96a333937b368c2fbd49c80d44cb554c
-  md5: b8158ed31e2fb7a3ddf9e365da6529de
+  size: 22870
+  timestamp: 1791503963785
+- conda: https://conda.anaconda.org/conda-forge/noarch/fastmcp-slim-4.1.0-pyh5ded981_0.conda
+  sha256: 71846f1e8d983a91bbfad5268f238afa372f24e85918eca745bb3dd53501fc72
+  md5: 268d4e3fdf02707cc1de1c19fea600c4
   depends:
   - python >=3.11,<4
   - email-validator >=2.0.0
@@ -5687,10 +5687,10 @@ packages:
   license: Apache-2.0
   license_family: APACHE
   purls:
-  - pkg:pypi/fastmcp-slim?source=compressed-mapping
+  - pkg:pypi/fastmcp-slim?source=hash-mapping
   run_exports: {}
-  size: 593544
-  timestamp: 1789942023494
+  size: 630216
+  timestamp: 1791503963785
 - conda: https://conda.anaconda.org/conda-forge/noarch/filelock-3.29.4-pyhd8ed1ab_0.conda
   sha256: feb5c13cc8f256212a979783a7645abd7e27925c51ee5431babbc0efc661cdfd
   md5: 66f138d7a6dffb5c959cc4bf6dc2b797
