@@ -1,7 +1,7 @@
 {
   "environment": {
     "fastmcp": "4.1.0",
-    "mcp": "2.2.0"
+    "mcp": "2.3.0"
   },
   "serverInfo": {
     "name": "Conda ECO System Meta Data MCP",
