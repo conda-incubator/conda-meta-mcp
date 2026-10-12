@@ -1,12 +1,12 @@
 {
   "environment": {
-    "fastmcp": "4.0.5",
+    "fastmcp": "4.1.0",
     "mcp": "2.2.0"
   },
   "serverInfo": {
     "name": "Conda ECO System Meta Data MCP",
     "title": null,
-    "version": "4.0.5",
+    "version": "4.1.0",
     "description": null,
     "websiteUrl": null,
     "icons": null
@@ -179,7 +179,7 @@
     {
       "name": "info",
       "title": "Info",
-      "description": "Display information about the MCP instance (versions and pixi environment path)\n\nCan be compared with local output of \"conda info\" to see if they match.\n\nReturns:\n    dict[str, Any]: Version information for MCP instance and dependencies.\n        Includes pixi environment path if running in a pixi environment.\n        See InfoResult TypedDict for structure.",
+      "description": "Display information about the MCP instance (versions and pixi environment path)\n\nCan be compared with local output of \"conda info\" to see if they match.",
       "inputSchema": {
         "properties": {},
         "type": "object",
