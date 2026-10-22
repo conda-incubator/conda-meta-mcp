@@ -32,7 +32,8 @@ Currently available:
 - Import to package heuristic mapping via the `import_mapping` tool
 - File path to package mapping via the `file_path_search` tool
 - PyPI name to conda package mapping via the `pypi_to_conda` tool
-- CLI help (for conda) via the `cli_help` tool
+- Structured conda CLI command metadata from a prepared conda-completion manifest via the
+  `conda_cli_command` tool
 - Repository metadata queries (depends / whoneeds) via the `repoquery` tool
 
 Tools backed by channel-specific data sources require an explicit `channel` argument and
@@ -120,6 +121,44 @@ Call `cmm mcp-json` to get an json snippet containing the command with args to a
 ### Installed from source
 
 Call `pixi run cmm mcp-json` to get an json snippet containing the command with args to add to your agent configuration.
+
+### Bundled CLI metadata
+
+The bundled runtime includes `conda-workspaces` and its `conda-lockfiles` dependency.
+`conda_cli_command` exposes workspace and task commands, including `workspace lock`,
+`workspace install` with `--locked` / `--frozen`, and workspace lockfile export
+formats. This is read-only command metadata, not an MCP interface for generating
+lockfiles, installing environments, or running tasks.
+
+On every server startup, the MCP uses its own Python interpreter to invoke the bundled
+conda-completion CLI dispatcher with `--cache-dir <staging-directory> generate --no-repodata`. This startup step writes only CLI metadata, without fetching repodata
+or installing shell hooks. The subprocess uses `-I -S`, explicitly loads the bundled
+site-packages directories, and initializes Conda with an empty configuration search
+path. Python user-site packages, `.pth` files, `PYTHONPATH`, the project working
+directory, and host Conda configuration do not supply its metadata.
+All registered plugin entry points must be importable without `.pth` hooks; setup
+fails rather than publishing incomplete metadata for an unloadable plugin. This
+excludes `.pth`-dependent editable plugin installations.
+
+The validated `completion.msgpack` is stored in the platform cache directory under
+`conda-meta-mcp/cli/<runtime-fingerprint>/`. Its fingerprint includes the Python
+environment, conda and conda-completion versions, and registered plugin entry points
+and distribution versions. After changing that runtime, restart the server; old
+artifacts are not used for a different runtime. A failed preparation leaves the
+previous artifact intact and prevents server startup. Schema inspection does not
+trigger generation. `cmm prepare-cli` remains available for explicit preparation or
+diagnostics, but no separate setup command is required.
+
+`conda_cli_command` only reads this MCP-owned artifact and accepts manifest schema
+version 1. It ignores `CONDA_COMPLETION_CACHE_DIR` and never reads the user's shared
+conda-completion cache, generates metadata, or runs commands during a tool call.
+Missing artifacts report restart or explicit preparation instructions. Every
+deployment prepares the artifact as the server user during startup.
+
+`conda_cli_command` replaces `cli_help`; use `command_path` to select a command instead
+of filtering or paging a manpage. The current manifest provides command summaries and
+argument descriptions. Full command descriptions, usage, and examples depend on the
+independently developed upstream help-schema improvement.
 
 ## 6. Usage inside GitHub Copilot coding agent
 

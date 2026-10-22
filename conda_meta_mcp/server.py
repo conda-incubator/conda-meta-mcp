@@ -9,6 +9,7 @@ import sys
 
 from fastmcp import FastMCP
 
+from conda_meta_mcp.completion import prepare_cli
 from conda_meta_mcp.parent_watcher import (
     PARENT_WATCHER_ENV,
     env_enabled,
@@ -18,6 +19,12 @@ from conda_meta_mcp.parent_watcher import (
 SERVICE_NAME = "Conda ECO System Meta Data MCP"
 
 _periodic_cleanup_task: asyncio.Task | None = None
+
+
+@contextlib.asynccontextmanager
+async def _lifespan(instance: FastMCP):
+    await asyncio.to_thread(prepare_cli)
+    yield {}
 
 
 def _build_code_mode_transform():
@@ -79,7 +86,7 @@ def setup_server(code=False) -> FastMCP:
 
     transforms = [_build_code_mode_transform()] if code else None
 
-    instance = FastMCP(name=SERVICE_NAME, transforms=transforms)
+    instance = FastMCP(name=SERVICE_NAME, transforms=transforms, lifespan=_lifespan)
 
     for tool_fn in discover_tools():
         default_name = getattr(tool_fn, "__name__", "unknown")

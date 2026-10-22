@@ -1,5 +1,6 @@
 import argparse
 
+from .completion import setup_prepare_cli
 from .mcp_json import setup_mcp_json
 from .server import setup_run
 
@@ -10,6 +11,7 @@ def main(argv=None):
     subparser.required = True
     setup_run(subparser)
     setup_mcp_json(subparser)
+    setup_prepare_cli(subparser)
     args = parser.parse_args(argv)
     args.func(args)
 

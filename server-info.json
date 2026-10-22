@@ -45,30 +45,30 @@
       }
     },
     {
-      "name": "cli_help",
-      "title": "Cli Help",
-      "description": "Provides the full help text for the given tool including all subcommands and options.\n\nTo be used to answer advanced CLI questions beyond the knowledge cutoff of models,\nto e.g. help with new features that recently landed in the tool.",
+      "name": "conda_cli_command",
+      "title": "Conda Cli Command",
+      "description": "Read a prepared conda-completion manifest for the MCP's bundled conda and plugins.\n\nThe server generates this manifest on every startup. This tool only reads\nthe MCP-owned, runtime-versioned artifact: it never generates metadata, executes\ncommands, or reads another installation's shell-completion cache. Restart after\nchanging bundled conda or plugin versions. Supports completion manifest schema 1.\nIncludes bundled conda-workspaces commands and lockfile-related CLI metadata;\nit does not execute workspace operations or generate lockfiles.",
       "inputSchema": {
         "properties": {
-          "tool": {
-            "default": "conda",
-            "type": "string",
-            "description": "str = \"conda\""
-          },
-          "limit": {
-            "default": 0,
-            "type": "integer",
-            "description": "max number of lines returned (0 means all)"
-          },
-          "offset": {
-            "default": 0,
-            "type": "integer",
-            "description": "number of initial lines skipped"
-          },
-          "grep": {
+          "command_path": {
             "default": "",
             "type": "string",
-            "description": "Regular expression pattern to filter help lines (case-insensitive).\n  Empty string returns all lines (default).\n  Example: \"install|update|create\" returns lines matching any of these.\n  Reduces context by ~90% for targeted queries."
+            "description": "Space-separated conda command path, e.g. \"\", \"install\", \"env list\",\n\"workspace lock\", \"workspace install\", or \"conda install\". Empty string returns\nroot command metadata."
+          },
+          "include_options": {
+            "default": true,
+            "type": "boolean",
+            "description": "Include command options and flag metadata."
+          },
+          "include_positionals": {
+            "default": true,
+            "type": "boolean",
+            "description": "Include positional argument metadata."
+          },
+          "include_subcommands": {
+            "default": true,
+            "type": "boolean",
+            "description": "Include direct child subcommands."
           }
         },
         "type": "object",
@@ -76,16 +76,8 @@
       },
       "execution": null,
       "outputSchema": {
-        "properties": {
-          "result": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "result"
-        ],
         "type": "object",
-        "x-fastmcp-wrap-result": true
+        "additionalProperties": true
       },
       "icons": null,
       "annotations": null,
