@@ -18,7 +18,7 @@ jobs:
         uses: prefix-dev/setup-pixi@ad1da6449d9e506fd127fd67ab2d054a769f6a94 # v0.11.2
         env:
           # renovate: datasource=github-releases depName=prefix-dev/pixi
-          PIXI_VERSION: v0.82.1
+          PIXI_VERSION: v0.83.0
         with:
           pixi-version: ${{ env.PIXI_VERSION }}
           run-install: false
