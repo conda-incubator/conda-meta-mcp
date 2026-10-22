@@ -70,3 +70,11 @@ def test__mcp_json__called(capsys):
     # Basic structure checks
     assert '"command": "pixi"' in out
     assert '"args": [' in out
+
+
+def test_main__prepare_cli(monkeypatch, capsys):
+    from conda_meta_mcp import cli, completion
+
+    monkeypatch.setattr(completion, "prepare_cli", lambda: "prepared/completion.msgpack")
+    cli.main(["prepare-cli"])
+    assert capsys.readouterr().out.strip() == "prepared/completion.msgpack"

@@ -5,6 +5,13 @@ import pytest
 from fastmcp import Client
 from fastmcp.exceptions import ToolError
 
+from conda_meta_mcp import completion
+
+
+@pytest.fixture(autouse=True)
+def private_cli_cache(tmp_path, monkeypatch):
+    monkeypatch.setattr(completion, "user_cache_path", lambda *args, **kwargs: tmp_path)
+
 
 def write_completion_cache(tmp_path):
     manifest = {
@@ -59,13 +66,15 @@ def write_completion_cache(tmp_path):
         },
         "package_names": ["numpy", "numpy-base", "pandas", "python-numpy"],
     }
-    (tmp_path / "completion.msgpack").write_bytes(msgpack.packb(manifest))
+    path = completion.manifest_path(completion.runtime_identity())
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(msgpack.packb(manifest))
 
 
 @pytest.mark.asyncio
 async def test_conda_cli_command__root_metadata(server, tmp_path, monkeypatch):
     write_completion_cache(tmp_path)
-    monkeypatch.setenv("CONDA_COMPLETION_CACHE_DIR", str(tmp_path))
+    monkeypatch.setenv("CONDA_COMPLETION_CACHE_DIR", str(tmp_path / "ambient-cache"))
 
     async with Client(server) as client:
         result = await client.call_tool("conda_cli_command", {})
@@ -73,6 +82,7 @@ async def test_conda_cli_command__root_metadata(server, tmp_path, monkeypatch):
     assert result.data["command_path"] == []
     assert result.data["resolved_command_path"] == []
     assert result.data["manifest"]["version"] == 1
+    assert result.data["runtime"] == completion.runtime_identity()
     assert result.data["options"] == [
         {
             "name": "--json",
@@ -141,6 +151,49 @@ async def test_conda_cli_command__unknown_command_error(server, tmp_path, monkey
 async def test_conda_cli_command__missing_completion_cache_error(server, tmp_path, monkeypatch):
     monkeypatch.setenv("CONDA_COMPLETION_CACHE_DIR", str(tmp_path))
 
-    with pytest.raises(ToolError, match=r"completion\.msgpack not found"):
+    with pytest.raises(ToolError, match="cmm prepare-cli"):
         async with Client(server) as client:
             await client.call_tool("conda_cli_command", {})
+
+
+@pytest.mark.asyncio
+async def test_conda_cli_command__ambient_cache_is_not_used(server, tmp_path, monkeypatch):
+    (tmp_path / "completion.msgpack").write_bytes(
+        msgpack.packb({"version": 1, "commands": {"ambient": {"summary": "Wrong runtime."}}})
+    )
+    monkeypatch.setenv("CONDA_COMPLETION_CACHE_DIR", str(tmp_path))
+    with pytest.raises(ToolError, match="cmm prepare-cli"):
+        async with Client(server) as client:
+            await client.call_tool("conda_cli_command", {})
+
+
+@pytest.mark.asyncio
+async def test_conda_cli_command__changed_runtime(server, tmp_path, monkeypatch):
+    write_completion_cache(tmp_path)
+    identity = completion.runtime_identity()
+    identity["conda_version"] = "future-version"
+    monkeypatch.setattr("conda_meta_mcp.tools.conda_cli.runtime_identity", lambda: identity)
+    with pytest.raises(ToolError, match="cmm prepare-cli"):
+        async with Client(server) as client:
+            await client.call_tool("conda_cli_command", {})
+
+
+@pytest.mark.asyncio
+async def test_conda_cli_command__calls_do_not_generate(server, tmp_path, monkeypatch):
+    write_completion_cache(tmp_path)
+    monkeypatch.setattr(completion, "prepare_cli", lambda: pytest.fail("Tool must not generate"))
+    monkeypatch.setattr(
+        completion.subprocess, "run", lambda *a, **kw: pytest.fail("No subprocess")
+    )
+    async with Client(server) as client:
+        result = await client.call_tool("conda_cli_command", {"command_path": "install"})
+    assert result.data["summary"] == "Install packages."
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("command_path", ['"unclosed', "install --json"])
+async def test_conda_cli_command__invalid_path(server, tmp_path, command_path):
+    write_completion_cache(tmp_path)
+    with pytest.raises(ToolError, match=r"\[validation_error\]"):
+        async with Client(server) as client:
+            await client.call_tool("conda_cli_command", {"command_path": command_path})

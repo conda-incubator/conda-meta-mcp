@@ -12,10 +12,13 @@ classifiers = [
 ]
 dependencies = [
   "conda>=26.5,<27",
+  "conda-completion>=0.3.2,<0.4",
   "conda-libmamba-solver",
   "conda-package-streaming>=0.12,<0.14",
+  "conda-workspaces>=0.12,<0.13",
   "fastmcp>=3.1.0",
   "msgpack>=1.1",
+  "platformdirs>=4",
   "pydantic>=2",
   "pyyaml>=6.0.3,<7",
   "requests>=2",
@@ -28,7 +31,6 @@ readme = "README.md"
 requires-python = ">=3.13"
 
 [project.optional-dependencies]
-argparse-manpage = ["argparse-manpage>=4.7,<5"]
 code-mode = ["pydantic-monty"]
 conda-forge-metadata = ["conda-forge-metadata>=0.15,<0.17"]
 
@@ -48,14 +50,16 @@ version-file = "conda_meta_mcp/_version.py"
 source = "vcs"
 
 [tool.pixi.dependencies]
-argparse-manpage = ">=4.7,<5"
 conda = ">=26.5,<27"
+conda-completion = ">=0.3.2,<0.4"
 conda-forge-metadata = ">=0.16,<0.17"
 conda-libmamba-solver = "*"
 conda-package-streaming = ">=0.12.0,<0.14"
+conda-workspaces = ">=0.12,<0.13"
 fastmcp = ">=4.1.0,<4.2.0"
 libmambapy = ">=2.4.0,<3"
 msgpack-python = ">=1.1"
+platformdirs = ">=4"
 pydantic-monty = "*"
 pyyaml = ">=6.0.3,<7"
 requests = ">=2,<3"
@@ -82,7 +86,7 @@ prek = 'prek run --all-files --color=always'
 test = 'python -m pytest'
 
 [tool.pixi.pypi-dependencies]
-conda-meta-mcp = { path = ".", editable = true, extras = ["argparse-manpage", "code-mode", "conda-forge-metadata"] }
+conda-meta-mcp = { path = ".", editable = true, extras = ["code-mode", "conda-forge-metadata"] }
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]

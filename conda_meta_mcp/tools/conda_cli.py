@@ -1,65 +1,32 @@
 from __future__ import annotations
 
 import asyncio
-import os
 import shlex
-import sys
 from dataclasses import dataclass
-from pathlib import Path
-from typing import Any, Self
+from typing import TYPE_CHECKING, Any, Self
 
-import msgpack
 from fastmcp.exceptions import ToolError
 
+from ..completion import manifest_path, read_manifest, runtime_identity
 from .registry import register_tool
 
-MAX_MSGPACK_FILE_SIZE = 50 * 1024 * 1024
-MAX_COLLECTION_SIZE = 2_000_000
+if TYPE_CHECKING:
+    from pathlib import Path
 
 
 @dataclass(frozen=True)
 class CompletionManifestReader:
     cache_dir: Path
+    runtime: dict[str, Any]
 
     @classmethod
     def from_environment(cls) -> Self:
-        override = os.environ.get("CONDA_COMPLETION_CACHE_DIR")
-        if override:
-            return cls(Path(os.path.expandvars(override)).expanduser().resolve())
-        if sys.platform == "win32":
-            base = os.environ.get("LOCALAPPDATA")
-            if base:
-                return cls(Path(base) / "conda" / "cache" / "completion")
-            return cls(Path.home() / "AppData" / "Local" / "conda" / "cache" / "completion")
-        if sys.platform == "darwin":
-            return cls(Path.home() / "Library" / "Caches" / "conda" / "completion")
-        base = Path(os.environ.get("XDG_CACHE_HOME", Path.home() / ".cache"))
-        return cls(base / "conda" / "completion")
+        identity = runtime_identity()
+        return cls(manifest_path(identity).parent, identity)
 
     def read_manifest(self) -> tuple[Path, dict[str, Any]]:
         path = self.cache_dir / "completion.msgpack"
-        try:
-            if path.is_symlink():
-                raise ToolError(f"[cache_error] Refusing to read symlink: {path.name}")
-            size = path.stat().st_size
-            if size > MAX_MSGPACK_FILE_SIZE:
-                raise ToolError(f"[cache_error] {path.name} is too large ({size} bytes)")
-            manifest = msgpack.unpackb(
-                path.read_bytes(),
-                max_str_len=MAX_MSGPACK_FILE_SIZE,
-                max_bin_len=MAX_MSGPACK_FILE_SIZE,
-                max_array_len=MAX_COLLECTION_SIZE,
-                max_map_len=MAX_COLLECTION_SIZE,
-            )
-        except FileNotFoundError as exc:
-            raise ToolError(
-                "[not_found] completion.msgpack not found; run 'conda completion generate' first."
-            ) from exc
-        except (msgpack.UnpackException, ValueError) as exc:
-            raise ToolError(f"[cache_error] Failed to decode {path.name}: {exc}") from exc
-        if not isinstance(manifest, dict):
-            raise ToolError("[cache_error] completion.msgpack root is not a mapping")
-        return path, manifest
+        return path, read_manifest(path)
 
     def mapping(self, value: Any, field: str) -> dict[str, Any]:
         if value is None:
@@ -130,6 +97,7 @@ class CompletionManifestReader:
             "resolved_command_path": resolved,
             "alias_target": alias_target,
             "summary": command.get("summary"),
+            "runtime": self.runtime,
             "manifest": {
                 "path": str(manifest_path),
                 "version": manifest.get("version"),
@@ -175,11 +143,19 @@ async def conda_cli_command(
     include_subcommands: bool = True,
 ) -> dict[str, Any]:
     """
-    Read conda-completion's completion.msgpack and return structured conda CLI metadata.
+    Read a prepared conda-completion manifest for the MCP's bundled conda and plugins.
+
+    The server generates this manifest on every startup. This tool only reads
+    the MCP-owned, runtime-versioned artifact: it never generates metadata, executes
+    commands, or reads another installation's shell-completion cache. Restart after
+    changing bundled conda or plugin versions. Supports completion manifest schema 1.
+    Includes bundled conda-workspaces commands and lockfile-related CLI metadata;
+    it does not execute workspace operations or generate lockfiles.
 
     Args:
       command_path: Space-separated conda command path, e.g. "", "install", "env list",
-        or "conda install". Empty string returns root command metadata.
+        "workspace lock", "workspace install", or "conda install". Empty string returns
+        root command metadata.
       include_options: Include command options and flag metadata.
       include_positionals: Include positional argument metadata.
       include_subcommands: Include direct child subcommands.

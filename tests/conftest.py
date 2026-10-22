@@ -6,7 +6,7 @@ from conda_meta_mcp.server import setup_server
 
 
 @pytest.fixture
-def server():
+def server(monkeypatch):
     """
     Function-scoped FastMCP server fixture.
 
@@ -17,4 +17,5 @@ def server():
             async with Client(server) as client:
                 ...
     """
+    monkeypatch.setattr("conda_meta_mcp.server.prepare_cli", lambda: None)
     return setup_server()

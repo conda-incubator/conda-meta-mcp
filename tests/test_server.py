@@ -1,5 +1,9 @@
 import types
 
+import pytest
+from fastmcp import Client
+from fastmcp.exceptions import ToolError
+
 from conda_meta_mcp import server
 
 
@@ -8,9 +12,10 @@ def test_setup_server__called__tools_registered(monkeypatch):
     instances = []
 
     class FakeFastMCP:
-        def __init__(self, name, transforms=None):
+        def __init__(self, name, transforms=None, lifespan=None):
             self.name = name
             self.transforms = transforms
+            self.lifespan = lifespan
             instances.append(self)
 
         def tool(self, func, name=None):
@@ -18,18 +23,24 @@ def test_setup_server__called__tools_registered(monkeypatch):
             return func
 
     monkeypatch.setattr(server, "FastMCP", FakeFastMCP)
+    monkeypatch.setattr(
+        server, "prepare_cli", lambda: pytest.fail("Construction must not prepare")
+    )
     m = server.setup_server()
 
     assert m.name == server.SERVICE_NAME
     assert m.transforms is None
     assert "info" in tools
+    assert "conda_cli_command" in tools
+    assert "cli_help" not in tools
+    assert m.lifespan is server._lifespan
 
 
 def test_setup_server__code_mode_enabled(monkeypatch):
     sentinel = object()
 
     class FakeFastMCP:
-        def __init__(self, name, transforms=None):
+        def __init__(self, name, transforms=None, lifespan=None):
             self.name = name
             self.transforms = transforms
 
@@ -114,6 +125,64 @@ def test_run_cmd__starts_parent_watcher_before_setup(monkeypatch):
         "show_banner": False,
         "port": 4042,
     }
+
+
+@pytest.mark.asyncio
+async def test_server__prepares_on_every_startup(monkeypatch):
+    prepared = []
+    monkeypatch.setattr(server, "prepare_cli", lambda: prepared.append("prepared"))
+    instance = server.setup_server()
+    assert prepared == []
+    for _ in range(2):
+        async with Client(instance) as client:
+            tools = await client.list_tools()
+            assert "conda_cli_command" in {tool.name for tool in tools}
+            assert "cli_help" not in {tool.name for tool in tools}
+    assert prepared == ["prepared", "prepared"]
+
+
+@pytest.mark.asyncio
+async def test_server__preparation_failure_prevents_startup(monkeypatch):
+    def fail():
+        raise ToolError("CLI manifest generation failed")
+
+    monkeypatch.setattr(server, "prepare_cli", fail)
+    with pytest.raises(RuntimeError, match="CLI manifest generation failed"):
+        async with Client(server.setup_server()):
+            pytest.fail("Server must not start after failed preparation")
+
+
+@pytest.mark.asyncio
+async def test_server__real_startup_prepares_bundled_manifest(tmp_path, monkeypatch):
+    from conda_meta_mcp import completion
+
+    monkeypatch.setattr(completion, "user_cache_path", lambda *args, **kwargs: tmp_path)
+    path = completion.manifest_path(completion.runtime_identity())
+    assert not path.exists()
+    async with Client(server.setup_server()) as client:
+        result = await client.call_tool("conda_cli_command", {"command_path": "repoquery depends"})
+        assert path.is_file()
+        assert result.data["resolved_command_path"] == ["repoquery", "depends"]
+        assert result.data["runtime"] == completion.runtime_identity()
+        root = await client.call_tool("conda_cli_command", {})
+        commands = {command["name"] for command in root.data["subcommands"]}
+        assert {"workspace", "ws", "task"} <= commands
+        plugins = {plugin["distribution"] for plugin in root.data["runtime"]["plugins"]}
+        assert {"conda-workspaces", "conda-lockfiles"} <= plugins
+        lock = await client.call_tool("conda_cli_command", {"command_path": "workspace lock"})
+        assert {"--platform", "--output", "--merge"} <= {
+            option["name"] for option in lock.data["options"]
+        }
+        install = await client.call_tool(
+            "conda_cli_command", {"command_path": "workspace install"}
+        )
+        assert {"--locked", "--frozen"} <= {option["name"] for option in install.data["options"]}
+        export = await client.call_tool("conda_cli_command", {"command_path": "workspace export"})
+        options = {option["name"]: option for option in export.data["options"]}
+        assert "--from-lockfile" in options
+        assert "conda-workspaces-lock-v1" in options["--format"]["choices"]
+        task = await client.call_tool("conda_cli_command", {"command_path": "task run"})
+        assert "task_name" in {argument["name"] for argument in task.data["positionals"]}
 
 
 def test_run_cmd__skips_parent_watcher_when_disabled(monkeypatch):
