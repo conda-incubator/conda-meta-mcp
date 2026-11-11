@@ -11,7 +11,7 @@ runs:
     - uses: prefix-dev/setup-pixi@9936258fee697aff89b3fed6ca1f80a382ef694e # v0.11.3
       env:
         # renovate: datasource=github-releases depName=prefix-dev/pixi
-        PIXI_VERSION: v0.84.1
+        PIXI_VERSION: v0.84.2
         SETUPTOOLS_SCM_PRETEND_VERSION: 0.0.1
       with:
         manifest-path: ${{ github.action_path }}/pyproject.toml
